@@ -1,18 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { store } from './app/store';
-import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+
+import * as serviceWorker from "./serviceWorker";
+import StoreProvider from "./providers/StoreProvider";
+import RouterProvider from "./providers/RouterProvider";
+import AuthProvider from "./providers/AuthProvider";
+import DarkTerminalThemeProvider from "./lib/theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <DarkTerminalThemeProvider>
+      <AuthProvider>
+        <StoreProvider>
+          <RouterProvider>
+            <App />
+          </RouterProvider>
+        </StoreProvider>
+      </AuthProvider>
+    </DarkTerminalThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
