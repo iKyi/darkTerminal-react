@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Reusable/Layout/Footer/Footer";
