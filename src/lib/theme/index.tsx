@@ -10,9 +10,12 @@ import { ImmortalColorsGetter } from "./pallette";
 import BinaryBg from "../../assets/images/binaryBg.png";
 import ThreeRed from "../../assets/buttons/threeRed.png";
 import ThreeWhite from "../../assets/buttons/threeWhite.png";
+import ThreeRedAlt from "../../assets/buttons/threeRedAlt.png";
+import ThreeWhiteAlt from "../../assets/buttons/threeWhiteAlt.png";
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
     threeButton: true;
+    threeButtonAlt: true;
   }
 }
 
@@ -91,7 +94,7 @@ const getOverRides = (theme: Theme) => {
               fontSize: "1.28rem",
               minHeight: "50px",
               background: `url('${ThreeRed}')`,
-              backgroundSize: "auto 100%",
+              backgroundSize: "100% 100%",
               backgroundPosition: "center center",
               backgroundRepeat: "no-repeat",
               color: theme.palette.error.main,
@@ -104,34 +107,40 @@ const getOverRides = (theme: Theme) => {
               fontSize: "1.28rem",
               minHeight: "50px",
               background: `url('${ThreeWhite}')`,
-              backgroundSize: "auto 100%",
+              backgroundSize: "100% 100%",
               backgroundPosition: "center center",
               backgroundRepeat: "no-repeat",
               color: "#fff",
             },
           },
-          // {
-          //   props: { variant: "angled" },
-          //   style: {
-          //     background: `url(/whitepaper_button.png)`,
-          //     backgroundSize: "100% 100%",
-          //     backgroundRepeat: "no-repeat",
-          //     fontSize: "1.35rem",
-          //     textTransform: "none",
-          //     paddingLeft: 36,
-          //     paddingRight: 36,
-          //     color: theme.palette.primary.main,
-          //     clipPath:
-          //       "polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);",
-          //     "&:hover": {
-          //       backgroundColor: "transparent",
-          //       background: `url(/whitepaper_button.png)`,
-          //       backgroundSize: "100% 100%",
-          //       backgroundRepeat: "no-repeat",
-          //       color: theme.palette.secondary.main,
-          //     },
-          //   },
-          // },
+          {
+            props: { variant: "threeButtonAlt", color: "primary" },
+            style: {
+              padding: "0.9rem 0 0.75rem 0",
+              fontSize: "0.9rem",
+              lineHeight: 1.05,
+              minHeight: "50px",
+              background: `url('${ThreeRedAlt}')`,
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              color: theme.palette.error.main,
+            },
+          },
+          {
+            props: { variant: "threeButtonAlt", color: "secondary" },
+            style: {
+              padding: "0.9rem 0 0.75rem 0",
+              fontSize: "0.9rem",
+              lineHeight: 1.05,
+              minHeight: "50px",
+              background: `url('${ThreeWhiteAlt}')`,
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              color: "#fff",
+            },
+          },
         ],
         styleOverrides: {
           root: {
@@ -188,6 +197,24 @@ const getOverRides = (theme: Theme) => {
           },
           h6: {
             fontFamily: "Furore",
+          },
+        },
+      },
+      MuiTableCell: {
+        styleOverrides: {
+          root: {
+            borderColor: theme.palette.secondary.main,
+          },
+        },
+      },
+      MuiTableRow: {
+        styleOverrides: {
+          root: {
+            "&:last-of-type": {
+              td: {
+                borderColor: "transparent",
+              },
+            },
           },
         },
       },

@@ -12,6 +12,8 @@ const getDesignTokens = (mode: PaletteMode) => ({
           primary: {
             main: "#36F097",
             contrastText: "#ffffff",
+            dark: "#010E08",
+            light: "#AEFAD5",
           },
           secondary: {
             main: "#194F35",

@@ -1,4 +1,5 @@
 import { Container } from "@mui/material";
+import ConsoleWrapper from "../components/Homepage/ConsoleWrapper/ConsoleWrapper";
 import HeroBox from "../components/Homepage/HeroBox";
 import ReportLine from "../components/Homepage/ReportLine";
 
@@ -14,6 +15,7 @@ const Home: React.VFC<HomePropsType> = ({ children }) => {
         <HeroBox />
       </Container>
       <ReportLine />
+      <ConsoleWrapper />
     </>
   );
 };
