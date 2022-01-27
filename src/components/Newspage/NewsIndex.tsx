@@ -2,7 +2,7 @@ import { Box, Grid } from "@mui/material";
 import useMobile from "../../hooks/useMobile";
 import PageHeader from "../Reusable/PageHeader";
 import ArticleGridItem from "./ArticleGridItem";
-import SamplePic from "../../assets/samplePic.png";
+import SamplePic from "../../assets/samplePic.jpg";
 
 const mockArticles = [
   {
