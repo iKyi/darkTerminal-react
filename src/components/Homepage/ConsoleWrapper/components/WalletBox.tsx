@@ -10,6 +10,7 @@ import {
   Typography,
   Box,
   Button,
+  TableBody,
 } from "@mui/material";
 import NavigationHeader from "../../../../assets/sections/homepage/navigationHeader.png";
 import { IWalletEntry } from "../ConsoleWrapper";
@@ -57,34 +58,36 @@ const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
       >
         <TableContainer>
           <Table>
-            {walletData.map((entry) => {
-              return (
-                <TableRow
-                  key={entry.name}
-                  sx={{
-                    td: {
-                      textShadow: "1px 1px 1px rgba(255,255,255,0.35)",
-                    },
-                  }}
-                >
-                  <TableCell
-                    sx={{ color: "primary.light", fontFamily: "Furore" }}
+            <TableBody>
+              {walletData.map((entry) => {
+                return (
+                  <TableRow
+                    key={entry.name}
+                    sx={{
+                      td: {
+                        textShadow: "1px 1px 1px rgba(255,255,255,0.35)",
+                      },
+                    }}
                   >
-                    {entry.name}
-                  </TableCell>
-                  <TableCell
-                    sx={{ color: "primary.main", fontFamily: "Furore" }}
-                  >
-                    {entry.value}
-                  </TableCell>
-                  <TableCell
-                    sx={{ color: "primary.light", fontFamily: "Furore" }}
-                  >
-                    {entry.currency}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                    <TableCell
+                      sx={{ color: "primary.light", fontFamily: "Furore" }}
+                    >
+                      {entry.name}
+                    </TableCell>
+                    <TableCell
+                      sx={{ color: "primary.main", fontFamily: "Furore" }}
+                    >
+                      {entry.value}
+                    </TableCell>
+                    <TableCell
+                      sx={{ color: "primary.light", fontFamily: "Furore" }}
+                    >
+                      {entry.currency}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
           </Table>
         </TableContainer>
         <Stack direction="row" sx={{ pt: 2 }}>

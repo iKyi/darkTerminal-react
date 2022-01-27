@@ -65,7 +65,7 @@ const ConsoleWrapper: React.VFC<ConsoleWrapperPropsType> = ({ children }) => {
   const isMobile = useMobile(true);
 
   const [activeSection, setActiveSection] = useState<number>(0);
-  const [sections, setSections] = useState(consoleItems);
+  const [sections] = useState(consoleItems);
 
   // *************** RENDER *************** //
   return (
