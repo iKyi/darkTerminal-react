@@ -7,6 +7,44 @@ import { CropFree } from "@mui/icons-material";
 import useGetGlobal from "../../../../dataHooks/useGetGlobal";
 import RedButtonBg from "../../../../assets/buttons/red_angle.png";
 import { ReactComponent as DiscordBar } from "../../../../assets/sections/homepage/discordButton.svg";
+import HeaderMobileButton from "./HeaderMobileButton";
+
+interface INavLink {
+  title: string;
+  slug: string;
+}
+
+export const TerminalButton = (
+  <Button
+    variant="outlined"
+    color="error"
+    component={RouterLink}
+    to="news"
+    sx={{
+      border: "none",
+      background: `url('${RedButtonBg}')`,
+      backgroundSize: "100% 100% !important",
+      pt: 1.5,
+      pb: 1.1,
+      "&:hover": {
+        border: "none",
+      },
+    }}
+  >
+    {">_"} Enter Terminal
+  </Button>
+);
+
+export const SiteNavLinks: INavLink[] = [
+  {
+    title: "How to buy",
+    slug: "how-to-buy",
+  },
+  {
+    title: "News",
+    slug: "news",
+  },
+];
 
 export type HeaderPropsType = {
   children?: any;
@@ -59,21 +97,30 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
     <Box component="header">
       <Box
         sx={{
-          py: isMobile ? "15px" : "20px",
+          pt: isMobile ? "15px" : "20px",
           px: isMobile ? "15px" : "60px",
+          pb: isMobile ? 0 : "20px",
           background:
             "linear-gradient(270.04deg, rgba(54, 240, 151, 0) 0.37%, rgba(54, 240, 151, 0.12) 46.54%, rgba(54, 240, 151, 0) 99.96%)",
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "flex-start",
+          alignItems: "center",
+          flexWrap: "wrap",
         }}
       >
         <Box
           sx={{
-            width: isMobile ? "120px" : "280px",
+            width: isMobile ? "200px" : "280px",
           }}
         >
-          <NavLink to="/" style={{ display: "block" }}>
+          <NavLink
+            to="/"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <img
               src={Logo}
               alt="Dark Terminal Logo"
@@ -81,70 +128,55 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
             />
           </NavLink>
         </Box>
-        <Box>
-          <NavLink
-            style={{
-              textDecoration: "none",
-              display: "inline-block",
-              marginRight: "10px",
-            }}
-            to="how-to-buy"
-          >
-            {({ isActive }) => {
-              return (
-                <HeaderButton isActive={isActive}>How to buy </HeaderButton>
-              );
-            }}
-          </NavLink>
-          <NavLink
-            style={{ textDecoration: "none", marginRight: "15px" }}
-            to="news"
-          >
-            {({ isActive }) => {
-              return <HeaderButton isActive={isActive}>News </HeaderButton>;
-            }}
-          </NavLink>
-          <RouterLink style={{ textDecoration: "none" }} to="news">
-            <Button
-              variant="outlined"
-              color="error"
-              sx={{
-                border: "none",
-                background: `url('${RedButtonBg}')`,
-                backgroundSize: "100% 100% !important",
-                pt: 1.5,
-                pb: 1.1,
-                "&:hover": {
-                  border: "none",
-                },
-              }}
-            >
-              {">_"} Enter Terminal
-            </Button>
-          </RouterLink>
+        <Box sx={{ display: { lg: "none" } }}>
+          <HeaderMobileButton />
         </Box>
-      </Box>
-      {isMobile ? (
-        <Box
-          sx={{
-            textAlign: "center",
-            borderStyle: "solid",
-            backgroundColor: "rgba(54, 255, 151, 0.1)",
-            borderColor: "primary.main",
-            borderWidth: "1px",
-            borderTop: 0,
-          }}
-        >
-          <MUILink href={discordUrl} style={{ textDecoration: "none" }}>
+        <Box sx={{ display: { xs: "none", lg: "block" } }}>
+          {SiteNavLinks.map((item) => {
+            return (
+              <NavLink
+                key={item.title}
+                style={{
+                  textDecoration: "none",
+                  display: "inline-block",
+                  marginRight: "20px",
+                }}
+                to={item.slug}
+              >
+                {({ isActive }) => {
+                  return (
+                    <HeaderButton isActive={isActive}>
+                      {item.title}
+                    </HeaderButton>
+                  );
+                }}
+              </NavLink>
+            );
+          })}
+
+          {TerminalButton}
+        </Box>
+        {isMobile && (
+          <Box
+            sx={{
+              width: "100%",
+              textAlign: "center",
+              borderBottom: (theme) =>
+                `1px solid ${theme.palette.primary.main}`,
+            }}
+          >
             <DiscordButton
               sx={{ display: "inline-flex", alignItems: "center" }}
+              href={discordUrl}
             >
               <DiscordIcon width="26px" height="auto" />
               <Box sx={{ ml: 1 }}>JOIN DISCORD</Box>
             </DiscordButton>
-          </MUILink>
-        </Box>
-      ) : (
+          </Box>
+        )}
+      </Box>
+
+      {!isMobile && (
         <MUILink href={discordUrl} sx={{ display: "block", width: "100%" }}>
           <DiscordBar width="100%" height="auto" />
         </MUILink>
