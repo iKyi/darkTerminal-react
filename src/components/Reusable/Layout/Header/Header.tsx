@@ -61,7 +61,8 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
         sx={{
           py: isMobile ? "15px" : "20px",
           px: isMobile ? "15px" : "60px",
-          backgroundColor: "rgba(54, 255, 151, 0.1)",
+          background:
+            "linear-gradient(270.04deg, rgba(54, 240, 151, 0) 0.37%, rgba(54, 240, 151, 0.12) 46.54%, rgba(54, 240, 151, 0) 99.96%)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",

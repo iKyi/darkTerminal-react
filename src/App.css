@@ -4,6 +4,11 @@
   src: url("./assets/fonts/cf_glitch_city/CfGlitchCityRegular-L1vZ.ttf");
 }
 @font-face {
+  font-family: "Source Code Pro";
+  src: url("./assets/fonts/Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf");
+}
+
+@font-face {
   font-family: "Futura";
   src: url("./assets/fonts/futura/FuturaPTBook.otf");
 }

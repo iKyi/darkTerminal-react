@@ -1,4 +1,4 @@
-import { SxProps, Typography } from "@mui/material";
+import { Box, SxProps } from "@mui/material";
 
 export type GlitchFontPropsType = {
   children?: any;
@@ -8,7 +8,7 @@ export type GlitchFontPropsType = {
 const GlitchFont: React.VFC<GlitchFontPropsType> = ({ children, sx }) => {
   // *************** RENDER *************** //
   return (
-    <Typography
+    <Box
       sx={{
         fontFamily: "CF Glitch City",
         textTransform: "uppercase",
@@ -16,7 +16,7 @@ const GlitchFont: React.VFC<GlitchFontPropsType> = ({ children, sx }) => {
       }}
     >
       {children}
-    </Typography>
+    </Box>
   );
 };
 

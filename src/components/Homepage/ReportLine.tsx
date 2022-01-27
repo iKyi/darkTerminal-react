@@ -27,14 +27,16 @@ const ReportLine: React.VFC<ReportLinePropsType> = ({ children }) => {
   return (
     <Box
       sx={{
-        backgroundColor: "rgba(0,120,0,0.10)",
+        background:
+          "linear-gradient(270deg, rgba(11, 14, 16, 0) 3.62%, rgba(54, 240, 151, 0.12) 48.3%, rgba(6, 3, 13, 0) 100%)",
       }}
     >
       <Box
         sx={{
-          borderTopWidth: "1px",
-          borderTopColor: "primary.main",
-          borderTopStyle: "solid",
+          borderTop: "2px solid transparent",
+          borderImageSlice: 30,
+          borderImageSource:
+            "linear-gradient(269.98deg, rgba(54, 240, 151, 0) 3.73%, #36F097 51.58%, rgba(54, 240, 151, 0) 99.42%)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -62,12 +64,11 @@ const ReportLine: React.VFC<ReportLinePropsType> = ({ children }) => {
       <Box
         sx={{
           py: 1.3,
-          borderTopWidth: "1px",
-          borderTopColor: "primary.main",
-          borderTopStyle: "solid",
-          borderBottomWidth: "1px",
-          borderBottomColor: "primary.main",
-          borderBottomStyle: "solid",
+          borderTop: "2px solid transparent",
+          borderBottom: "2px solid transparent",
+          borderImageSlice: 30,
+          borderImageSource:
+            "linear-gradient(269.98deg, rgba(54, 240, 151, 0) 3.73%, #36F097 51.58%, rgba(54, 240, 151, 0) 99.42%)",
           textAlign: "center",
         }}
       >

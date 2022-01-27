@@ -12,6 +12,14 @@ import ThreeRed from "../../assets/buttons/threeRed.png";
 import ThreeWhite from "../../assets/buttons/threeWhite.png";
 import ThreeRedAlt from "../../assets/buttons/threeRedAlt.png";
 import ThreeWhiteAlt from "../../assets/buttons/threeWhiteAlt.png";
+
+export enum FONTS {
+  FUTURA = "Futura, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+  SOURCE = "Source Code Pro, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+  FURORE = "Furore, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+  GLITCH = "CF Glitch City, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+}
+
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
     threeButton: true;
@@ -98,6 +106,10 @@ const getOverRides = (theme: Theme) => {
               backgroundPosition: "center center",
               backgroundRepeat: "no-repeat",
               color: theme.palette.error.main,
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: "#fff",
+              },
             },
           },
           {
@@ -111,6 +123,10 @@ const getOverRides = (theme: Theme) => {
               backgroundPosition: "center center",
               backgroundRepeat: "no-repeat",
               color: "#fff",
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.error.main,
+              },
             },
           },
           {
@@ -157,19 +173,22 @@ const getOverRides = (theme: Theme) => {
             height: "100%",
             display: "flex",
             flexDirection: "column",
-            backgroundColor: "#0A1117",
-            background: `url('${BinaryBg}') ,#0A1117`,
-            backgroundPosition: "center top",
-            backgroundRepeat: "repeat",
+            backgroundColor: "#0B0E10",
           },
           html: {
             height: "100%",
           },
           "& #root": {
-            minHeight: "100%",
+            width: "1440px",
+            maxWidth: "100%",
+            margin: "0 auto",
             flex: "1",
             display: "flex",
             flexDirection: "column",
+            background: `url('${BinaryBg}') ,#0B0E10`,
+            backgroundPosition: "center top",
+            backgroundSize: "100% auto",
+            backgroundRepeat: "repeat",
           },
           p: {
             margin: 0,
