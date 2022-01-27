@@ -41,7 +41,7 @@ const ArticleEntry: React.VFC = () => {
           aria-current="page"
           color="common.gray"
         >
-          Current
+          {title}
         </MUILink>
       </Breadcrumbs>
       {image && (
