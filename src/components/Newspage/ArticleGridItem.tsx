@@ -49,7 +49,7 @@ const ArticleGridItem: React.VFC<ArticleGridItemPropsType> = ({
             <Box
               sx={{
                 fontFamily: FONTS.FURORE,
-                color: "#777777",
+                color: "common.gray",
                 ml: 1,
                 display: "inline-block",
                 fontSize: "0.8rem",
