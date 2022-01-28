@@ -97,6 +97,7 @@ const ReportLine: React.VFC<ReportLinePropsType> = ({ children }) => {
             textTransform: "uppercase",
             fontFamily: "Furore",
             fontSize: "0.8rem",
+            color: "common.gray",
           }}
         >
           {

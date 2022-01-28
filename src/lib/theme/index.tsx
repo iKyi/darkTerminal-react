@@ -108,7 +108,7 @@ const getOverRides = (theme: Theme) => {
               color: theme.palette.error.main,
               "&:hover": {
                 backgroundColor: "transparent",
-                color: "#fff",
+                color: theme.palette.primary.main,
               },
             },
           },
@@ -125,7 +125,7 @@ const getOverRides = (theme: Theme) => {
               color: "#fff",
               "&:hover": {
                 backgroundColor: "transparent",
-                color: theme.palette.error.main,
+                color: theme.palette.primary.main,
               },
             },
           },
@@ -141,6 +141,10 @@ const getOverRides = (theme: Theme) => {
               backgroundPosition: "center center",
               backgroundRepeat: "no-repeat",
               color: theme.palette.error.main,
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.primary.main,
+              },
             },
           },
           {
@@ -155,6 +159,10 @@ const getOverRides = (theme: Theme) => {
               backgroundPosition: "center center",
               backgroundRepeat: "no-repeat",
               color: "#fff",
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.primary.main,
+              },
             },
           },
         ],

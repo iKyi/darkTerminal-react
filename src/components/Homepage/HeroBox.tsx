@@ -125,7 +125,7 @@ const HeroBox: React.VFC<HeroBoxPropsType> = ({ children }) => {
           <Stack direction="row" sx={{ pt: 2 }}>
             <Box sx={{ p: 1.5, width: "100%" }}>
               <Button fullWidth variant="threeButton" color="primary">
-                PREMINT NOW
+                MINT NOW
               </Button>
             </Box>
             <Box sx={{ p: 1.5, width: "100%" }}>

@@ -93,7 +93,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
         <Stack direction="row" sx={{ pt: 2 }}>
           <Box sx={{ p: 1.5, width: "100%" }}>
             <Button fullWidth variant="threeButtonAlt" color="primary">
-              PREMINT NOW
+              MINT NOW
             </Button>
           </Box>
           <Box sx={{ p: 1.5, width: "100%" }}>
