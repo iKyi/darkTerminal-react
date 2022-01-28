@@ -2,6 +2,8 @@ import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import ConsoleHeader from "../../../../assets/sections/homepage/consoleHeader.png";
 import GlitchFont from "../../../Reusable/GlitchFont";
 import { Box } from "@mui/system";
+import MarkdownParser from "../../../Reusable/MarkdownParser";
+import { FONTS } from "../../../../lib/theme";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -113,7 +115,14 @@ const ConsoleElement: React.VFC<ConsoleElementPropsType> = ({
           {sections.map((item, index) => {
             return (
               <TabPanel key={item.title} value={activeSection} index={index}>
-                {item.content}
+                <Box
+                  sx={{
+                    fontFamily: FONTS.SOURCE,
+                    color: "primary.light",
+                  }}
+                >
+                  <MarkdownParser>{item.content}</MarkdownParser>
+                </Box>
               </TabPanel>
             );
           })}
