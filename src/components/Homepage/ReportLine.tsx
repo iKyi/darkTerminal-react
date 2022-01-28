@@ -1,4 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
+import Marquee from "react-fast-marquee";
 
 const Items = [
   {
@@ -13,6 +14,16 @@ const Items = [
   },
   {
     name: "SECONDARY SYSTEM",
+    value: "32.2 SOL",
+    info: "0.33% OF PRIZE POOL",
+  },
+  {
+    name: "FOURTH ITEM",
+    value: "32.2 SOL",
+    info: "0.33% OF PRIZE POOL",
+  },
+  {
+    name: "FIFTH ITEM",
     value: "32.2 SOL",
     info: "0.33% OF PRIZE POOL",
   },
@@ -43,23 +54,31 @@ const ReportLine: React.VFC<ReportLinePropsType> = ({ children }) => {
           flexWrap: "wrap",
         }}
       >
-        {Items.map((item) => {
-          return (
-            <Stack
-              key={item.name}
-              direction="row"
-              sx={{
-                p: 1.7,
-                fontFamily: "Furore",
-                textShadow: "1px 1px 1px black",
-              }}
-            >
-              <Box sx={{ color: "common.white" }}>{item.name}:</Box>
-              <Box sx={{ color: "error.main", ml: 1 }}>{item.value}</Box>
-              <Box sx={{ color: "primary.main", ml: 1 }}>({item.info})</Box>
-            </Stack>
-          );
-        })}
+        <Marquee
+          gradientColor={[11, 15, 16]}
+          gradientWidth={30}
+          speed={40}
+          pauseOnClick={true}
+          pauseOnHover={true}
+        >
+          {Items.map((item) => {
+            return (
+              <Stack
+                key={item.name}
+                direction="row"
+                sx={{
+                  p: 1.7,
+                  fontFamily: "Furore",
+                  textShadow: "1px 1px 1px black",
+                }}
+              >
+                <Box sx={{ color: "common.white" }}>{item.name}:</Box>
+                <Box sx={{ color: "error.main", ml: 1 }}>{item.value}</Box>
+                <Box sx={{ color: "primary.main", ml: 1 }}>({item.info})</Box>
+              </Stack>
+            );
+          })}
+        </Marquee>
       </Box>
       <Box
         sx={{

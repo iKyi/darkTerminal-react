@@ -19,7 +19,7 @@ const HeroBox: React.VFC<HeroBoxPropsType> = ({ children }) => {
         py: !isMobile ? 5.5 : 3.5,
       }}
     >
-      <Grid container>
+      <Grid container columnSpacing={isMobile ? 0 : 5}>
         <Grid item xs={12} md={6}>
           <Box
             sx={{

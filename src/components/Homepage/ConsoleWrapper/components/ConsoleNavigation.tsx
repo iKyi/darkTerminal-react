@@ -82,10 +82,10 @@ const ConsoleNavigation: React.VFC<ConsoleNavigationPropsType> = ({
           TabIndicatorProps={{
             style: {
               background: `url('${IndicatorBox}')`,
-              backgroundSize: "100% 100%",
-              backgroundPosition: "center center",
+              backgroundPosition: "center calc(50% + 5px)",
+              backgroundRepeat: "no-repeat",
               width: "37px",
-              height: "30px",
+              height: "40px",
             },
           }}
         >
