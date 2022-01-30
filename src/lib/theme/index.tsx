@@ -7,7 +7,7 @@ import {
 import { Theme, ThemeProvider } from "@mui/system";
 import React, { createContext, ReactNode, useMemo, useState } from "react";
 import { ImmortalColorsGetter } from "./pallette";
-import BinaryBg from "../../assets/images/binaryBg.png";
+// import BinaryBg from "../../assets/images/binaryBg.png";
 import ThreeRed from "../../assets/buttons/threeRed.png";
 import ThreeWhite from "../../assets/buttons/threeWhite.png";
 import ThreeRedAlt from "../../assets/buttons/threeRedAlt.png";
