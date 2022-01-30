@@ -9,27 +9,27 @@ const consoleItems = [
   {
     id: 0,
     title: "Dark Terminal",
-    content: `<p>content content content </p>`,
+    content: `content content content `,
   },
   {
     id: 1,
     title: "Bet Terminal",
-    content: `<p>content content content 2</p>`,
+    content: `content content content 2`,
   },
   {
     id: 2,
     title: "Hacking the system",
-    content: `<p>content content content 3 </p>`,
+    content: `content content content 3 `,
   },
   {
     id: 3,
     title: "Leaderboards",
-    content: `<p>content content content  4</p>`,
+    content: `content content content  4`,
   },
   {
     id: 4,
     title: "Prizes",
-    content: `<p>content content content  5</p>`,
+    content: `content content content  5`,
   },
 ];
 

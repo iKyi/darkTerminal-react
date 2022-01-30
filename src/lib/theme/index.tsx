@@ -187,6 +187,8 @@ const getOverRides = (theme: Theme) => {
             height: "100%",
           },
           "& #root": {
+            position: "relative",
+            zIndex: 2,
             width: "1440px",
             maxWidth: "100%",
             margin: "0 auto",
