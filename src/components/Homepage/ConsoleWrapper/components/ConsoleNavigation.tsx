@@ -75,7 +75,7 @@ const ConsoleNavigation: React.VFC<ConsoleNavigationPropsType> = ({
           onChange={handleChange}
           sx={{
             borderRight: 1,
-            borderColor: "error.main",
+            borderColor: "primary.main",
             maxHeight: "100%",
           }}
           variant="scrollable"
@@ -93,6 +93,12 @@ const ConsoleNavigation: React.VFC<ConsoleNavigationPropsType> = ({
             return (
               <Tab
                 key={item.title}
+                sx={{
+                  color: "primary.light",
+                  "&.Mui-selected": {
+                    color: "error.main",
+                  },
+                }}
                 label={
                   <Typography
                     sx={{
