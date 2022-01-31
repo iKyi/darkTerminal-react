@@ -14,12 +14,15 @@ import {
 } from "@mui/material";
 import NavigationHeader from "../../../../assets/sections/homepage/navigationHeader.png";
 import { IWalletEntry } from "../ConsoleWrapper";
+import { useAppDispatch } from "../../../../app/hooks";
+import { setComingSoon } from "../../../../features/global/globalSlice";
 
 export type WalletBoxPropsType = {
   walletData?: IWalletEntry[];
 };
 
 const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
+  const dispatch = useAppDispatch();
   if (!walletData || walletData.length === 0) return null;
   // *************** RENDER *************** //
   return (
@@ -62,7 +65,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
               {walletData.map((entry) => {
                 return (
                   <TableRow
-                    key={entry.name}
+                    key={entry.name + entry.value}
                     sx={{
                       td: {
                         textShadow: "1px 1px 1px rgba(255,255,255,0.35)",
@@ -92,12 +95,22 @@ const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
         </TableContainer>
         <Stack direction="row" sx={{ pt: 2 }}>
           <Box sx={{ p: 1.5, width: "100%" }}>
-            <Button fullWidth variant="threeButtonAlt" color="primary">
+            <Button
+              onClick={() => dispatch(setComingSoon(true))}
+              fullWidth
+              variant="threeButtonAlt"
+              color="primary"
+            >
               MINT NOW
             </Button>
           </Box>
           <Box sx={{ p: 1.5, width: "100%" }}>
-            <Button fullWidth variant="threeButtonAlt" color="secondary">
+            <Button
+              onClick={() => dispatch(setComingSoon(true))}
+              fullWidth
+              variant="threeButtonAlt"
+              color="secondary"
+            >
               WHITE PAPER
             </Button>
           </Box>

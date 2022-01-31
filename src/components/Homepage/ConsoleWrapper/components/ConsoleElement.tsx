@@ -28,13 +28,11 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export type ConsoleElementPropsType = {
-  children?: any;
   activeSection: number;
   sections: any[];
 };
 
 const ConsoleElement: React.VFC<ConsoleElementPropsType> = ({
-  children,
   activeSection,
   sections,
 }) => {

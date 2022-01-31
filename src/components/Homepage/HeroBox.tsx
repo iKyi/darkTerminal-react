@@ -1,16 +1,24 @@
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Typography,
+  Link as MUILink,
+} from "@mui/material";
 import useMobile from "../../hooks/useMobile";
 import GlitchFont from "../Reusable/GlitchFont";
 import GreenBg from "../../assets/sections/homepage/greenBoxBg.png";
 import HomeVideo from "../../assets/videos/homeVideo.mp4";
-import { Link } from "react-router-dom";
-import { InfoTwoTone } from "@mui/icons-material";
+import { useAppDispatch } from "../../app/hooks";
+import { setComingSoon } from "../../features/global/globalSlice";
+// import { Link } from "react-router-dom";
+// import { InfoTwoTone } from "@mui/icons-material";
 
-export type HeroBoxPropsType = {
-  children?: any;
-};
+export type HeroBoxPropsType = {};
 
-const HeroBox: React.VFC<HeroBoxPropsType> = ({ children }) => {
+const HeroBox: React.VFC<HeroBoxPropsType> = () => {
+  const dispatch = useAppDispatch();
   const isMobile = useMobile();
   // *************** RENDER *************** //
   return (
@@ -128,22 +136,35 @@ const HeroBox: React.VFC<HeroBoxPropsType> = ({ children }) => {
           </Grid>
           <Stack direction="row" sx={{ pt: 2 }}>
             <Box sx={{ p: 1.5, width: "100%" }}>
-              <Button fullWidth variant="threeButton" color="primary">
+              <Button
+                fullWidth
+                variant="threeButton"
+                color="primary"
+                onClick={() => dispatch(setComingSoon(true))}
+              >
                 MINT NOW
               </Button>
             </Box>
             <Box sx={{ p: 1.5, width: "100%" }}>
-              <Button fullWidth variant="threeButton" color="secondary">
+              <Button
+                fullWidth
+                variant="threeButton"
+                color="secondary"
+                component={MUILink}
+                href="https://darkterminal.io/darkterminal_whitepaper_v0.4.pdf"
+                target="_blank"
+                rel="noopener"
+              >
                 WHITE PAPER
               </Button>
             </Box>
           </Stack>
-          <Link to="how-to-buy" style={{ textDecoration: "none" }}>
+          {/* <Link to="how-to-buy" style={{ textDecoration: "none" }}>
             <Button sx={{ color: "#fff" }}>
               <InfoTwoTone color="primary" sx={{ mr: 1 }} />
               How to play
             </Button>
-          </Link>
+          </Link> */}
         </Grid>
       </Grid>
     </Box>

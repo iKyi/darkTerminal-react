@@ -28,10 +28,13 @@ const Footer: React.VFC<FooterPropsType> = ({ children }) => {
         <Stack spacing={1} direction="row">
           {Socials.map((item) => {
             return (
-              <Link
+              <IconButton
                 key={item.icon}
-                component={IconButton}
+                component={Link}
                 variant="button"
+                href={item.url}
+                target="_blank"
+                rel="noopener"
                 sx={{
                   textDecoration: "none",
                   borderRadius: 0,
@@ -47,7 +50,7 @@ const Footer: React.VFC<FooterPropsType> = ({ children }) => {
                 }}
               >
                 <i className={`lni lni-${item.icon}`} />
-              </Link>
+              </IconButton>
             );
           })}
         </Stack>

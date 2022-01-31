@@ -2,38 +2,44 @@ import { Box, Button, Link as MUILink } from "@mui/material";
 import { ReactComponent as DiscordIcon } from "../../../../assets/icons/Discord-Logo-White.svg";
 import useMobile from "../../../../hooks/useMobile";
 import Logo from "../../../../assets/images/logo.png";
-import { Link as RouterLink, NavLink } from "react-router-dom";
-import { CropFree } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
+// import { CropFree } from "@mui/icons-material";
 import useGetGlobal from "../../../../dataHooks/useGetGlobal";
 import RedButtonBg from "../../../../assets/buttons/red_angle.png";
 import { ReactComponent as DiscordBar } from "../../../../assets/sections/homepage/discordButton.svg";
 import HeaderMobileButton from "./HeaderMobileButton";
+import { useAppDispatch } from "../../../../app/hooks";
+import { setComingSoon } from "../../../../features/global/globalSlice";
 
 interface INavLink {
   title: string;
   slug: string;
 }
 
-export const TerminalButton = (
-  <Button
-    variant="outlined"
-    color="error"
-    component={RouterLink}
-    to="news"
-    sx={{
-      border: "none",
-      background: `url('${RedButtonBg}')`,
-      backgroundSize: "100% 100% !important",
-      pt: 1.5,
-      pb: 1.1,
-      "&:hover": {
+export const TerminalButton: React.FC = (props) => {
+  const dispatch = useAppDispatch();
+  return (
+    <Button
+      variant="outlined"
+      color="error"
+      // component={RouterLink}
+      // to="news"
+      onClick={() => dispatch(setComingSoon(true))}
+      sx={{
         border: "none",
-      },
-    }}
-  >
-    {">_"} Enter Terminal
-  </Button>
-);
+        background: `url('${RedButtonBg}')`,
+        backgroundSize: "100% 100% !important",
+        pt: 1.5,
+        pb: 1.1,
+        "&:hover": {
+          border: "none",
+        },
+      }}
+    >
+      {">_"} Enter Terminal
+    </Button>
+  );
+};
 
 export const SiteNavLinks: INavLink[] = [
   {
@@ -56,6 +62,8 @@ const DiscordButton = (props: any) => {
     <Button
       component={MUILink}
       href={href}
+      target="_blank"
+      rel="noopener"
       sx={{
         mt: 2,
         borderStyle: "solid",
@@ -70,23 +78,23 @@ const DiscordButton = (props: any) => {
   );
 };
 
-const HeaderButton = (props: any) => {
-  const { children, isActive } = props;
-  return (
-    <Button
-      sx={{
-        textDecoration: "none !important",
-        display: "inline-flex",
-        alignItems: "center",
-        filter: !isActive ? "brightness(1.2)" : "none",
-        opacity: !isActive ? "0.85" : "1",
-      }}
-    >
-      {isActive && <CropFree fontSize="small" sx={{ mr: 1 }} />}
-      {children}
-    </Button>
-  );
-};
+// const HeaderButton = (props: any) => {
+//   const { children, isActive } = props;
+//   return (
+//     <Button
+//       sx={{
+//         textDecoration: "none !important",
+//         display: "inline-flex",
+//         alignItems: "center",
+//         filter: !isActive ? "brightness(1.2)" : "none",
+//         opacity: !isActive ? "0.85" : "1",
+//       }}
+//     >
+//       {isActive && <CropFree fontSize="small" sx={{ mr: 1 }} />}
+//       {children}
+//     </Button>
+//   );
+// };
 
 const Header: React.VFC<HeaderPropsType> = ({ children }) => {
   const isMobile = useMobile();
@@ -132,7 +140,7 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
           <HeaderMobileButton />
         </Box>
         <Box sx={{ display: { xs: "none", lg: "block" } }}>
-          {SiteNavLinks.map((item) => {
+          {/* {SiteNavLinks.map((item) => {
             return (
               <NavLink
                 key={item.title}
@@ -152,9 +160,9 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
                 }}
               </NavLink>
             );
-          })}
+          })} */}
 
-          {TerminalButton}
+          <TerminalButton />
         </Box>
         {isMobile && (
           <Box
@@ -177,7 +185,12 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
       </Box>
 
       {!isMobile && (
-        <MUILink href={discordUrl} sx={{ display: "block", width: "100%" }}>
+        <MUILink
+          href={discordUrl}
+          sx={{ display: "block", width: "100%" }}
+          target="_blank"
+          rel="noopener"
+        >
           <DiscordBar width="100%" height="auto" />
         </MUILink>
       )}

@@ -1,6 +1,6 @@
 const useGetGlobal = () => {
   return {
-    discord: "https://google.com",
+    discord: "https://discord.gg/darkterminal",
   };
 };
 

@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import FourOhFour from "./components/FourOhFour/404";
+import GlobalModalsWrapper from "./components/GlobalModalsWrapper";
 import NewsIndex from "./components/Newspage/NewsIndex";
 import Footer from "./components/Reusable/Layout/Footer/Footer";
 import Header from "./components/Reusable/Layout/Header/Header";
@@ -23,6 +24,7 @@ function App() {
         <Route element={<FourOhFour />} path="*" />
       </Routes>
       <Footer />
+      <GlobalModalsWrapper />
     </>
   );
 }
