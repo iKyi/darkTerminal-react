@@ -1,6 +1,5 @@
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
-import useSWR from "swr";
 import ConsoleWrapper from "../components/Homepage/ConsoleWrapper/ConsoleWrapper";
 import HeroBox from "../components/Homepage/HeroBox";
 import ReportLine from "../components/Homepage/ReportLine";
