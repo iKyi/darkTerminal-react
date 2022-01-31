@@ -13,7 +13,7 @@ const Items = [
     info: "20% OF PRIZE POOL",
   },
   {
-    name: "TERTIARY ITEM",
+    name: "TERTIARY SYSTEM",
     value: "1088 SOL*",
     info: "10% OF PRIZE POOL",
   },

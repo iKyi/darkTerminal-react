@@ -9,11 +9,10 @@ import {
 import useMobile from "../../hooks/useMobile";
 import GlitchFont from "../Reusable/GlitchFont";
 import GreenBg from "../../assets/sections/homepage/greenBoxBg.png";
-import HomeVideo from "../../assets/videos/homeVideo.mp4";
+// import HomeVideo from "../../assets/videos/homeVideo.mp4";
 import { useAppDispatch } from "../../app/hooks";
 import { setComingSoon } from "../../features/global/globalSlice";
-// import { Link } from "react-router-dom";
-// import { InfoTwoTone } from "@mui/icons-material";
+import NyxNftImage from "../../assets/images/nyx-nft.png";
 
 export type HeroBoxPropsType = {};
 
@@ -39,7 +38,8 @@ const HeroBox: React.VFC<HeroBoxPropsType> = () => {
               justifyContent: "center",
             }}
           >
-            <video
+            <img src={NyxNftImage} alt="Nyx nft" />
+            {/* <video
               autoPlay
               muted
               loop
@@ -47,7 +47,7 @@ const HeroBox: React.VFC<HeroBoxPropsType> = () => {
             >
               <source src={HomeVideo} type="video/mp4" />
               Your browser does not support the video tag.
-            </video>
+            </video> */}
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
