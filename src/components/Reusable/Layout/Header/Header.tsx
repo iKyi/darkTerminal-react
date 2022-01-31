@@ -1,7 +1,6 @@
 import { Box, Button, Link as MUILink } from "@mui/material";
 import { ReactComponent as DiscordIcon } from "../../../../assets/icons/Discord-Logo-White.svg";
 import useMobile from "../../../../hooks/useMobile";
-import Logo from "../../../../assets/images/logo.png";
 import { NavLink } from "react-router-dom";
 // import { CropFree } from "@mui/icons-material";
 import useGetGlobal from "../../../../dataHooks/useGetGlobal";
