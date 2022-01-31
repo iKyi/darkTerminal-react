@@ -7,18 +7,21 @@ import StoreProvider from "./providers/StoreProvider";
 import RouterProvider from "./providers/RouterProvider";
 import AuthProvider from "./providers/AuthProvider";
 import DarkTerminalThemeProvider from "./lib/theme";
+import StrapiGlobalProvider from "./providers/StrapiGlobalProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DarkTerminalThemeProvider>
-      <AuthProvider>
-        <StoreProvider>
-          <RouterProvider>
-            <App />
-          </RouterProvider>
-        </StoreProvider>
-      </AuthProvider>
-    </DarkTerminalThemeProvider>
+    <StrapiGlobalProvider>
+      <DarkTerminalThemeProvider>
+        <AuthProvider>
+          <StoreProvider>
+            <RouterProvider>
+              <App />
+            </RouterProvider>
+          </StoreProvider>
+        </AuthProvider>
+      </DarkTerminalThemeProvider>
+    </StrapiGlobalProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

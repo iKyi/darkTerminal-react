@@ -10,6 +10,9 @@ import { ReactComponent as DiscordBar } from "../../../../assets/sections/homepa
 import HeaderMobileButton from "./HeaderMobileButton";
 import { useAppDispatch } from "../../../../app/hooks";
 import { setComingSoon } from "../../../../features/global/globalSlice";
+import { useContext } from "react";
+import { StrapiContext } from "../../../../providers/StrapiGlobalProvider";
+import { getStrapiMedia } from "../../../../lib/theme/media";
 
 interface INavLink {
   title: string;
@@ -97,6 +100,7 @@ const DiscordButton = (props: any) => {
 // };
 
 const Header: React.VFC<HeaderPropsType> = ({ children }) => {
+  const { logo } = useContext(StrapiContext);
   const isMobile = useMobile();
   const { discord: discordUrl } = useGetGlobal();
 
@@ -130,7 +134,7 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
             }}
           >
             <img
-              src={Logo}
+              src={getStrapiMedia(logo)}
               alt="Dark Terminal Logo"
               style={{ maxWidth: "100%" }}
             />
