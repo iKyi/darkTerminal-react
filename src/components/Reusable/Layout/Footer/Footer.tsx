@@ -23,7 +23,7 @@ const Footer: React.VFC<FooterPropsType> = ({ children }) => {
         }}
       >
         <Box sx={{ fontFamily: "Furore" }}>
-          <span className="TP">DARK TERMINAL</span> Ⓒ 2021
+          <span className="TP">DARK TERMINAL</span> Ⓒ 2022
         </Box>
         <Stack spacing={1} direction="row">
           {Socials.map((item) => {

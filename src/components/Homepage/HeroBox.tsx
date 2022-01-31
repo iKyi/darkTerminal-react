@@ -80,45 +80,49 @@ const HeroBox: React.VFC<HeroBoxPropsType> = ({ children }) => {
                   fontFamily: "Furore",
                   fontSize: "1.5rem",
                   fontWeight: "bold",
+                  color: "#36F097",
                 }}
               >
-                TOTAL SUPPLY 00099
+                7777
               </Box>
             </Grid>
             <Grid item xs={12} sm={6} sx={{ p: 2.5 }}>
-              <Box sx={{ fontFamily: "Furore" }}>TOTAL SUPPLY</Box>
+              <Box sx={{ fontFamily: "Furore" }}>MINT</Box>
               <Box
                 sx={{
                   fontFamily: "Furore",
                   fontSize: "1.5rem",
                   fontWeight: "bold",
+                  color: "#36F097",
                 }}
               >
-                TOTAL SUPPLY 00099
+                2 SOL
               </Box>
             </Grid>
             <Grid item xs={12} sm={6} sx={{ p: 2.5 }}>
-              <Box sx={{ fontFamily: "Furore" }}>TOTAL SUPPLY</Box>
+              <Box sx={{ fontFamily: "Furore" }}>PRE-SALE</Box>
               <Box
                 sx={{
                   fontFamily: "Furore",
                   fontSize: "1.5rem",
                   fontWeight: "bold",
+                  color: "#36F097",
                 }}
               >
-                TOTAL SUPPLY 00099
+                0 / 2000
               </Box>
             </Grid>
             <Grid item xs={12} sm={6} sx={{ p: 2.5 }}>
-              <Box sx={{ fontFamily: "Furore" }}>TOTAL SUPPLY</Box>
+              <Box sx={{ fontFamily: "Furore" }}>PRE-SALE DTAC AIRDROP</Box>
               <Box
                 sx={{
                   fontFamily: "Furore",
                   fontSize: "1.5rem",
                   fontWeight: "bold",
+                  color: "#36F097",
                 }}
               >
-                TOTAL SUPPLY 00099
+                3500 / NFT
               </Box>
             </Grid>
           </Grid>

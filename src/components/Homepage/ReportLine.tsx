@@ -3,28 +3,28 @@ import Marquee from "react-fast-marquee";
 
 const Items = [
   {
-    name: "HACKER SET",
-    value: "32.2 SOL",
-    info: "0.33% OF PRIZE POOL",
-  },
-  {
     name: "MAIN SYSTEM",
-    value: "32.2 SOL",
-    info: "0.33% OF PRIZE POOL",
+    value: "6532 SOL*",
+    info: "60% OF PRIZE POOL",
   },
   {
     name: "SECONDARY SYSTEM",
-    value: "32.2 SOL",
-    info: "0.33% OF PRIZE POOL",
+    value: "2177 SOL*",
+    info: "20% OF PRIZE POOL",
   },
   {
-    name: "FOURTH ITEM",
-    value: "32.2 SOL",
-    info: "0.33% OF PRIZE POOL",
+    name: "TERTIARY ITEM",
+    value: "1088 SOL*",
+    info: "10% OF PRIZE POOL",
   },
   {
-    name: "FIFTH ITEM",
-    value: "32.2 SOL",
+    name: "HACKER SET",
+    value: "1088 SOL*",
+    info: "10% OF PRIZE POOL",
+  },
+  {
+    name: "30 Random Stakers",
+    value: "36.2 SOL* each",
     info: "0.33% OF PRIZE POOL",
   },
 ];
