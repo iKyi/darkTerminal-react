@@ -11,6 +11,7 @@ import {
   Box,
   Button,
   TableBody,
+  Link as MUILink,
 } from "@mui/material";
 import NavigationHeader from "../../../../assets/sections/homepage/navigationHeader.png";
 import { IWalletEntry } from "../ConsoleWrapper";
@@ -106,10 +107,13 @@ const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
           </Box>
           <Box sx={{ p: 1.5, width: "100%" }}>
             <Button
-              onClick={() => dispatch(setComingSoon(true))}
               fullWidth
               variant="threeButtonAlt"
               color="secondary"
+              component={MUILink}
+              href="https://darkterminal.io/darkterminal_whitepaper_v0.4.pdf"
+              target="_blank"
+              rel="noopener"
             >
               WHITE PAPER
             </Button>
