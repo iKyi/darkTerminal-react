@@ -3,8 +3,6 @@ import "./App.css";
 import FourOhFour from "./components/FourOhFour/404";
 import GlobalModalsWrapper from "./components/GlobalModalsWrapper";
 import NewsIndex from "./components/Newspage/NewsIndex";
-import Footer from "./components/Reusable/Layout/Footer/Footer";
-import Header from "./components/Reusable/Layout/Header/Header";
 import ArticleEntry from "./Pages/ArticleEntry";
 import Home from "./Pages/Home";
 import HowToBuy from "./Pages/HowToBuy";
@@ -13,7 +11,6 @@ import NewsPage from "./Pages/NewsPage";
 function App() {
   return (
     <>
-      <Header />
       <Routes>
         <Route element={<Home />} path="/" />
         <Route element={<HowToBuy />} path="how-to-buy" />
@@ -23,7 +20,7 @@ function App() {
         </Route>
         <Route element={<FourOhFour />} path="*" />
       </Routes>
-      <Footer />
+
       <GlobalModalsWrapper />
     </>
   );

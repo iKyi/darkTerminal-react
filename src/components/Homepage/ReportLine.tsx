@@ -1,40 +1,26 @@
 import { Box, Stack, Typography } from "@mui/material";
+import { useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
-
-const Items = [
-  {
-    name: "MAIN SYSTEM",
-    value: "6532 SOL*",
-    info: "60% OF PRIZE POOL",
-  },
-  {
-    name: "SECONDARY SYSTEM",
-    value: "2177 SOL*",
-    info: "20% OF PRIZE POOL",
-  },
-  {
-    name: "TERTIARY SYSTEM",
-    value: "1088 SOL*",
-    info: "10% OF PRIZE POOL",
-  },
-  {
-    name: "HACKER SET",
-    value: "1088 SOL*",
-    info: "10% OF PRIZE POOL",
-  },
-  {
-    name: "30 Random Stakers",
-    value: "36.2 SOL* each",
-    info: "0.33% OF PRIZE POOL",
-  },
-];
+import axiosGetter from "../../lib/axios/axiosGetter";
+import { getStrapiURL } from "../../lib/theme/api";
 
 export type ReportLinePropsType = {
   children?: any;
 };
 
 const ReportLine: React.VFC<ReportLinePropsType> = ({ children }) => {
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    axiosGetter(getStrapiURL("system-info-entries?populate=*")).then((resp) => {
+      setData(resp.data);
+    });
+  }, []);
+
   // *************** RENDER *************** //
+  if (!data) {
+    return null;
+  }
   return (
     <Box
       sx={{
@@ -61,10 +47,12 @@ const ReportLine: React.VFC<ReportLinePropsType> = ({ children }) => {
           pauseOnClick={true}
           pauseOnHover={true}
         >
-          {Items.map((item) => {
+          {data.map((item: Record<any, any>) => {
+            const { attributes } = item;
+
             return (
               <Stack
-                key={item.name}
+                key={attributes.name}
                 direction="row"
                 sx={{
                   p: 1.7,
@@ -72,9 +60,13 @@ const ReportLine: React.VFC<ReportLinePropsType> = ({ children }) => {
                   textShadow: "1px 1px 1px black",
                 }}
               >
-                <Box sx={{ color: "common.white" }}>{item.name}:</Box>
-                <Box sx={{ color: "error.main", ml: 1 }}>{item.value}</Box>
-                <Box sx={{ color: "primary.main", ml: 1 }}>({item.info})</Box>
+                <Box sx={{ color: "common.white" }}>{attributes.name}:</Box>
+                <Box sx={{ color: "error.main", ml: 1 }}>
+                  {attributes.value}
+                </Box>
+                <Box sx={{ color: "primary.main", ml: 1 }}>
+                  ({attributes.info})
+                </Box>
               </Stack>
             );
           })}

@@ -3,14 +3,13 @@ import { ReactComponent as DiscordIcon } from "../../../../assets/icons/Discord-
 import useMobile from "../../../../hooks/useMobile";
 import { NavLink } from "react-router-dom";
 // import { CropFree } from "@mui/icons-material";
-import useGetGlobal from "../../../../dataHooks/useGetGlobal";
 import RedButtonBg from "../../../../assets/buttons/red_angle.png";
 import { ReactComponent as DiscordBar } from "../../../../assets/sections/homepage/discordButton.svg";
 import HeaderMobileButton from "./HeaderMobileButton";
 import { useAppDispatch } from "../../../../app/hooks";
 import { setComingSoon } from "../../../../features/global/globalSlice";
 import { useContext } from "react";
-import { StrapiContext } from "../../../../providers/StrapiGlobalProvider";
+import { StrapiContext } from "../../../../providers/StrapiPublicProvider";
 import { getStrapiMedia } from "../../../../lib/theme/media";
 
 interface INavLink {
@@ -99,10 +98,12 @@ const DiscordButton = (props: any) => {
 // };
 
 const Header: React.VFC<HeaderPropsType> = ({ children }) => {
-  const { logo } = useContext(StrapiContext);
+  const { logo, socials } = useContext(StrapiContext);
   const isMobile = useMobile();
-  const { discord: discordUrl } = useGetGlobal();
 
+  const discordItem = socials.find(
+    (item: Record<any, any>) => item.name === "discord"
+  );
   // *************** RENDER *************** //
   return (
     <Box component="header">
@@ -167,7 +168,7 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
 
           <TerminalButton />
         </Box>
-        {isMobile && (
+        {isMobile && discordItem && (
           <Box
             sx={{
               width: "100%",
@@ -178,7 +179,7 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
           >
             <DiscordButton
               sx={{ display: "inline-flex", alignItems: "center" }}
-              href={discordUrl}
+              href={discordItem.url}
             >
               <DiscordIcon width="26px" height="auto" />
               <Box sx={{ ml: 1 }}>JOIN DISCORD</Box>
@@ -187,9 +188,9 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
         )}
       </Box>
 
-      {!isMobile && (
+      {!isMobile && discordItem && (
         <MUILink
-          href={discordUrl}
+          href={discordItem.url}
           sx={{ display: "block", width: "100%" }}
           target="_blank"
           rel="noopener"

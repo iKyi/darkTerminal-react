@@ -9,14 +9,31 @@ import {
 import useMobile from "../../hooks/useMobile";
 import GlitchFont from "../Reusable/GlitchFont";
 import GreenBg from "../../assets/sections/homepage/greenBoxBg.png";
+import ImageFrame from "../../assets/images/imageFrame.png";
 // import HomeVideo from "../../assets/videos/homeVideo.mp4";
 import { useAppDispatch } from "../../app/hooks";
 import { setComingSoon } from "../../features/global/globalSlice";
-import NyxNftImage from "../../assets/images/nyx-nft.png";
+import { useEffect, useState } from "react";
+import { getStrapiURL } from "../../lib/theme/api";
+import axiosGetter from "../../lib/axios/axiosGetter";
+import { getStrapiMedia } from "../../lib/theme/media";
 
-export type HeroBoxPropsType = {};
+export type HeroBoxPropsType = {
+  heroImage: any;
+  heroVideo: any;
+};
 
-const HeroBox: React.VFC<HeroBoxPropsType> = () => {
+const HeroBox: React.VFC<HeroBoxPropsType> = ({ heroImage, heroVideo }) => {
+  const [summaryData, setData] = useState<any>(null);
+
+  useEffect(() => {
+    axiosGetter(getStrapiURL("hero-summary-entries?populate=*")).then(
+      (resp) => {
+        setData(resp.data);
+      }
+    );
+  }, []);
+
   const dispatch = useAppDispatch();
   const isMobile = useMobile();
   // *************** RENDER *************** //
@@ -38,16 +55,37 @@ const HeroBox: React.VFC<HeroBoxPropsType> = () => {
               justifyContent: "center",
             }}
           >
-            <img src={NyxNftImage} alt="Nyx nft" />
-            {/* <video
-              autoPlay
-              muted
-              loop
-              style={{ width: "100%", height: "auto" }}
-            >
-              <source src={HomeVideo} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video> */}
+            {heroImage && heroImage.data && !heroVideo?.data ? (
+              <Box sx={{ position: "relative" }}>
+                <img
+                  src={getStrapiMedia(heroImage)}
+                  alt="Nyx nft"
+                  style={{ width: "100%", height: "auto" }}
+                />
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: `url('${ImageFrame}')`,
+                    backgroundSize: "100% 100%",
+                    backgroundPosition: "center center",
+                  }}
+                />
+              </Box>
+            ) : (
+              <video
+                autoPlay
+                muted
+                loop
+                style={{ width: "100%", height: "auto" }}
+              >
+                <source src={getStrapiMedia(heroVideo)} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -81,58 +119,36 @@ const HeroBox: React.VFC<HeroBoxPropsType> = () => {
               backgroundSize: "100% 100%",
             }}
           >
-            <Grid item xs={12} sm={6} sx={{ p: 2.5 }}>
-              <Box sx={{ fontFamily: "Furore" }}>TOTAL SUPPLY</Box>
-              <Box
-                sx={{
-                  fontFamily: "Furore",
-                  fontSize: "1.5rem",
-                  fontWeight: "bold",
-                  color: "#36F097",
-                }}
-              >
-                7777
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} sx={{ p: 2.5 }}>
-              <Box sx={{ fontFamily: "Furore" }}>MINT</Box>
-              <Box
-                sx={{
-                  fontFamily: "Furore",
-                  fontSize: "1.5rem",
-                  fontWeight: "bold",
-                  color: "#36F097",
-                }}
-              >
-                2 SOL
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} sx={{ p: 2.5 }}>
-              <Box sx={{ fontFamily: "Furore" }}>PRE-SALE</Box>
-              <Box
-                sx={{
-                  fontFamily: "Furore",
-                  fontSize: "1.5rem",
-                  fontWeight: "bold",
-                  color: "#36F097",
-                }}
-              >
-                0 / 2000
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} sx={{ p: 2.5 }}>
-              <Box sx={{ fontFamily: "Furore" }}>PRE-SALE DTAC AIRDROP</Box>
-              <Box
-                sx={{
-                  fontFamily: "Furore",
-                  fontSize: "1.5rem",
-                  fontWeight: "bold",
-                  color: "#36F097",
-                }}
-              >
-                3500 / NFT
-              </Box>
-            </Grid>
+            {summaryData &&
+              summaryData.map((item: Record<any, any>) => {
+                const { attributes } = item;
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    sx={{ p: 2.5 }}
+                    key={attributes.value}
+                  >
+                    <Box
+                      sx={{ fontFamily: "Furore", textTransform: "uppercase" }}
+                    >
+                      {attributes.title}
+                    </Box>
+                    <Box
+                      sx={{
+                        fontFamily: "Furore",
+                        fontSize: "1.5rem",
+                        fontWeight: "bold",
+                        color: "#36F097",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {attributes.value}
+                    </Box>
+                  </Grid>
+                );
+              })}
           </Grid>
           <Stack direction="row" sx={{ pt: 2 }}>
             <Box sx={{ p: 1.5, width: "100%" }}>
