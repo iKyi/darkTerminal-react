@@ -2,7 +2,7 @@ import { Box, Button, Link as MUILink } from "@mui/material";
 import { ReactComponent as DiscordIcon } from "../../../../assets/icons/Discord-Logo-White.svg";
 import useMobile from "../../../../hooks/useMobile";
 import { NavLink } from "react-router-dom";
-// import { CropFree } from "@mui/icons-material";
+import { CropFree } from "@mui/icons-material";
 import RedButtonBg from "../../../../assets/buttons/red_angle.png";
 import { ReactComponent as DiscordBar } from "../../../../assets/sections/homepage/discordButton.svg";
 import HeaderMobileButton from "./HeaderMobileButton";
@@ -45,11 +45,11 @@ export const TerminalButton: React.FC = (props) => {
 export const SiteNavLinks: INavLink[] = [
   {
     title: "How to buy",
-    slug: "how-to-buy",
+    slug: "/how-to-buy",
   },
   {
     title: "News",
-    slug: "news",
+    slug: "/news",
   },
 ];
 
@@ -79,23 +79,23 @@ const DiscordButton = (props: any) => {
   );
 };
 
-// const HeaderButton = (props: any) => {
-//   const { children, isActive } = props;
-//   return (
-//     <Button
-//       sx={{
-//         textDecoration: "none !important",
-//         display: "inline-flex",
-//         alignItems: "center",
-//         filter: !isActive ? "brightness(1.2)" : "none",
-//         opacity: !isActive ? "0.85" : "1",
-//       }}
-//     >
-//       {isActive && <CropFree fontSize="small" sx={{ mr: 1 }} />}
-//       {children}
-//     </Button>
-//   );
-// };
+const HeaderButton = (props: any) => {
+  const { children, isActive } = props;
+  return (
+    <Button
+      sx={{
+        textDecoration: "none !important",
+        display: "inline-flex",
+        alignItems: "center",
+        filter: !isActive ? "brightness(1.2)" : "none",
+        opacity: !isActive ? "0.85" : "1",
+      }}
+    >
+      {isActive && <CropFree fontSize="small" sx={{ mr: 1 }} />}
+      {children}
+    </Button>
+  );
+};
 
 const Header: React.VFC<HeaderPropsType> = ({ children }) => {
   const { logo, socials } = useContext(StrapiContext);
@@ -144,7 +144,7 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
           <HeaderMobileButton />
         </Box>
         <Box sx={{ display: { xs: "none", lg: "block" } }}>
-          {/* {SiteNavLinks.map((item) => {
+          {SiteNavLinks.map((item) => {
             return (
               <NavLink
                 key={item.title}
@@ -164,7 +164,7 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
                 }}
               </NavLink>
             );
-          })} */}
+          })}
 
           <TerminalButton />
         </Box>

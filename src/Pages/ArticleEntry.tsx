@@ -1,30 +1,38 @@
 import { ChevronRight } from "@mui/icons-material";
 import { Box, Breadcrumbs, Link as MUILink } from "@mui/material";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import { FONTS } from "../lib/theme";
-import SamplePic from "../assets/samplePic.jpg";
 import { DateTime } from "luxon";
 import useMobile from "../hooks/useMobile";
 import MarkdownParser from "../components/Reusable/MarkdownParser";
-
-const articleData = {
-  title: "Lorem, ipsum dolor.",
-  lastUpdated: new Date().toISOString(),
-  slug: "sample-article",
-  image: SamplePic,
-  description:
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo, voluptate.",
-  content:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non tempore accusantium culpa natus voluptatem possimus asperiores consequatur provident tenetur, perspiciatis blanditiis quas. Asperiores beatae ab accusamus inventore repellat explicabo earum dignissimos illum tempora vero, sit possimus sapiente repellendus numquam error ullam debitis pariatur, mollitia delectus dolor, quas voluptate? Suscipit laudantium eius aut error? Consectetur natus placeat, similique cum sapiente facilis at accusamus dignissimos exercitationem maxime aliquam dicta, ea tempora dolore quod. Aspernatur nesciunt ratione nemo aut tempore! Earum fugiat ipsam animi maiores laboriosam qui officiis voluptate laudantium provident praesentium, saepe cum culpa nulla esse libero rem facilis porro doloribus. At, fugiat cupiditate. Earum maiores mollitia deleniti a facere, soluta cumque excepturi omnis vel unde aut incidunt, accusantium perferendis autem corrupti maxime quos distinctio itaque hic rem iusto. Quae tempora error reiciendis, omnis neque quasi sunt architecto modi repellendus perferendis laboriosam officia, magnam natus quidem ab odio tempore deserunt? Veniam perspiciatis harum ducimus quos perferendis placeat cum magni eveniet vel amet accusamus atque exercitationem voluptatem sequi tempore magnam labore dolor fugit velit ipsa a, dignissimos iure fugiat? Accusantium minima libero placeat quaerat ipsum animi totam odio officiis quisquam atque quos facere, delectus harum distinctio similique laudantium deleniti necessitatibus nihil rerum velit? Molestiae, nostrum asperiores! Obcaecati mollitia distinctio sed, velit rem cupiditate laboriosam, reprehenderit enim impedit a aliquid provident facilis tempore dicta quibusdam autem voluptas suscipit molestias dolorum ex non. Voluptas, esse. Reprehenderit unde ratione dignissimos! Earum doloremque maiores optio facere ratione fuga possimus ut numquam mollitia nulla repudiandae eaque, excepturi praesentium corrupti voluptatum natus, tempore quas fugiat temporibus reiciendis in sed similique placeat aspernatur. Magnam odio quae enim voluptas. Animi optio consequuntur sed iusto. Ea maxime minus facere perspiciatis, placeat nihil perferendis. Ipsa in placeat molestias nesciunt accusantium, at fugiat perspiciatis rerum, voluptatum corporis error! Repellendus quibusdam minima asperiores quo corrupti!",
-};
+import { useEffect, useState } from "react";
+import axiosGetter from "../lib/axios/axiosGetter";
+import { getStrapiURL } from "../lib/theme/api";
+import { getStrapiMedia } from "../lib/theme/media";
 
 const ArticleEntry: React.VFC = () => {
   const mobile = useMobile();
+  const navigate = useNavigate();
   const { slug } = useParams();
 
-  const { content, title, image, lastUpdated } = articleData;
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    axiosGetter(getStrapiURL(`articles?populate=*&filters[slug][$eq]=${slug}`))
+      .then((resp) => {
+        setData(resp.data[0].attributes);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate("/404");
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
+
+  const { content, title, image, updatedAt } = data || {};
 
   // *************** RENDER *************** //
+  if (!data) return null;
   return (
     <Box>
       <Breadcrumbs
@@ -44,11 +52,11 @@ const ArticleEntry: React.VFC = () => {
           {title}
         </MUILink>
       </Breadcrumbs>
-      {image && (
+      {image && image.data && (
         <Box
           sx={{
-            background: `url('${image}')`,
-            backgroundSize: "cover",
+            background: `url('${getStrapiMedia(image)}')`,
+            backgroundSize: "fit-content",
             backgroundPosition: "center center",
             paddingBottom: "50%",
             border: (theme) => `1px solid ${theme.palette.primary.main}`,
@@ -69,7 +77,7 @@ const ArticleEntry: React.VFC = () => {
               fontSize: "0.8rem",
             }}
           >
-            {DateTime.fromISO(lastUpdated).toFormat("dd MMM yyyy")}
+            {DateTime.fromISO(updatedAt).toFormat("dd MMM yyyy")}
           </Box>
         </Box>
         <Box

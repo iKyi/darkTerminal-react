@@ -1,11 +1,11 @@
-import { Drawer, IconButton, List } from "@mui/material";
+import { Drawer, IconButton, List, ListItem } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import ButtonLogo from "../../../../assets/sections/homepage/indicatorBox.png";
 import Logo from "../../../../assets/images/logo.png";
-import { TerminalButton } from "./Header";
-// import { NavLink } from "react-router-dom";
-// import { CropFree } from "@mui/icons-material";
+import { SiteNavLinks, TerminalButton } from "./Header";
+import { NavLink } from "react-router-dom";
+import { CropFree } from "@mui/icons-material";
 
 const HeaderMobileButton: React.VFC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -26,7 +26,7 @@ const HeaderMobileButton: React.VFC = () => {
             />
           </Box>
           <List>
-            {/* {SiteNavLinks.map((item) => {
+            {SiteNavLinks.map((item) => {
               return (
                 <ListItem
                   key={item.title}
@@ -58,7 +58,7 @@ const HeaderMobileButton: React.VFC = () => {
                   {item.title}
                 </ListItem>
               );
-            })} */}
+            })}
           </List>
           <TerminalButton />
         </Box>
