@@ -1,0 +1,69 @@
+import { Stack, Box } from "@mui/material";
+import { useAppSelector } from "../../../../app/hooks";
+import greenBg from "./greenStageBg.png";
+import whiteBg from "./whiteStageBg.png";
+import altLogo from "../../../../assets/images/altLogo.png";
+import { FONTS } from "../../../../lib/theme";
+import { ReactNode } from "react-markdown/lib/react-markdown";
+import { useMemo } from "react";
+
+export type StageBarPropsType = {
+  children?: any;
+};
+
+const StageBar: React.VFC<StageBarPropsType> = ({ children }) => {
+  const activeSequence = useAppSelector((state) => state.game.game.sequence);
+  const levelsAmount = useAppSelector((state) => state.game.game.stageAmount);
+
+  const stagesRender = useMemo(() => {
+    const renderItems: ReactNode[] = [];
+    for (let index = 0; index < levelsAmount; index++) {
+      renderItems.push(
+        <Box
+          key={index}
+          sx={{
+            background:
+              index === activeSequence
+                ? `url('${whiteBg}')`
+                : `url('${greenBg}')`,
+            width: "70px",
+            height: "55px",
+            backgroundSize: "100% 100%",
+            backgroundPosition: "center center",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: index < activeSequence && index !== 0 ? 0.5 : 1,
+          }}
+        >
+          {index === 0 ? (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                background: `linear-gradient(180deg, rgba(54, 240, 151, 0.21) 0%, rgba(54, 240, 151, 0) 100%)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img src={altLogo} alt="Alt Logo" />
+            </Box>
+          ) : (
+            <Box sx={{ fontFamily: FONTS.FURORE }}>0{index}</Box>
+          )}
+        </Box>
+      );
+    }
+    return renderItems;
+  }, [activeSequence, levelsAmount]);
+
+  // *************** RENDER *************** //
+  return (
+    <Stack spacing={2} direction="column-reverse">
+      {stagesRender}
+    </Stack>
+  );
+};
+
+export default StageBar;

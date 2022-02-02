@@ -12,6 +12,8 @@ import ThreeRed from "../../assets/buttons/threeRed.png";
 import ThreeWhite from "../../assets/buttons/threeWhite.png";
 import ThreeRedAlt from "../../assets/buttons/threeRedAlt.png";
 import ThreeWhiteAlt from "../../assets/buttons/threeWhiteAlt.png";
+import RedSharp from "../../assets/buttons/red_sharp.png";
+import bigAngleGreen from "../../assets/buttons/bigAngleGreen.png";
 
 export enum FONTS {
   FUTURA = "Futura, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
@@ -24,6 +26,8 @@ declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
     threeButton: true;
     threeButtonAlt: true;
+    redSharp: true;
+    bigAngleGreen: true;
   }
 }
 
@@ -95,6 +99,47 @@ const getOverRides = (theme: Theme) => {
       },
       MuiButton: {
         variants: [
+          {
+            props: { variant: "bigAngleGreen" },
+            style: {
+              paddingTop: theme.spacing(3.2),
+              paddingBottom: theme.spacing(3.2),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
+              minWidth: "380px",
+              fontSize: "1.2rem",
+              fontFamily: FONTS.GLITCH,
+              textTransform: "uppercase",
+              background: `url('${bigAngleGreen}')`,
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              color: theme.palette.primary.main,
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.error.main,
+              },
+            },
+          },
+          {
+            props: { variant: "redSharp" },
+            style: {
+              paddingLeft: theme.spacing(3.5),
+              paddingRight: theme.spacing(3.5),
+              fontSize: "0.9rem",
+              fontFamily: FONTS.GLITCH,
+              textTransform: "uppercase",
+              background: `url('${RedSharp}')`,
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              color: theme.palette.common.white,
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.primary.main,
+              },
+            },
+          },
           {
             props: { variant: "threeButton", color: "primary" },
             style: {
@@ -189,16 +234,9 @@ const getOverRides = (theme: Theme) => {
           "& #root": {
             position: "relative",
             zIndex: 2,
-            width: "1440px",
-            maxWidth: "100%",
-            margin: "0 auto",
             flex: "1",
             display: "flex",
             flexDirection: "column",
-            // background: `url('${BinaryBg}') ,#0B0E10`,
-            // backgroundPosition: "center top",
-            // backgroundSize: "100% auto",
-            // backgroundRepeat: "repeat",
           },
           p: {
             margin: 0,
@@ -226,6 +264,34 @@ const getOverRides = (theme: Theme) => {
           },
           h6: {
             fontFamily: "Furore",
+          },
+          "@keyframes hackTextEffect": {
+            "0%": {
+              color: theme.palette.primary.main,
+            },
+            "50%": {
+              color: theme.palette.error.main,
+            },
+            "100%": {
+              color: theme.palette.primary.main,
+            },
+          },
+          "@keyframes hackEffect": {
+            "0%": {
+              background: theme.palette.primary.main,
+              transform: "scale(0.9) rotate(45deg)",
+              boxShadow: `0px 0px 20px 3px ${theme.palette.error.main}`,
+            },
+            "50%": {
+              background: theme.palette.error.main,
+              transform: "scale(1.1) rotate(45deg)",
+              boxShadow: `0px 0px 20px 3px ${theme.palette.primary.main}`,
+            },
+            "100%": {
+              background: theme.palette.primary.main,
+              transform: "scale(0.9) rotate(45deg)",
+              boxShadow: `0px 0px 20px 3px ${theme.palette.error.main}`,
+            },
           },
         },
       },
