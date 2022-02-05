@@ -44,12 +44,76 @@ const GameGraph: React.VFC<GameGraphPropsType> = ({ children }) => {
     dispatch(clickAction());
   };
 
+  const elems: FlowElement[] = [
+    {
+      id: "1",
+      type: "terminal",
+      data: {
+        activated: true,
+        active: false,
+
+        onClick: onElementClick,
+      },
+      style: {
+        //cursor: active && tries > 0 ? "pointer" : "not-allowed",
+      },
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: "2",
+      type: "terminal",
+      data: {
+        activated: true,
+        active: false,
+
+        onClick: onElementClick,
+      },
+      style: {
+        //cursor: active && tries > 0 ? "pointer" : "not-allowed",
+      },
+      position: { x: 100, y: 100 },
+    },
+    {
+      id: "3",
+      type: "terminal",
+      data: {
+        activated: true,
+        active: false,
+
+        onClick: onElementClick,
+      },
+      style: {
+        //cursor: active && tries > 0 ? "pointer" : "not-allowed",
+      },
+      position: { x: 100, y: 100 },
+    },
+    {
+      id: "4",
+      type: "terminal",
+      data: {
+        activated: true,
+        active: false,
+
+        onClick: onElementClick,
+      },
+      style: {
+        //cursor: active && tries > 0 ? "pointer" : "not-allowed",
+      },
+      position: { x: 100, y: 100 },
+    },
+    { id: "e1", source: "1", target: "2", type: "smoothstep", animated: true },
+    { id: "e2", source: "2", target: "4", type: "smoothstep", animated: true },
+    { id: "e3", source: "1", target: "3", type: "smoothstep", animated: true },
+    { id: "e4", source: "3", target: "4", type: "smoothstep", animated: true },
+  ];
+
   useEffect(() => {
     const itemsWorking: FlowElement[] = [];
     let posX = 200;
     let posY = 200;
 
     let odd = true;
+
     for (let workingIndex = 0; workingIndex < levelsAmount; workingIndex++) {
       if (odd) {
         posX += 230;
@@ -105,6 +169,9 @@ const GameGraph: React.VFC<GameGraphPropsType> = ({ children }) => {
 
   const nodeTypes = {
     terminal: TerminalNode,
+    terminalSmall: function () {
+      return "<p>asl pls</p>";
+    },
   };
   const edgeTypes = {
     terminal: CustomEdge,
@@ -114,10 +181,10 @@ const GameGraph: React.VFC<GameGraphPropsType> = ({ children }) => {
   return (
     <Box sx={{ height: "100vh" }}>
       <ReactFlow
-        elements={elements}
+        elements={elems}
         edgeTypes={edgeTypes}
         nodeTypes={nodeTypes}
-        nodesDraggable={false}
+        nodesDraggable={true}
       >
         <Background
           color="transparent"
