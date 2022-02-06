@@ -1,7 +1,6 @@
 import { Box, Container, IconButton, Link, Stack } from "@mui/material";
 import { useContext } from "react";
 import { StrapiContext } from "../../../../providers/StrapiPublicProvider";
-import { Link as RouterLink } from "react-router-dom";
 
 export type FooterPropsType = {
   children?: any;
@@ -27,12 +26,11 @@ const Footer: React.VFC<FooterPropsType> = ({ children }) => {
       >
         <Box sx={{ fontFamily: "Furore" }}>
           <span className="TP">DARK TERMINAL</span> Ⓒ{" "}
-          <RouterLink
-            to="game"
-            style={{ color: "#fff", textDecoration: "none" }}
+          <Box
+            style={{ display: "inline", color: "#fff", textDecoration: "none" }}
           >
             2022
-          </RouterLink>
+          </Box>
         </Box>
         <Stack spacing={1} direction="row">
           {socials &&

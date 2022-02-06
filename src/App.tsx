@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import FourOhFour from "./components/FourOhFour/404";
 import GlobalModalsWrapper from "./components/GlobalModalsWrapper";
 import NewsIndex from "./components/Newspage/NewsIndex";
-import { startAnimation, stopAnimation } from "./lib/bgAnim";
+import { startAnimation } from "./lib/bgAnim";
 import ArticleEntry from "./Pages/ArticleEntry";
 import GamePage from "./Pages/GamePage";
 import Home from "./Pages/Home";
@@ -14,17 +14,21 @@ import NewsPage from "./Pages/NewsPage";
 import GameDashboard from "./Game/GameDashboard/GameDashboard";
 
 function App() {
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
 
   useEffect(() => {
-    const animationValue = (window as any).animationInterval;
-    const includes = pathname.includes("game");
-    if (includes && animationValue) {
-      stopAnimation();
-    } else if (!includes && !animationValue) {
-      startAnimation();
-    }
-  }, [pathname]);
+    startAnimation();
+  }, []);
+
+  // useEffect(() => {
+  //   const animationValue = (window as any).animationInterval;
+  //   const includes = pathname.includes("game");
+  //   if (includes && animationValue) {
+  //     stopAnimation();
+  //   } else if (!includes && !animationValue) {
+  //     startAnimation();
+  //   }
+  // }, [pathname]);
 
   return (
     <>

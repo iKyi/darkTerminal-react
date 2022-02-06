@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import GameAuthProvider from "../providers/GameAuthProvider";
 
 export type GamePagePropsType = {};
 
@@ -6,7 +7,9 @@ const GamePage: React.VFC<GamePagePropsType> = () => {
   // *************** RENDER *************** //
   return (
     <>
-      <Outlet />
+      <GameAuthProvider>
+        <Outlet />
+      </GameAuthProvider>
     </>
   );
 };

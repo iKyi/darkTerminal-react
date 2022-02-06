@@ -1,177 +1,18 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
-import ReactFlow, { Background, FlowElement } from "react-flow-renderer";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { clickAction } from "../../../../features/game/gameActions";
-import gameBackground from "../../gameBackground.png";
+import ReactFlow, { Background } from "react-flow-renderer";
+import ConnectorNode from "./components/ConnectorNode";
 import CustomEdge from "./components/CustomEdge";
 import TerminalNode from "./components/TerminalNode";
+import useGetNodes from "./utils/useGetNodes";
 
-export type GameGraphPropsType = {
-  children?: any;
-};
+export type GameGraphPropsType = {};
 
-// const elements = [
-//   { id: "1", data: { label: "-" }, position: { x: 100, y: 100 } },
-//   { id: "2", data: { label: "Node 2" }, position: { x: 100, y: 200 } },
-//   {
-//     id: "e1-2",
-//     source: "1",
-//     target: "2",
-//     type: "smoothstep",
-//     animated: true,
-//     style: {
-//       stroke: "#36F097",
-//       strokeWidth: "3px",
-//       boxShadow: "3px 3px 3px 3px rgba(100,100,100,1)",
-//     },
-//   },
-// ];
-
-const GameGraph: React.VFC<GameGraphPropsType> = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const gameData = useAppSelector((state) => state.game.game);
-  const actorData = useAppSelector((state) => state.game.actor);
-  const levelsAmount = useAppSelector((state) => state.game.game.stageAmount);
-
-  const { sequence } = gameData;
-  const { tries } = actorData;
-
-  const [elements, setElements] = useState<FlowElement[]>([]);
-
-  const onElementClick = (element: FlowElement) => {
-    console.log("click", element);
-    dispatch(clickAction());
-  };
-
-  const elems: FlowElement[] = [
-    {
-      id: "1",
-      type: "terminal",
-      data: {
-        activated: true,
-        active: false,
-
-        onClick: onElementClick,
-      },
-      style: {
-        //cursor: active && tries > 0 ? "pointer" : "not-allowed",
-      },
-      position: { x: 0, y: 0 },
-    },
-    {
-      id: "2",
-      type: "terminal",
-      data: {
-        activated: true,
-        active: false,
-
-        onClick: onElementClick,
-      },
-      style: {
-        //cursor: active && tries > 0 ? "pointer" : "not-allowed",
-      },
-      position: { x: 100, y: 100 },
-    },
-    {
-      id: "3",
-      type: "terminal",
-      data: {
-        activated: true,
-        active: false,
-
-        onClick: onElementClick,
-      },
-      style: {
-        //cursor: active && tries > 0 ? "pointer" : "not-allowed",
-      },
-      position: { x: 100, y: 100 },
-    },
-    {
-      id: "4",
-      type: "terminal",
-      data: {
-        activated: true,
-        active: false,
-
-        onClick: onElementClick,
-      },
-      style: {
-        //cursor: active && tries > 0 ? "pointer" : "not-allowed",
-      },
-      position: { x: 100, y: 100 },
-    },
-    { id: "e1", source: "1", target: "2", type: "smoothstep", animated: true },
-    { id: "e2", source: "2", target: "4", type: "smoothstep", animated: true },
-    { id: "e3", source: "1", target: "3", type: "smoothstep", animated: true },
-    { id: "e4", source: "3", target: "4", type: "smoothstep", animated: true },
-  ];
-
-  useEffect(() => {
-    const itemsWorking: FlowElement[] = [];
-    let posX = 200;
-    let posY = 200;
-
-    let odd = true;
-
-    for (let workingIndex = 0; workingIndex < levelsAmount; workingIndex++) {
-      if (odd) {
-        posX += 230;
-        odd = false;
-      } else {
-        posY += 230;
-        odd = true;
-      }
-
-      const active =
-        workingIndex === sequence - 1 && workingIndex !== levelsAmount
-          ? true
-          : false;
-      const activated = workingIndex <= sequence - 1;
-      const item: FlowElement = {
-        id: workingIndex.toString(),
-        type: "terminal",
-        data: {
-          activated,
-          active,
-
-          onClick: onElementClick,
-        },
-        style: {
-          cursor: active && tries > 0 ? "pointer" : "not-allowed",
-        },
-        position: {
-          x: posX,
-          y: posY,
-        },
-      };
-
-      itemsWorking.push(item);
-      if (workingIndex !== levelsAmount - 1) {
-        const lineItem: FlowElement = {
-          id: workingIndex.toString() + "line",
-          source: `${workingIndex}`,
-          target: `${workingIndex + 1}`,
-          type: "smoothstep",
-          animated: true,
-          style: {
-            stroke: !active && activated ? "#36F097" : "gray",
-            strokeWidth: "3px",
-            boxShadow: "3px 3px 3px 3px rgba(100,100,100,1)",
-          },
-        };
-        itemsWorking.push(lineItem);
-      }
-    }
-    setElements(itemsWorking);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tries, sequence]);
+const GameGraph: React.VFC<GameGraphPropsType> = () => {
+  const elements = useGetNodes();
 
   const nodeTypes = {
     terminal: TerminalNode,
-    terminalSmall: function () {
-      return "<p>asl pls</p>";
-    },
+    connector: ConnectorNode,
   };
   const edgeTypes = {
     terminal: CustomEdge,
@@ -181,18 +22,14 @@ const GameGraph: React.VFC<GameGraphPropsType> = ({ children }) => {
   return (
     <Box sx={{ height: "100vh" }}>
       <ReactFlow
-        elements={elems}
+        elements={elements}
         edgeTypes={edgeTypes}
         nodeTypes={nodeTypes}
-        nodesDraggable={true}
+        nodesDraggable={false}
+        defaultZoom={0.5}
+        minZoom={0.2}
       >
-        <Background
-          color="transparent"
-          style={{
-            background: `url('${gameBackground}'), #0b0e10`,
-            backgroundBlendMode: "color",
-          }}
-        />
+        <Background color="transparent" />
       </ReactFlow>
     </Box>
   );

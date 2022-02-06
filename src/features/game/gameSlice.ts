@@ -13,10 +13,13 @@ interface IActorData {
   tries: number;
   sol: number;
   dtac: number;
+  code: string | null;
 }
 
 interface IPlayData {
+  codeAuthModalVisible: boolean;
   sequence: number;
+  activeNodes: string[];
   graphData: Record<any, any> | null;
   hacking: boolean;
   stageAmount: number;
@@ -37,6 +40,7 @@ const initialState: GlobalState = {
     dtac: 1000,
     sol: 10,
     tries: 3,
+    code: null,
   },
   status: {
     playersCount: {
@@ -46,9 +50,11 @@ const initialState: GlobalState = {
     },
   },
   game: {
+    codeAuthModalVisible: false,
     graphData: null,
     hacking: false,
-    sequence: 3,
+    activeNodes: [],
+    sequence: 1,
     stageAmount: 8,
     outcomeModal: {
       active: false,
@@ -62,6 +68,12 @@ export const gameSlice = createSlice({
   initialState,
 
   reducers: {
+    setCode: (state, action: PayloadAction<string | null>) => {
+      state.actor.code = action.payload;
+    },
+    setCodeAuthModal: (state, action: PayloadAction<boolean>) => {
+      state.game.codeAuthModalVisible = action.payload;
+    },
     setHacking: (state, action: PayloadAction<boolean>) => {
       state.game.hacking = action.payload;
     },
@@ -80,6 +92,14 @@ export const gameSlice = createSlice({
     ) => {
       state.game.outcomeModal = action.payload;
     },
+    setActiveNodes: (state, action: PayloadAction<string | null>) => {
+      const { payload } = action;
+      if (payload && payload.length > 0) {
+        state.game.activeNodes = [...state.game.activeNodes, payload];
+      } else {
+        state.game.activeNodes = [];
+      }
+    },
   },
 });
 
@@ -89,6 +109,9 @@ export const {
   setSequence,
   setHacking,
   setOutcomeModal,
+  setActiveNodes,
+  setCode,
+  setCodeAuthModal,
 } = gameSlice.actions;
 
 export const selectHacking = (state: RootState) => state.game.game.sequence;

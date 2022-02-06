@@ -2,7 +2,9 @@ import { Box } from "@mui/system";
 import { memo } from "react";
 import { Handle, Position } from "react-flow-renderer";
 import { useAppSelector } from "../../../../../app/hooks";
-import terminalIcon from "./TerminalPic.png";
+import greenLock from "./greenLock.png";
+import iconBlack from "./iconBlack.png";
+import iconWhite from "./iconWhite.png";
 
 export type TerminalNodePropsType = {
   data: {
@@ -10,6 +12,7 @@ export type TerminalNodePropsType = {
     active: boolean;
     onClick: (arg: any) => void;
     activated: boolean;
+    inThePast: boolean;
   };
   isConnectable: boolean;
 };
@@ -18,7 +21,7 @@ const TerminalNode: React.VFC<TerminalNodePropsType> = ({ data }) => {
   const tries = useAppSelector((state) => state.game.actor.tries);
   const hackingInProgress = useAppSelector((state) => state.game.game.hacking);
 
-  const { active, onClick, activated } = data;
+  const { active, onClick, activated, inThePast } = data;
 
   const clickHandler = (event: any) => {
     if (active && tries > 0) {
@@ -45,7 +48,7 @@ const TerminalNode: React.VFC<TerminalNodePropsType> = ({ data }) => {
         onClick={clickHandler}
         className={active && hackingInProgress ? "hacking" : ""}
         sx={{
-          backgroundColor: "#000",
+          backgroundColor: activated ? "primary.main" : "#000",
           position: "relative",
           zIndex: 3,
           width: "64px",
@@ -55,23 +58,22 @@ const TerminalNode: React.VFC<TerminalNodePropsType> = ({ data }) => {
           justifyContent: "center",
           borderWidth: "2px",
           borderStyle: "solid",
-          borderColor:
-            activated && !active
-              ? "primary.light"
-              : active && !noTries
-              ? "yellow"
-              : noTries && active
-              ? "error.main"
-              : "primary.main",
+          borderColor: activated
+            ? "#000"
+            : active || inThePast
+            ? "primary.main"
+            : "#fff",
           transform: "rotate(45deg)",
           transition: ".3s",
-          filter: activated ? "none" : "grayscale(70)",
-          boxShadow: "none",
+          filter: activated || active || inThePast ? "none" : "grayscale(70)",
+          boxShadow: (theme) =>
+            activated || inThePast
+              ? "none"
+              : `0px 0px 20px 1px ${theme.palette.primary.main}`,
           pointerEvents: active ? "all" : "none",
+          cursor: noTries ? "not-allowed" : active ? "pointer" : "initial",
           "&:hover": {
             transform: "scale(1.2) rotate(45deg)",
-            boxShadow: (theme) =>
-              `0px 0px 20px 3px ${theme.palette.primary.main}`,
           },
           "&.hacking": {
             animation: `hackEffect 1s infinite ease`,
@@ -79,7 +81,13 @@ const TerminalNode: React.VFC<TerminalNodePropsType> = ({ data }) => {
         }}
       >
         <img
-          src={terminalIcon}
+          src={
+            (!activated && inThePast) || active
+              ? greenLock
+              : activated
+              ? iconBlack
+              : iconWhite
+          }
           alt="Terminal entry icon"
           style={{ transform: "rotate(-45deg)" }}
         />

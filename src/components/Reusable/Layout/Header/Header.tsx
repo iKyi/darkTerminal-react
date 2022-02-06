@@ -6,8 +6,7 @@ import { CropFree } from "@mui/icons-material";
 import RedButtonBg from "../../../../assets/buttons/red_angle.png";
 import { ReactComponent as DiscordBar } from "../../../../assets/sections/homepage/discordButton.svg";
 import HeaderMobileButton from "./HeaderMobileButton";
-import { useAppDispatch } from "../../../../app/hooks";
-import { setComingSoon } from "../../../../features/global/globalSlice";
+import { Link as RouterLink } from "react-router-dom";
 import { useContext } from "react";
 import { StrapiContext } from "../../../../providers/StrapiPublicProvider";
 import { getStrapiMedia } from "../../../../lib/theme/media";
@@ -18,14 +17,13 @@ interface INavLink {
 }
 
 export const TerminalButton: React.FC = (props) => {
-  const dispatch = useAppDispatch();
   return (
     <Button
       variant="outlined"
       color="error"
-      // component={RouterLink}
-      // to="news"
-      onClick={() => dispatch(setComingSoon(true))}
+      component={RouterLink}
+      to="game"
+      // onClick={() => dispatch(setComingSoon(true))}
       sx={{
         border: "none",
         background: `url('${RedButtonBg}')`,
