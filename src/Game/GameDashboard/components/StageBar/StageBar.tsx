@@ -26,8 +26,8 @@ const StageBar: React.VFC<StageBarPropsType> = ({ children }) => {
               index === activeSequence
                 ? `url('${whiteBg}')`
                 : `url('${greenBg}')`,
-            width: "70px",
-            height: "55px",
+            width: "60px",
+            height: "47px",
             backgroundSize: "100% 100%",
             backgroundPosition: "center center",
             display: "flex",

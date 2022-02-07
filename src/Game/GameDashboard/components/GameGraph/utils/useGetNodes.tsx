@@ -1,11 +1,16 @@
+import { useTheme } from "@emotion/react";
 import { useMemo } from "react";
 import { FlowElement } from "react-flow-renderer";
 import { useAppDispatch, useAppSelector } from "../../../../../app/hooks";
 import { clickAction } from "../../../../../features/game/gameActions";
 
 const useGetNodes = () => {
+  const theme = useTheme();
   const gameData = useAppSelector((state) => state.game.game);
   const { activeNodes, sequence } = gameData;
+  const playerData = useAppSelector((state) => state.game.actor);
+  const { tries } = playerData;
+  const noTries = tries === 0;
 
   const dispatch = useAppDispatch();
   const onElementClick = (element: FlowElement) => {
@@ -30,10 +35,14 @@ const useGetNodes = () => {
       animated: active ? true : false,
       style: {
         position: "relative" as "relative",
-        stroke: active || activated ? "#36F097" : "gray",
+        stroke:
+          active && noTries
+            ? (theme as any).palette.error.main
+            : active || activated
+            ? "#36F097"
+            : "gray",
         strokeWidth: active || activated ? "3px" : "1px",
         zIndex: active || activated ? "2" : "1",
-        boxShadow: "3px 3px 3px 3px rgba(100,100,100,1)",
       },
     };
   };
@@ -82,9 +91,9 @@ const useGetNodes = () => {
   const nodes: FlowElement[] = useMemo(() => {
     return [
       getConnectorNode("c-1", 0, 500, 1000),
-      getNode("1-a", 800, 800, 0.33),
-      getNode("1-b", 800, 1000, 0.33),
-      getNode("1-c", 800, 1200, 0.33),
+      getNode("1-a", 800, 800, 0.66),
+      getNode("1-b", 800, 1000, 0.66),
+      getNode("1-c", 800, 1200, 0.66),
       getLine(1, "c-1", "1-a"),
       getLine(1, "c-1", "1-b"),
       getLine(1, "c-1", "1-c"),
@@ -112,11 +121,11 @@ const useGetNodes = () => {
       getLine(3, "3-b", "c-4", true),
       getLine(3, "3-c", "c-4", true),
       getConnectorNode("c-4", 3, 2300, 1000),
-      getNode("4-a", 2600, 600, 0.33),
-      getNode("4-b", 2600, 800, 0.33),
-      getNode("4-c", 2600, 1000, 0.33),
-      getNode("4-d", 2600, 1200, 0.33),
-      getNode("4-e", 2600, 1400, 0.33),
+      getNode("4-a", 2600, 600, 0.2),
+      getNode("4-b", 2600, 800, 0.2),
+      getNode("4-c", 2600, 1000, 0.2),
+      getNode("4-d", 2600, 1200, 0.2),
+      getNode("4-e", 2600, 1400, 0.2),
       getLine(4, "c-4", "4-a"),
       getLine(4, "c-4", "4-b"),
       getLine(4, "c-4", "4-c"),
@@ -128,11 +137,11 @@ const useGetNodes = () => {
       getLine(4, "4-d", "c-5", true),
       getLine(4, "4-e", "c-5", true),
       getConnectorNode("c-5", 4, 2900, 1000),
-      getNode("5-a", 3200, 600, 0.33),
-      getNode("5-b", 3200, 800, 0.33),
-      getNode("5-c", 3200, 1000, 0.33),
-      getNode("5-d", 3200, 1200, 0.33),
-      getNode("5-e", 3200, 1400, 0.33),
+      getNode("5-a", 3200, 600, 0.2),
+      getNode("5-b", 3200, 800, 0.2),
+      getNode("5-c", 3200, 1000, 0.2),
+      getNode("5-d", 3200, 1200, 0.2),
+      getNode("5-e", 3200, 1400, 0.2),
       getLine(5, "c-5", "5-a"),
       getLine(5, "c-5", "5-b"),
       getLine(5, "c-5", "5-c"),
@@ -144,13 +153,13 @@ const useGetNodes = () => {
       getLine(5, "5-d", "c-6", true),
       getLine(5, "5-e", "c-6", true),
       getConnectorNode("c-6", 5, 3500, 1000),
-      getNode("6-a", 3800, 400, 0.33),
-      getNode("6-b", 3800, 600, 0.33),
-      getNode("6-c", 3800, 800, 0.33),
-      getNode("6-d", 3800, 1000, 0.33),
-      getNode("6-e", 3800, 1200, 0.33),
-      getNode("6-f", 3800, 1400, 0.33),
-      getNode("6-g", 3800, 1600, 0.33),
+      getNode("6-a", 3800, 400, 0.1428),
+      getNode("6-b", 3800, 600, 0.1428),
+      getNode("6-c", 3800, 800, 0.1428),
+      getNode("6-d", 3800, 1000, 0.1428),
+      getNode("6-e", 3800, 1200, 0.1428),
+      getNode("6-f", 3800, 1400, 0.1428),
+      getNode("6-g", 3800, 1600, 0.1428),
       getLine(6, "c-6", "6-a"),
       getLine(6, "c-6", "6-b"),
       getLine(6, "c-6", "6-c"),
@@ -168,7 +177,7 @@ const useGetNodes = () => {
       getConnectorNode("c-7", 6, 4100, 1000),
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeNodes, sequence]);
+  }, [activeNodes, sequence, noTries]);
 
   return nodes;
 };

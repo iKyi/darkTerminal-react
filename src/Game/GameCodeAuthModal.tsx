@@ -3,8 +3,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import TerminalModalWrapper from "../components/Reusable/TerminalModalWrapper";
-import { FONTS } from "../lib/theme";
 import { setCode, setCodeAuthModal } from "../features/game/gameSlice";
+import { LOCALCODEKEY } from "../constants/localCodeKey";
 
 export type GameCodeAuthModalPropsType = {};
 
@@ -85,6 +85,7 @@ const GameCodeAuthModal: React.VFC<GameCodeAuthModalPropsType> = () => {
 
   const submitAction = () => {
     const finalValue = `${values["one"]}${values["two"]}${values["three"]}${values["four"]}`;
+    localStorage.setItem(LOCALCODEKEY.VALUE, finalValue);
     dispatch(setCode(finalValue));
     dispatch(setCodeAuthModal(false));
   };
@@ -95,18 +96,6 @@ const GameCodeAuthModal: React.VFC<GameCodeAuthModalPropsType> = () => {
       open={open}
       baseWidth={700}
       bigTitle={`LOGIN INTO THE DARK TERMINAL`}
-      bigTitleSubElem={
-        <Box
-          sx={{
-            color: "error.main",
-            fontSize: "0.8rem",
-            fontWeight: "bold",
-            fontFamily: FONTS.FURORE,
-          }}
-        >
-          @ROOT
-        </Box>
-      }
     >
       <Box
         sx={{

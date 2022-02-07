@@ -3,6 +3,7 @@ import { memo } from "react";
 import { Handle, Position } from "react-flow-renderer";
 import { useAppSelector } from "../../../../../app/hooks";
 import greenLock from "./greenLock.png";
+import redLock from "./redLock.png";
 import iconBlack from "./iconBlack.png";
 import iconWhite from "./iconWhite.png";
 
@@ -24,7 +25,7 @@ const TerminalNode: React.VFC<TerminalNodePropsType> = ({ data }) => {
   const { active, onClick, activated, inThePast } = data;
 
   const clickHandler = (event: any) => {
-    if (active && tries > 0) {
+    if (active && tries > 0 && !hackingInProgress) {
       onClick(data);
     }
   };
@@ -58,19 +59,26 @@ const TerminalNode: React.VFC<TerminalNodePropsType> = ({ data }) => {
           justifyContent: "center",
           borderWidth: "2px",
           borderStyle: "solid",
-          borderColor: activated
-            ? "#000"
-            : active || inThePast
-            ? "primary.main"
-            : "#fff",
+          borderColor:
+            noTries && active
+              ? "error.main"
+              : activated
+              ? "#000"
+              : active || inThePast
+              ? "primary.main"
+              : "#fff",
           transform: "rotate(45deg)",
           transition: ".3s",
           filter: activated || active || inThePast ? "none" : "grayscale(70)",
           boxShadow: (theme) =>
             activated || inThePast
               ? "none"
-              : `0px 0px 20px 1px ${theme.palette.primary.main}`,
-          pointerEvents: active ? "all" : "none",
+              : `0px 0px 20px 1px ${
+                  noTries && active
+                    ? theme.palette.error.main
+                    : theme.palette.primary.main
+                }`,
+          pointerEvents: active && !hackingInProgress ? "all" : "none",
           cursor: noTries ? "not-allowed" : active ? "pointer" : "initial",
           "&:hover": {
             transform: "scale(1.2) rotate(45deg)",
@@ -82,7 +90,9 @@ const TerminalNode: React.VFC<TerminalNodePropsType> = ({ data }) => {
       >
         <img
           src={
-            (!activated && inThePast) || active
+            noTries && active
+              ? redLock
+              : (!activated && inThePast) || active
               ? greenLock
               : activated
               ? iconBlack

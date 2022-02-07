@@ -14,6 +14,8 @@ import ThreeRedAlt from "../../assets/buttons/threeRedAlt.png";
 import ThreeWhiteAlt from "../../assets/buttons/threeWhiteAlt.png";
 import RedSharp from "../../assets/buttons/red_sharp.png";
 import bigAngleGreen from "../../assets/buttons/bigAngleGreen.png";
+import complexRed from "../../assets/buttons/complexButtonRed.png";
+import complexGreen from "../../assets/buttons/complexButtonGreen.png";
 
 export enum FONTS {
   FUTURA = "Futura, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
@@ -28,6 +30,7 @@ declare module "@mui/material/Button" {
     threeButtonAlt: true;
     redSharp: true;
     bigAngleGreen: true;
+    complex: true;
   }
 }
 
@@ -99,6 +102,48 @@ const getOverRides = (theme: Theme) => {
       },
       MuiButton: {
         variants: [
+          {
+            props: { variant: "complex", color: "primary" },
+            style: {
+              paddingTop: theme.spacing(1.36),
+              paddingBottom: theme.spacing(1.36),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
+              fontSize: "1rem",
+              fontFamily: FONTS.FURORE,
+              textTransform: "uppercase",
+              background: `url('${complexGreen}')`,
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              color: theme.palette.primary.main,
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.common.white,
+              },
+            },
+          },
+          {
+            props: { variant: "complex", color: "secondary" },
+            style: {
+              paddingTop: theme.spacing(1.36),
+              paddingBottom: theme.spacing(1.36),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
+              fontSize: "1rem",
+              fontFamily: FONTS.FURORE,
+              textTransform: "uppercase",
+              background: `url('${complexRed}')`,
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              color: theme.palette.error.main,
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.common.white,
+              },
+            },
+          },
           {
             props: { variant: "bigAngleGreen" },
             style: {
@@ -215,6 +260,14 @@ const getOverRides = (theme: Theme) => {
           root: {
             fontFamily: "Furore",
             textShadow: "1px 1px 0px rgba(0,0,0,0.75)",
+          },
+        },
+      },
+      MuiBackdrop: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            backdropFilter: "blur(1px)",
           },
         },
       },

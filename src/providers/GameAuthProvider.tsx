@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { setCodeAuthModal } from "../features/game/gameSlice";
+import { LOCALCODEKEY } from "../constants/localCodeKey";
+import { setCode, setCodeAuthModal } from "../features/game/gameSlice";
 
 export type GameAuthProviderPropsType = {
   children?: any;
@@ -13,7 +14,10 @@ const GameAuthProvider: React.VFC<GameAuthProviderPropsType> = ({
   const { code } = useAppSelector((state) => state.game.actor);
 
   useEffect(() => {
-    if (!code) {
+    const localCode = localStorage.getItem(LOCALCODEKEY.VALUE);
+    if (!code && localCode) {
+      dispatch(setCode(localCode));
+    } else if (!code) {
       dispatch(setCodeAuthModal(true));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

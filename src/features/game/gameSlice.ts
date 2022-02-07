@@ -1,6 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
+export interface ILogEntry {
+  success: boolean;
+  sequence: number;
+  items: number;
+  chance: number;
+  exploit?: boolean;
+}
+
 interface IStatus {
   playersCount: {
     main: number;
@@ -14,6 +22,8 @@ interface IActorData {
   sol: number;
   dtac: number;
   code: string | null;
+  exploitActive: boolean;
+  exploits: number;
 }
 
 interface IPlayData {
@@ -27,8 +37,9 @@ interface IPlayData {
     active: boolean;
     success: boolean;
   };
+  log: ILogEntry[];
+  exploitModalVisible: boolean;
 }
-
 export interface GlobalState {
   status: IStatus;
   actor: IActorData;
@@ -41,6 +52,8 @@ const initialState: GlobalState = {
     sol: 10,
     tries: 3,
     code: null,
+    exploits: 2,
+    exploitActive: false,
   },
   status: {
     playersCount: {
@@ -55,11 +68,13 @@ const initialState: GlobalState = {
     hacking: false,
     activeNodes: [],
     sequence: 1,
-    stageAmount: 8,
+    stageAmount: 9,
     outcomeModal: {
       active: false,
       success: true,
     },
+    log: [],
+    exploitModalVisible: false,
   },
 };
 
@@ -71,11 +86,20 @@ export const gameSlice = createSlice({
     setCode: (state, action: PayloadAction<string | null>) => {
       state.actor.code = action.payload;
     },
+    setExploitModal: (state, action: PayloadAction<boolean>) => {
+      state.game.exploitModalVisible = action.payload;
+    },
     setCodeAuthModal: (state, action: PayloadAction<boolean>) => {
       state.game.codeAuthModalVisible = action.payload;
     },
     setHacking: (state, action: PayloadAction<boolean>) => {
       state.game.hacking = action.payload;
+    },
+    setExploitActive: (state, action: PayloadAction<boolean>) => {
+      state.actor.exploitActive = action.payload;
+    },
+    setExploits: (state, action: PayloadAction<number>) => {
+      state.actor.exploits = action.payload;
     },
     setTries: (state, action: PayloadAction<number>) => {
       state.actor.tries = action.payload;
@@ -100,6 +124,14 @@ export const gameSlice = createSlice({
         state.game.activeNodes = [];
       }
     },
+    setLogs: (state, action: PayloadAction<ILogEntry | null>) => {
+      const { payload } = action;
+      if (payload && Object.keys(payload).length > 0) {
+        state.game.log = [...state.game.log, payload];
+      } else {
+        state.game.log = [];
+      }
+    },
   },
 });
 
@@ -112,6 +144,10 @@ export const {
   setActiveNodes,
   setCode,
   setCodeAuthModal,
+  setLogs,
+  setExploitActive,
+  setExploits,
+  setExploitModal,
 } = gameSlice.actions;
 
 export const selectHacking = (state: RootState) => state.game.game.sequence;

@@ -7,6 +7,9 @@ import StageBar from "./components/StageBar/StageBar";
 import TopGameStatusBar from "./components/TopGameStatusBar/TopGameStatusBar";
 import bigAngleBg from "../../assets/buttons/bigAngleGreen.png";
 import GlitchFont from "../../components/Reusable/GlitchFont";
+import LogBox from "./components/LogBox/LogBox";
+import LateStagesWrap from "./components/LateStagesWrap/LateStagesWrap";
+import ExploitModal from "./components/ExploitModal";
 
 export type GameDashboardPropsType = {
   children?: any;
@@ -39,7 +42,11 @@ const GameDashboard: React.VFC<GameDashboardPropsType> = ({ children }) => {
     <Box sx={{ position: "relative" }}>
       <GameGraph />
 
-      <AbsoluteWrapperBox sx={{ bottom: 0, left: 0, p: 2 }}>
+      <AbsoluteWrapperBox sx={{ top: 0, left: 0, pt: 2, pl: 2 }}>
+        <LogBox />
+      </AbsoluteWrapperBox>
+
+      <AbsoluteWrapperBox sx={{ bottom: 0, left: 0, pl: 2, pb: 2 }}>
         <PlayerStatsBox sx={{ mt: "auto" }} />
       </AbsoluteWrapperBox>
 
@@ -71,13 +78,16 @@ const GameDashboard: React.VFC<GameDashboardPropsType> = ({ children }) => {
 
       <AbsoluteWrapperBox
         sx={{
-          p: 2,
+          pr: 2,
+          pb: 2,
           right: 0,
           bottom: 0,
         }}
       >
         <StageBar />
       </AbsoluteWrapperBox>
+      <LateStagesWrap />
+      <ExploitModal />
     </Box>
   );
 };
