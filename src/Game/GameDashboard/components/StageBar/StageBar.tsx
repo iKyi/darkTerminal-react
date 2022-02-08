@@ -1,6 +1,7 @@
 import { Stack, Box } from "@mui/material";
 import { useAppSelector } from "../../../../app/hooks";
 import greenBg from "./greenStageBg.png";
+import redBg from "./redStageBg.png";
 import whiteBg from "./whiteStageBg.png";
 import altLogo from "../../../../assets/images/altLogo.png";
 import { FONTS } from "../../../../lib/theme";
@@ -25,6 +26,10 @@ const StageBar: React.VFC<StageBarPropsType> = ({ children }) => {
             background:
               index === activeSequence
                 ? `url('${whiteBg}')`
+                : index < activeSequence
+                ? `url('${greenBg}')`
+                : index === 8
+                ? `url('${redBg}')`
                 : `url('${greenBg}')`,
             width: "60px",
             height: "47px",
@@ -33,10 +38,10 @@ const StageBar: React.VFC<StageBarPropsType> = ({ children }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            opacity: index < activeSequence && index !== 0 ? 0.5 : 1,
+            color: index === 8 ? "error.main" : "common.white",
           }}
         >
-          {index === 0 ? (
+          {index === 0 || index < activeSequence ? (
             <Box
               sx={{
                 width: "100%",

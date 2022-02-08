@@ -12,22 +12,22 @@ import { FONTS } from "../../../../../lib/theme";
 import optionBg from "../optionButtonBg.png";
 import optionBgActive from "../optionButtonBgActive.png";
 
-export type StageSevenPropsType = {};
+export type StageEightPropsType = {};
 
-const stageSevenOptions = [
-  "1234",
-  "2345",
-  "4234",
-  "5123",
-  "4262",
-  "2152",
-  "9572",
+const StageEightOptions = [
+  "8593",
+  "2030",
+  "4293",
+  "1203",
+  "9382",
+  "0932",
+  "1242",
   "8620",
   "6940",
-  "8903",
+  "3890",
 ];
 
-const StageSeven: React.VFC<StageSevenPropsType> = () => {
+const StageEight: React.VFC<StageEightPropsType> = () => {
   const dispatch = useAppDispatch();
 
   const userData = useAppSelector((state) => state.game.actor);
@@ -45,13 +45,14 @@ const StageSeven: React.VFC<StageSevenPropsType> = () => {
     <TerminalModalWrapper
       open
       baseWidth={746}
+      redTitle
       bigTitle={
         <Box
           sx={{
             animation: !hacking ? "none" : `hackTextEffect 1s infinite ease`,
           }}
         >
-          SECONDARY SYSTEM{" "}
+          MAIN SYSTEM{" "}
           <Box
             sx={{
               display: "inline",
@@ -74,7 +75,7 @@ const StageSeven: React.VFC<StageSevenPropsType> = () => {
       >
         <Box sx={{ pb: 2, fontSize: "0.85rem" }}>
           <Box sx={{ color: "primary.darker" }}>
-            THE SECONDARY SYSTEM IS PROTECTED WITH A 4 NUMBER PIN CODE
+            THE MAIN SYSTEM IS PROTECTED WITH A 4 NUMBER PIN CODE
           </Box>
           <Box sx={{ color: "primary.darker" }}>{">_"}</Box>
         </Box>
@@ -85,7 +86,7 @@ const StageSeven: React.VFC<StageSevenPropsType> = () => {
             justifyContent: "space-around",
           }}
         >
-          {stageSevenOptions.map((item) => {
+          {StageEightOptions.map((item) => {
             return (
               <Box sx={{ p: 1 }} key={item}>
                 <Button
@@ -132,9 +133,7 @@ const StageSeven: React.VFC<StageSevenPropsType> = () => {
             <Box sx={{ color: "primary.darker" }}>
               ONLY ONE PIN WILL GRANT YOU ACCESS
             </Box>
-            <Box sx={{ color: "primary.darker" }}>
-              INTO THE SECONDARY SYSTEM
-            </Box>
+            <Box sx={{ color: "primary.darker" }}>INTO THE MAIN SYSTEM</Box>
           </Box>
           <Stack direction="row" spacing={2} sx={{ flex: 1, ml: 1 }}>
             <Button
@@ -162,4 +161,4 @@ const StageSeven: React.VFC<StageSevenPropsType> = () => {
   );
 };
 
-export default StageSeven;
+export default StageEight;

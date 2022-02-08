@@ -22,6 +22,7 @@ export type TerminalModalWrapperPropsType = {
   bigTitleSubElem?: string | ReactNode;
   baseWidth?: number;
   red?: boolean;
+  redTitle?: boolean;
 };
 
 const ActionWrapper: React.FC<{
@@ -45,6 +46,7 @@ const TerminalModalWrapper: React.VFC<TerminalModalWrapperPropsType> = ({
   bigTitleSubElem,
   baseWidth,
   red,
+  redTitle,
 }) => {
   // *************** RENDER *************** //
   return (
@@ -65,6 +67,10 @@ const TerminalModalWrapper: React.VFC<TerminalModalWrapperPropsType> = ({
           background: "none",
           display: "flex",
           flexDirection: "column",
+          "&:focus-visible": {
+            outline: 0,
+            boxShadow: "none",
+          },
         }}
       >
         <ActionWrapper onClick={onMainClick}>
@@ -104,9 +110,8 @@ const TerminalModalWrapper: React.VFC<TerminalModalWrapperPropsType> = ({
               sx={{
                 px: 4,
                 py: 2,
-                backgroundColor: red
-                  ? `rgba(120,0,0,0.20)`
-                  : `rgba(0,120,0,0.10)`,
+                backgroundColor:
+                  red || redTitle ? `rgba(120,0,0,0.20)` : `rgba(0,120,0,0.10)`,
               }}
             >
               {bigTitle && (
@@ -115,10 +120,10 @@ const TerminalModalWrapper: React.VFC<TerminalModalWrapperPropsType> = ({
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    color: !red ? "primary.main" : "error.main",
+                    color: red || redTitle ? "error.main" : "primary.main",
                     borderBottom: (theme) =>
                       `3px solid ${
-                        red
+                        red || redTitle
                           ? theme.palette.error.main
                           : theme.palette.primary.main
                       }`,
@@ -133,7 +138,8 @@ const TerminalModalWrapper: React.VFC<TerminalModalWrapperPropsType> = ({
                     ) : (
                       <Box
                         sx={{
-                          color: "error.main",
+                          color:
+                            red || redTitle ? "primary.main" : "error.main",
                           fontSize: "0.8rem",
                           fontWeight: "bold",
                           fontFamily: FONTS.FURORE,

@@ -92,7 +92,7 @@ const LogBox: React.VFC<LogBoxPropsType> = () => {
                   mt: 1.5,
                 }}
               >
-                <Box sx={{ color: "primary.darker", pb: 0.85 }}>
+                <Box sx={{ color: "primary.darker", pb: 0.9 }}>
                   ---------------
                 </Box>
                 <Box sx={{ pb: 0.85 }}>
