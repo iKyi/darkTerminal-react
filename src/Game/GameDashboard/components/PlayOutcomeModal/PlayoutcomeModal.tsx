@@ -59,7 +59,7 @@ const PlayoutcomeModal: React.FC = () => {
         </Stack>
         <Box sx={{ minHeight: "10vh", pt: 3, textAlign: "center" }}>
           {!success && (
-            <Button size="large" variant="redSharp">
+            <Button size="large" variant="redSharp" component="span">
               RETRY
             </Button>
           )}

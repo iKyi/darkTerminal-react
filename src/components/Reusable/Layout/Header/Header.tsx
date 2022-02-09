@@ -41,14 +41,14 @@ export const TerminalButton: React.FC = (props) => {
 };
 
 export const SiteNavLinks: INavLink[] = [
-  {
-    title: "How to buy",
-    slug: "/how-to-buy",
-  },
-  {
-    title: "News",
-    slug: "/news",
-  },
+  // {
+  //   title: "How to buy",
+  //   slug: "/how-to-buy",
+  // },
+  // {
+  //   title: "News",
+  //   slug: "/news",
+  // },
 ];
 
 export type HeaderPropsType = {

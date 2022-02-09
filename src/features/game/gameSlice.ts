@@ -50,16 +50,16 @@ const initialState: GlobalState = {
   actor: {
     dtac: 1000,
     sol: 10,
-    tries: 3,
+    tries: 1000,
     code: null,
-    exploits: 2,
+    exploits: 10,
     exploitActive: false,
   },
   status: {
     playersCount: {
       main: 7,
       secondary: 72,
-      tertiary: 400,
+      tertiary: 413,
     },
   },
   game: {
