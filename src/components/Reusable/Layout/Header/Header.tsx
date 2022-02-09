@@ -35,7 +35,7 @@ export const TerminalButton: React.FC = (props) => {
         },
       }}
     >
-      {">_"} Enter Terminal
+      {">_"} Demo Terminal
     </Button>
   );
 };
