@@ -22,7 +22,7 @@ export const TerminalButton: React.FC = (props) => {
       variant="outlined"
       color="error"
       component={RouterLink}
-      to="game"
+      to="/game"
       // onClick={() => dispatch(setComingSoon(true))}
       sx={{
         border: "none",
