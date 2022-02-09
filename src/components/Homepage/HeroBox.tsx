@@ -48,7 +48,7 @@ const HeroBox: React.VFC<HeroBoxPropsType> = ({ heroImage, heroVideo }) => {
           <Box
             sx={{
               maxWidth: "100%",
-              p: 5.5,
+              p: !isMobile ? 5.5 : 0.5,
               minHeight: "100%",
               display: "flex",
               flexDirection: "column",

@@ -11,13 +11,16 @@ export type PlayerStatsBoxPropsType = {
 
 const PlayerStatsBox: React.VFC<PlayerStatsBoxPropsType> = ({ sx }) => {
   const dispatch = useAppDispatch();
+  const gameData = useAppSelector((state) => state.game.game);
   const playerData = useAppSelector((state) => state.game.actor);
   const { dtac, sol, tries, exploits, exploitActive } = playerData;
+  const { sequence } = gameData;
   const hasExploits = exploits > 0;
+  const startStage = sequence >= 5;
   // *************** RENDER *************** //
   return (
     <>
-      {!exploitActive && hasExploits ? (
+      {!exploitActive && hasExploits && startStage ? (
         <Box sx={{ textAlign: "center", py: 2 }}>
           <Button
             fullWidth
@@ -29,7 +32,7 @@ const PlayerStatsBox: React.VFC<PlayerStatsBoxPropsType> = ({ sx }) => {
             EXPLOIT NOW ({exploits})
           </Button>
         </Box>
-      ) : exploitActive ? (
+      ) : exploitActive && startStage ? (
         <ExploitActiveBox />
       ) : null}
       <Box

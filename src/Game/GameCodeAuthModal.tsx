@@ -33,7 +33,6 @@ const GameCodeAuthModal: React.VFC<GameCodeAuthModalPropsType> = () => {
   useEffect(() => {
     setTimeout(() => {
       const localCode = localStorage.getItem(LOCALCODEKEY.VALUE);
-      console.log(localCode);
       if (
         localCode &&
         ref1.current &&

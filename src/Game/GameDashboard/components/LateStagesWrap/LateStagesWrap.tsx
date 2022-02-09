@@ -6,12 +6,12 @@ export type LateStagesWrapPropsType = {};
 
 const LateStagesWrap: React.VFC<LateStagesWrapPropsType> = () => {
   const gameData = useAppSelector((state) => state.game.game);
-  const { sequence } = gameData;
+  const { sequence, outcomeModal } = gameData;
   // *************** RENDER *************** //
   return (
     <>
-      {sequence === 7 && <StageSeven />}
-      {sequence === 8 && <StageEight />}
+      {!outcomeModal.active && sequence === 7 && <StageSeven />}
+      {!outcomeModal.active && sequence === 8 && <StageEight />}
     </>
   );
 };

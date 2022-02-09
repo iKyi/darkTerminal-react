@@ -55,7 +55,6 @@ export const clickAction =
     setTimeout(() => {
       // if (true) {
       if (Math.random() < workingChance) {
-        // if (Math.random() < 0.8) {
         dispatch(setSequence(nextSequence));
         dispatch(setOutcomeModal({ active: true, success: true }));
         dispatch(setActiveNodes(id));
@@ -73,47 +72,50 @@ export const clickAction =
     }, 2000);
   };
 
-export const stageSevenSubmit = (): AppThunk => (dispatch, getState) => {
-  dispatch(setHacking(true));
-  const state = getState();
-  const { sequence } = state.game.game;
-  const { tries, exploitActive } = state.game.actor;
+export const stageSevenSubmit =
+  (isEight?: boolean): AppThunk =>
+  (dispatch, getState) => {
+    dispatch(setHacking(true));
+    const state = getState();
+    const { sequence } = state.game.game;
+    const { tries, exploitActive } = state.game.actor;
 
-  let workingChance = 0.1;
-  if (exploitActive) {
-    workingChance = workingChance * 2;
-  }
-  const nextSequence = sequence + 1;
-
-  const logEntry: ILogEntry = {
-    chance: 10,
-    items: 10,
-    sequence: sequence,
-    success: true,
-    exploit: exploitActive,
-  };
-
-  if (exploitActive) {
-    logEntry.chance = logEntry.chance * 2;
-  }
-
-  setTimeout(() => {
-    if (Math.random() < workingChance) {
-      dispatch(setSequence(nextSequence));
-      logEntry.success = true;
-      dispatch(setOutcomeModal({ active: true, success: true }));
-    } else {
-      dispatch(setTries(tries - 1));
-      logEntry.success = false;
-      dispatch(setOutcomeModal({ active: true, success: false }));
-    }
-    dispatch(setLogs(logEntry));
-    dispatch(setHacking(false));
+    let workingChance = !isEight ? 0.1 : 0.0666;
     if (exploitActive) {
-      dispatch(setExploitActive(false));
+      workingChance = workingChance * 2;
     }
-  }, 2000);
-};
+    const nextSequence = sequence + 1;
+
+    const logEntry: ILogEntry = {
+      chance: workingChance * 100,
+      items: !isEight ? 10 : 15,
+      sequence: sequence,
+      success: true,
+      exploit: exploitActive,
+    };
+
+    if (exploitActive) {
+      logEntry.chance = logEntry.chance * 2;
+    }
+
+    setTimeout(() => {
+      // if (true) {
+      if (Math.random() < workingChance) {
+        dispatch(setSequence(nextSequence));
+        logEntry.success = true;
+        dispatch(setOutcomeModal({ active: true, success: true }));
+      } else {
+        dispatch(setTries(tries - 1));
+        logEntry.success = false;
+        dispatch(setOutcomeModal({ active: true, success: false }));
+      }
+      dispatch(setLogs(logEntry));
+      dispatch(setHacking(false));
+      if (exploitActive) {
+        dispatch(setExploitActive(false));
+      }
+    }, 2000);
+  };
 
 export const triggerExploit = (): AppThunk => (dispatch, getState) => {
   const state = getState();

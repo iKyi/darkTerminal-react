@@ -25,6 +25,11 @@ const StageEightOptions = [
   "8620",
   "6940",
   "3890",
+  "7836",
+  "4923",
+  "0371",
+  "1765",
+  "3802",
 ];
 
 const StageEight: React.VFC<StageEightPropsType> = () => {
@@ -150,7 +155,7 @@ const StageEight: React.VFC<StageEightPropsType> = () => {
               variant="complex"
               color="primary"
               disabled={!activeItem}
-              onClick={() => dispatch(stageSevenSubmit())}
+              onClick={() => dispatch(stageSevenSubmit(true))}
             >
               SUBMIT
             </Button>
