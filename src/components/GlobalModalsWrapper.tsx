@@ -1,4 +1,3 @@
-import GameCodeAuthModal from "../Game/GameCodeAuthModal";
 import PlayoutcomeModal from "../Game/GameDashboard/components/PlayOutcomeModal/PlayoutcomeModal";
 import ComingSoonModal from "./Reusable/ComingSoonModal";
 
@@ -10,7 +9,6 @@ const GlobalModalsWrapper: React.VFC<GlobalModalsWrapperPropsType> = () => {
     <>
       <ComingSoonModal />
       <PlayoutcomeModal />
-      <GameCodeAuthModal />
     </>
   );
 };

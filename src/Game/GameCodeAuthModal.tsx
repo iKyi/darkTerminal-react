@@ -30,6 +30,28 @@ const GameCodeAuthModal: React.VFC<GameCodeAuthModalPropsType> = () => {
   const navigate = useNavigate();
   const open = useAppSelector((state) => state.game.game.codeAuthModalVisible);
 
+  useEffect(() => {
+    setTimeout(() => {
+      const localCode = localStorage.getItem(LOCALCODEKEY.VALUE);
+      console.log(localCode);
+      if (
+        localCode &&
+        ref1.current &&
+        ref2.current &&
+        ref3.current &&
+        ref4.current
+      ) {
+        setValues({
+          one: localCode[0],
+          two: localCode[1],
+          three: localCode[2],
+          four: localCode[3],
+        });
+        buttonFref.current?.focus();
+      }
+    }, 400);
+  }, []);
+
   const goBackAction = () => {
     dispatch(setCodeAuthModal(false));
     navigate("/");
