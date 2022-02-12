@@ -15,15 +15,14 @@ import {
 } from "@mui/material";
 import NavigationHeader from "../../../../assets/sections/homepage/navigationHeader.png";
 import { IWalletEntry } from "../ConsoleWrapper";
-import { useAppDispatch } from "../../../../app/hooks";
-import { setComingSoon } from "../../../../features/global/globalSlice";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../../../constants/routes";
 
 export type WalletBoxPropsType = {
   walletData?: IWalletEntry[];
 };
 
 const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
-  const dispatch = useAppDispatch();
   if (!walletData || walletData.length === 0) return null;
   // *************** RENDER *************** //
   return (
@@ -97,7 +96,8 @@ const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
         <Stack direction="row" sx={{ pt: 2 }}>
           <Box sx={{ p: 1.5, width: "100%" }}>
             <Button
-              onClick={() => dispatch(setComingSoon(true))}
+              component={Link}
+              to={`/${ROUTES.MINTPAGE}`}
               fullWidth
               variant="threeButtonAlt"
               color="primary"

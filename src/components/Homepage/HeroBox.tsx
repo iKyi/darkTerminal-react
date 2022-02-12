@@ -10,13 +10,12 @@ import useMobile from "../../hooks/useMobile";
 import GlitchFont from "../Reusable/GlitchFont";
 import GreenBg from "../../assets/sections/homepage/greenBoxBg.png";
 import ImageFrame from "../../assets/images/imageFrame.png";
-// import HomeVideo from "../../assets/videos/homeVideo.mp4";
-import { useAppDispatch } from "../../app/hooks";
-import { setComingSoon } from "../../features/global/globalSlice";
 import { useEffect, useState } from "react";
 import { getStrapiURL } from "../../lib/theme/api";
 import axiosGetter from "../../lib/axios/axiosGetter";
 import { getStrapiMedia } from "../../lib/theme/media";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 
 export type HeroBoxPropsType = {
   heroImage: any;
@@ -34,7 +33,6 @@ const HeroBox: React.VFC<HeroBoxPropsType> = ({ heroImage, heroVideo }) => {
     );
   }, []);
 
-  const dispatch = useAppDispatch();
   const isMobile = useMobile();
   // *************** RENDER *************** //
   return (
@@ -156,7 +154,8 @@ const HeroBox: React.VFC<HeroBoxPropsType> = ({ heroImage, heroVideo }) => {
                 fullWidth
                 variant="threeButton"
                 color="primary"
-                onClick={() => dispatch(setComingSoon(true))}
+                component={Link}
+                to={`/${ROUTES.MINTPAGE}`}
               >
                 MINT NOW
               </Button>
