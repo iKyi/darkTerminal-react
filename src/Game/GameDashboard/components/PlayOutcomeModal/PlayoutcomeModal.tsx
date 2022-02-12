@@ -36,6 +36,7 @@ const PlayoutcomeModal: React.FC = () => {
           px: 4,
           fontFamily: FONTS.FURORE,
           textTransform: "uppercase",
+          bgcolor: !success ? `rgba(120,0,0,0.15)` : `rgba(0,120,0,0.05)`,
         }}
       >
         <Stack spacing={2}>

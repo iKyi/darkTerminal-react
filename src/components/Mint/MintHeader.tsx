@@ -4,14 +4,26 @@ import { StrapiContext } from "../../providers/StrapiPublicProvider";
 import { NavLink } from "react-router-dom";
 import { getStrapiMedia } from "../../lib/theme/media";
 import useMobile from "../../hooks/useMobile";
+import {
+  WalletDisconnectButton,
+  WalletMultiButton,
+} from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { Stack } from "@mui/material";
+import { Brightness1 } from "@mui/icons-material";
 
 export type MintHeaderPropsType = {
   children?: any;
 };
 
+// const buttonStyle = {
+//   backgroundImage: `url('${}')`
+// }
+
 const MintHeader: React.VFC<MintHeaderPropsType> = ({ children }) => {
   const data = useContext(StrapiContext);
   const isMobile = useMobile();
+  const wallet = useWallet();
 
   // *************** RENDER *************** //
   return (
@@ -43,7 +55,29 @@ const MintHeader: React.VFC<MintHeaderPropsType> = ({ children }) => {
           />
         </NavLink>
       </Box>
-      <Box>{children}</Box>
+      <Stack spacing={2}>
+        <WalletMultiButton
+          className=" loginButton "
+          startIcon={
+            <Box
+              sx={{
+                fontSize: "12px",
+              }}
+            >
+              <Brightness1
+                fontSize="inherit"
+                color={wallet.connected ? "primary" : "error"}
+              />
+            </Box>
+          }
+        />
+        {wallet.connected && (
+          <WalletDisconnectButton
+            className=" logoutButton "
+            startIcon={undefined}
+          />
+        )}
+      </Stack>
     </Box>
   );
 };

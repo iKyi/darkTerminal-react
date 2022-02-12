@@ -1,9 +1,13 @@
-import { Box, CardActionArea } from "@mui/material";
+import { Box, CardActionArea, CircularProgress } from "@mui/material";
 import MintBoxRedBorder from "../../assets/images/mint/MintBoxRedBorder.png";
 import MintBoxWhiteBorder from "../../assets/images/mint/MintBoxWhiteBorder.png";
 import { FONTS } from "../../lib/theme";
 import redButtonBg from "../../assets/images/mint/redButtonBg.png";
 import whiteButtonBg from "../../assets/images/mint/whiteButtonBg.png";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useContext, useEffect, useState } from "react";
+import { useGateway, GatewayStatus } from "@civic/solana-gateway-react";
+import { WalletContext } from "../../providers/AuthProviderButtons";
 
 export type MintBoxPropsType = {
   onClick: any;
@@ -18,11 +22,45 @@ const MintBox: React.FC<MintBoxPropsType> = ({
   type,
   progress,
 }) => {
+  const { candyMachine, isMinting } = useContext(WalletContext);
+  const { requestGatewayToken, gatewayStatus } = useGateway();
+  const [clicked, setClicked] = useState<boolean>(false);
+
+  const wallet = useWallet();
+  const { connected: walletActive } = wallet;
+
+  useEffect(() => {
+    if (gatewayStatus === GatewayStatus.ACTIVE && clicked) {
+      onClick();
+      setClicked(false);
+    }
+  }, [gatewayStatus, clicked, setClicked, onClick]);
+
+  const loading = !candyMachine || candyMachine.state === undefined;
   // *************** RENDER *************** //
   return (
     <CardActionArea
-      onClick={onClick}
-      disabled={disabled}
+      onClick={async () => {
+        setClicked(true);
+        if (candyMachine?.state.isActive && candyMachine?.state.gatekeeper) {
+          if (gatewayStatus === GatewayStatus.ACTIVE) {
+            setClicked(true);
+          } else {
+            await requestGatewayToken();
+          }
+        } else {
+          await onClick();
+          setClicked(false);
+        }
+      }}
+      disabled={
+        loading ||
+        disabled ||
+        !walletActive ||
+        candyMachine?.state.isSoldOut ||
+        isMinting ||
+        !candyMachine?.state.isActive
+      }
       sx={{
         background: `url('${
           progress ? MintBoxRedBorder : MintBoxWhiteBorder
@@ -30,8 +68,26 @@ const MintBox: React.FC<MintBoxPropsType> = ({
         backgroundSize: "100% 100%",
         backgroundPosition: "center center",
         pt: "40px",
+        position: "relative",
       }}
     >
+      {(loading || isMinting) && (
+        <Box
+          sx={{
+            backgroundColor: "rgba(0,0,0,0.65)",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress color="primary" />
+        </Box>
+      )}
       <Box sx={{ px: 3 }}>
         <Box
           sx={{
@@ -58,8 +114,10 @@ const MintBox: React.FC<MintBoxPropsType> = ({
         sx={{
           mt: 3,
           fontFamily: FONTS.FURORE,
-          fontSize: "1.1rem",
-          background: `url('${progress ? redButtonBg : whiteButtonBg}')`,
+          fontSize: !walletActive && progress ? "0.8rem" : "1.1rem",
+          background: `url('${
+            progress && walletActive ? redButtonBg : whiteButtonBg
+          }')`,
           backgroundSize: "100% 100%",
           backgroundPosition: "center center",
           minHeight: "50px",
@@ -69,7 +127,11 @@ const MintBox: React.FC<MintBoxPropsType> = ({
           color: progress ? "error.main" : "common.gray",
         }}
       >
-        MINT NOW
+        {!progress
+          ? "MINT NOW"
+          : !walletActive && progress
+          ? "ACTIVE WALLET REQUIRED"
+          : "MINT NOW"}
       </Box>
     </CardActionArea>
   );

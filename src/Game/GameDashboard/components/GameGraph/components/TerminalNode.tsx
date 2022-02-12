@@ -43,6 +43,7 @@ const TerminalNode: React.VFC<TerminalNodePropsType> = ({ data }) => {
           position: "absolute",
           top: "50%",
           left: "50%",
+          zIndex: 1,
         }}
       />
       <Box
@@ -112,6 +113,7 @@ const TerminalNode: React.VFC<TerminalNodePropsType> = ({ data }) => {
           position: "absolute",
           top: "50%",
           left: "calc(50% - 4px)",
+          zIndex: 1,
         }}
       />
     </Box>

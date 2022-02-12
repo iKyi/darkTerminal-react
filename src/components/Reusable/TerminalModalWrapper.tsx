@@ -138,8 +138,7 @@ const TerminalModalWrapper: React.VFC<TerminalModalWrapperPropsType> = ({
                     ) : (
                       <Box
                         sx={{
-                          color:
-                            red || redTitle ? "primary.main" : "error.main",
+                          color: "error.main",
                           fontSize: "0.8rem",
                           fontWeight: "bold",
                           fontFamily: FONTS.FURORE,

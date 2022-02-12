@@ -1,5 +1,6 @@
 import { setTimeout } from "timers-browserify";
 import { AppThunk } from "../../app/store";
+import { delayedSnackbarClose, startSnackbar } from "../global/globalSlice";
 import {
   ILogEntry,
   setActiveNodes,
@@ -20,6 +21,7 @@ export const clickAction =
     const { tries, exploitActive } = state.game.actor;
     const { sequence } = state.game.game;
     dispatch(setHacking(true));
+    dispatch(delayedSnackbarClose());
     const { id, chance } = element;
 
     let workingChance = chance;
@@ -56,7 +58,9 @@ export const clickAction =
       // if (true) {
       if (Math.random() < workingChance) {
         dispatch(setSequence(nextSequence));
-        dispatch(setOutcomeModal({ active: true, success: true }));
+        dispatch(
+          startSnackbar({ content: "HACKING SUCCESS", variant: "success" })
+        );
         dispatch(setActiveNodes(id));
         logEntry.success = true;
       } else {
@@ -76,6 +80,7 @@ export const stageSevenSubmit =
   (isEight?: boolean): AppThunk =>
   (dispatch, getState) => {
     dispatch(setHacking(true));
+    dispatch(delayedSnackbarClose());
     const state = getState();
     const { sequence } = state.game.game;
     const { tries, exploitActive } = state.game.actor;
@@ -103,7 +108,9 @@ export const stageSevenSubmit =
       if (Math.random() < workingChance) {
         dispatch(setSequence(nextSequence));
         logEntry.success = true;
-        dispatch(setOutcomeModal({ active: true, success: true }));
+        dispatch(
+          startSnackbar({ content: "HACKING SUCCESS", variant: "success" })
+        );
       } else {
         dispatch(setTries(tries - 1));
         logEntry.success = false;

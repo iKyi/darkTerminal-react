@@ -5,20 +5,20 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import StoreProvider from "./providers/StoreProvider";
 import RouterProvider from "./providers/RouterProvider";
-import AuthProvider from "./providers/AuthProvider";
 import DarkTerminalThemeProvider from "./lib/theme";
+import AuthProviderWalletWrapper from "./providers/AuthProviderWalletWrapper";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DarkTerminalThemeProvider>
-      <AuthProvider>
+    <AuthProviderWalletWrapper>
+      <DarkTerminalThemeProvider>
         <StoreProvider>
           <RouterProvider>
             <App />
           </RouterProvider>
         </StoreProvider>
-      </AuthProvider>
-    </DarkTerminalThemeProvider>
+      </DarkTerminalThemeProvider>
+    </AuthProviderWalletWrapper>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -30,13 +30,15 @@ const ConnectorNode: React.VFC<ConnectorNodePropsType> = ({ data }) => {
           position: "absolute",
           top: "50%",
           left: "50%",
+          zIndex: 1,
+          visibility: "hidden",
         }}
       />
       <Box
         className={active && hackingInProgress ? "hacking" : ""}
         sx={{
           position: "relative",
-          zIndex: 3,
+          zIndex: 20,
           width: "64px",
           height: "64px",
           display: "flex",
@@ -68,6 +70,8 @@ const ConnectorNode: React.VFC<ConnectorNodePropsType> = ({ data }) => {
           position: "absolute",
           top: "50%",
           left: "calc(50% - 4px)",
+          zIndex: 1,
+          visibility: "hidden",
         }}
       />
     </Box>

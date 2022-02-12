@@ -3,6 +3,7 @@ import { useContext, useMemo } from "react";
 import { FONTS } from "../../lib/theme";
 import { StrapiContext } from "../../providers/StrapiPublicProvider";
 import { SxProps } from "@mui/material";
+import { WalletContext } from "../../providers/AuthProviderButtons";
 
 export type SupplyBoxPropsType = {
   sx?: SxProps;
@@ -10,14 +11,21 @@ export type SupplyBoxPropsType = {
 
 const SupplyBox: React.VFC<SupplyBoxPropsType> = ({ sx }) => {
   const { supplyBox } = useContext(StrapiContext);
-  const { current, max } = supplyBox;
+  const { max } = supplyBox;
+
+  const { candyMachine } = useContext(WalletContext);
+
+  const itemsRemaining = useMemo(() => {
+    return candyMachine?.state.itemsRemaining ?? 0;
+  }, [candyMachine]);
 
   const boxWidth = useMemo(() => {
-    if (current && max) {
-      return (current * 100) / max;
+    if (itemsRemaining && max) {
+      return (itemsRemaining * 100) / max;
     }
     return null;
-  }, [current, max]);
+  }, [itemsRemaining, max]);
+
   // *************** RENDER *************** //
   return (
     <Box sx={sx}>
@@ -34,7 +42,9 @@ const SupplyBox: React.VFC<SupplyBoxPropsType> = ({ sx }) => {
       >
         <Box>TOTAL SUPPLY</Box>
         <Box>
-          <Box sx={{ color: "common.white", display: "inline" }}>{current}</Box>{" "}
+          <Box sx={{ color: "common.white", display: "inline" }}>
+            {itemsRemaining}
+          </Box>{" "}
           / {max} NFTS
         </Box>
       </Box>

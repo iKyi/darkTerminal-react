@@ -329,6 +329,28 @@ const getOverRides = (theme: Theme) => {
               color: theme.palette.primary.main,
             },
           },
+          ".wallet-adapter-button-start-icon": {
+            lineHeight: 1,
+          },
+          ".wallet-adapter-button": {
+            justifyContent: "center",
+            fontFamily: FONTS.FURORE,
+            fontWeight: 300,
+            color: theme.palette.error.main,
+            textAlign: "center",
+          },
+          ".wallet-adapter-button.loginButton": {
+            background: `url('${complexRed}')`,
+            backgroundSize: "100% 100%",
+            height: "60px",
+            padding: "0 30px",
+          },
+          ".wallet-adapter-button.logoutButton": {
+            background: `url('${RedSharp}')`,
+            backgroundSize: "100% 100%",
+            fontSize: "0.9rem",
+            height: "36px",
+          },
           "@keyframes hackEffect": {
             "0%": {
               background: theme.palette.primary.main,
