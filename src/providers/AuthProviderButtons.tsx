@@ -135,7 +135,7 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
   }, [anchorWallet, connection, refreshCandyMachineState]);
 
   useEffect(() => {
-    if (alertState) {
+    if (alertState && alertState.message.length > 0) {
       dispatch(
         startSnackbar({
           content: alertState.message,
