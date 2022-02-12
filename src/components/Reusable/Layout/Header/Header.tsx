@@ -49,6 +49,10 @@ export const SiteNavLinks: INavLink[] = [
   //   title: "News",
   //   slug: "/news",
   // },
+  {
+    title: "Mint",
+    slug: "/mint",
+  },
 ];
 
 export type HeaderPropsType = {

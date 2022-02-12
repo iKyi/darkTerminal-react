@@ -12,6 +12,7 @@ import HowToBuy from "./Pages/HowToBuy";
 import NewsPage from "./Pages/NewsPage";
 // import GameHome from "./Game/GameHome/GameHome";
 import GameDashboard from "./Game/GameDashboard/GameDashboard";
+import MintPage from "./Pages/MintPage";
 
 function App() {
   // const { pathname } = useLocation();
@@ -44,6 +45,7 @@ function App() {
         <Route path="game" element={<GamePage />}>
           <Route index element={<GameDashboard />}></Route>
         </Route>
+        <Route path="mint" element={<MintPage />} />
       </Routes>
       <GlobalModalsWrapper />
     </>
