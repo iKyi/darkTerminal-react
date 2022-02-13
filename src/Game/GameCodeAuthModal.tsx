@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import TerminalModalWrapper from "../components/Reusable/TerminalModalWrapper";
 import { setCode, setCodeAuthModal } from "../features/game/gameSlice";
 import { LOCALCODEKEY } from "../constants/localCodeKey";
+import { FONTS } from "../lib/theme";
 
 export type GameCodeAuthModalPropsType = {};
 
@@ -175,6 +176,30 @@ const GameCodeAuthModal: React.VFC<GameCodeAuthModalPropsType> = () => {
             }
           />
         </Stack>
+        <Box
+          sx={{
+            fontFamily: FONTS.FURORE,
+            color: "primary.light",
+            pt: 3,
+            textAlign: "center",
+          }}
+        >
+          <Box>
+            This is a{" "}
+            <Box sx={{ display: "inline", color: "error.main" }}>
+              demo version
+            </Box>{" "}
+            for community review and feedback.
+          </Box>
+          <Box>
+            <Box sx={{ display: "inline", color: "error.main" }}>No actual</Box>{" "}
+            winnings or real DTAC/SOL costs are implemented in the{" "}
+            <Box sx={{ display: "inline", color: "error.main" }}>
+              demo version
+            </Box>
+            .
+          </Box>
+        </Box>
         <Stack
           direction="row"
           spacing={3}
