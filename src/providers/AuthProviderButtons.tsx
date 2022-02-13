@@ -14,6 +14,7 @@ import { useAppDispatch } from "../app/hooks";
 import { GENERAL_SETTINGS } from "../constants/generalSettings";
 import {
   delayedSnackbarClose,
+  setCandyMachineLoading,
   startSnackbar,
 } from "../features/global/globalSlice";
 import {
@@ -116,6 +117,7 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
     }
 
     if (candyMachineId) {
+      dispatch(setCandyMachineLoading(true));
       try {
         const cndy = await getCandyMachineState(
           anchorWallet,
@@ -123,11 +125,14 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
           connection
         );
         setCandyMachine(cndy);
+        dispatch(setCandyMachineLoading(false));
       } catch (e) {
+        dispatch(setCandyMachineLoading(false));
         console.log("There was a problem fetching Candy Machine state");
         console.log(e);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [anchorWallet, connection]);
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import { AppThunk } from "../../app/store";
 export type SnackbarVariants = "error" | "success" | "info";
 export interface GlobalState {
   showComingSoon: boolean;
+  candyMachineReloading: boolean;
   publicSiteData: Record<any, any> | null;
   snackBar: null | {
     content: string;
@@ -14,6 +15,7 @@ export interface GlobalState {
 }
 
 const initialState: GlobalState = {
+  candyMachineReloading: false,
   showComingSoon: false,
   publicSiteData: null,
   snackBar: null,
@@ -47,6 +49,9 @@ export const globalSlice = createSlice({
     cleanSnackbarObj: (state) => {
       state.snackBar = null;
     },
+    setCandyMachineLoading: (state, action: PayloadAction<boolean>) => {
+      state.candyMachineReloading = action.payload;
+    },
   },
 });
 
@@ -63,6 +68,7 @@ export const {
   startSnackbar,
   closeSnackbar,
   cleanSnackbarObj,
+  setCandyMachineLoading,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

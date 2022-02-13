@@ -2,14 +2,16 @@ import { Box } from "@mui/system";
 import { useContext, useMemo } from "react";
 import { FONTS } from "../../lib/theme";
 import { StrapiContext } from "../../providers/StrapiPublicProvider";
-import { SxProps } from "@mui/material";
+import { CircularProgress, SxProps } from "@mui/material";
 import { WalletContext } from "../../providers/AuthProviderButtons";
+import { useAppSelector } from "../../app/hooks";
 
 export type SupplyBoxPropsType = {
   sx?: SxProps;
 };
 
 const SupplyBox: React.VFC<SupplyBoxPropsType> = ({ sx }) => {
+  const { candyMachineReloading } = useAppSelector((state) => state.global);
   const { supplyBox } = useContext(StrapiContext);
   const { max } = supplyBox;
 
@@ -28,7 +30,24 @@ const SupplyBox: React.VFC<SupplyBoxPropsType> = ({ sx }) => {
 
   // *************** RENDER *************** //
   return (
-    <Box sx={sx}>
+    <Box sx={{ position: "relative", ...sx }}>
+      {candyMachineReloading && (
+        <Box
+          sx={{
+            backgroundColor: "rgba(0,0,0,0.65)",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress color="primary" />
+        </Box>
+      )}
       <Box
         sx={{
           display: "flex",
