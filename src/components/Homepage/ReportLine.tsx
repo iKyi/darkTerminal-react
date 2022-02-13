@@ -4,11 +4,9 @@ import Marquee from "react-fast-marquee";
 import axiosGetter from "../../lib/axios/axiosGetter";
 import { getStrapiURL } from "../../lib/theme/api";
 
-export type ReportLinePropsType = {
-  children?: any;
-};
+export type ReportLinePropsType = {};
 
-const ReportLine: React.VFC<ReportLinePropsType> = ({ children }) => {
+const ReportLine: React.VFC<ReportLinePropsType> = () => {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {

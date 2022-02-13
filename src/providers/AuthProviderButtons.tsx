@@ -225,6 +225,7 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
             message: "Congratulations! Purchase succeeded!",
             severity: "success",
           });
+          refreshCandyMachineState();
         } else {
           setAlertState({
             open: true,

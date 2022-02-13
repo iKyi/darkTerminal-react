@@ -15,6 +15,7 @@ import {
   presaleTokenPublicKey,
   WalletContext,
 } from "../../providers/AuthProviderButtons";
+import { StrapiContext } from "../../providers/StrapiPublicProvider";
 
 export type MintPageContentPropsType = { pageHeader: any; pageDesc: string };
 
@@ -22,8 +23,36 @@ const MintPageContent: React.VFC<MintPageContentPropsType> = ({
   pageHeader,
   pageDesc,
 }) => {
+  const { seasonsEnabled } = useContext(StrapiContext);
   const { onMint } = useContext(WalletContext);
   const Mobile = useMobile();
+
+  const { presaleEnabled, whitelistEnabled, publicEnabled } =
+    seasonsEnabled || {};
+
+  const mintFunction = async (type: "presale" | "whitelist" | "public") => {
+    switch (type) {
+      case "presale":
+        if (presaleEnabled && onMint) {
+          return await onMint(presaleTokenPublicKey);
+        }
+        break;
+      case "whitelist":
+        if (whitelistEnabled && onMint) {
+          return await onMint(whitelistTokenPublicKey);
+        }
+        break;
+      case "public":
+        if (publicEnabled && onMint) {
+          return await onMint(null);
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  console.log(seasonsEnabled);
 
   // *************** RENDER *************** //
   return (
@@ -76,40 +105,34 @@ const MintPageContent: React.VFC<MintPageContentPropsType> = ({
                     <MarkdownParser>{pageDesc}</MarkdownParser>
                   </Box>
                 )}
-                {onMint && (
-                  <Grid container spacing={4} sx={{ mt: 2 }}>
-                    <Grid item xs={12} md={6}>
-                      <MintBox
-                        onClick={async () => {
-                          await onMint(presaleTokenPublicKey);
-                        }}
-                        type={"PRESALE"}
-                        disabled={false}
-                        progress={true}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <MintBox
-                        onClick={async () => {
-                          await onMint(whitelistTokenPublicKey);
-                        }}
-                        type={"WHITELIST"}
-                        disabled={true}
-                        progress={false}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <MintBox
-                        onClick={async () => {
-                          await onMint(null);
-                        }}
-                        type={"PUBLIC MINT"}
-                        disabled={true}
-                        progress={false}
-                      />
-                    </Grid>
+
+                <Grid container spacing={4} sx={{ mt: 2 }}>
+                  <Grid item xs={12} md={6}>
+                    <MintBox
+                      onClick={async () => await mintFunction("presale")}
+                      type={"PRESALE"}
+                      disabled={!presaleEnabled}
+                      progress={presaleEnabled}
+                    />
                   </Grid>
-                )}
+                  <Grid item xs={12} md={6}>
+                    <MintBox
+                      onClick={async () => await mintFunction("whitelist")}
+                      type={"WHITELIST"}
+                      disabled={!whitelistEnabled}
+                      progress={whitelistEnabled}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <MintBox
+                      onClick={async () => await mintFunction("public")}
+                      type={"PUBLIC MINT"}
+                      disabled={!publicEnabled}
+                      progress={publicEnabled}
+                    />
+                  </Grid>
+                </Grid>
+
                 <SolPerNftBox />
               </Grid>
               <Grid item xs={12} lg={6}>
