@@ -161,7 +161,7 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
       if (tokenAddress && publicKey) {
         const hasWhitelistToken = await darkTerminalService.hasToken(
           publicKey,
-          presaleTokenPublicKey
+          tokenAddress
         );
         if (!hasWhitelistToken) {
           setAlertState({
