@@ -52,8 +52,6 @@ const MintPageContent: React.VFC<MintPageContentPropsType> = ({
     }
   };
 
-  console.log(seasonsEnabled);
-
   // *************** RENDER *************** //
   return (
     <Box
