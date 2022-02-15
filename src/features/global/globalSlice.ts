@@ -60,7 +60,6 @@ export const delayedSnackbarClose = (): AppThunk => (dispatch) => {
   setTimeout(() => {
     dispatch(cleanSnackbarObj());
   }, 350);
-  // lala
 };
 
 export const {
