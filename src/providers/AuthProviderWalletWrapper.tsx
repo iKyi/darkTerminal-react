@@ -27,12 +27,12 @@ const AuthProviderWalletWrapper: React.VFC<
 > = ({ children }) => {
   // *************** RENDER *************** //
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-  const network = WalletAdapterNetwork.Devnet;
+  const network = WalletAdapterNetwork.Mainnet;
   // You can also provide a custom RPC endpoint.
   // const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
   // TODO move in config / env
-  const endpoint = "https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899";
+  const endpoint = "https://ssc-dao.genesysgo.net"; //"https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899";
 
   // @solana/wallet-adapter-wallets includes all the adapters but supports tree shaking and lazy loading --
   // Only the wallets you configure here will be compiled into your application, and only the dependencies

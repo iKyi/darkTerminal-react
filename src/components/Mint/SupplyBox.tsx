@@ -18,7 +18,7 @@ const SupplyBox: React.VFC<SupplyBoxPropsType> = ({ sx }) => {
   const { candyMachine } = useContext(WalletContext);
 
   const itemsRemaining = useMemo(() => {
-    return candyMachine?.state.itemsRemaining ?? 0;
+    return candyMachine?.state.itemsRemaining + 1 ?? 0;
   }, [candyMachine]);
 
   const boxWidth = useMemo(() => {
