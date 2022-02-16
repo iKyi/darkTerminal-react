@@ -32,7 +32,8 @@ const AuthProviderWalletWrapper: React.VFC<
   // const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
   // TODO move in config / env
-  const endpoint = "https://ssc-dao.genesysgo.net"; //"https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899";
+  const endpoint = "https://ssc-dao.genesysgo.net";
+  const rpcUrl = process.env.REACT_APP_RPC_URL; //"https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899";
 
   // @solana/wallet-adapter-wallets includes all the adapters but supports tree shaking and lazy loading --
   // Only the wallets you configure here will be compiled into your application, and only the dependencies
@@ -51,7 +52,7 @@ const AuthProviderWalletWrapper: React.VFC<
   );
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
+    <ConnectionProvider endpoint={rpcUrl ?? endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>

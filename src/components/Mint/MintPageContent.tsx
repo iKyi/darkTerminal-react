@@ -107,7 +107,7 @@ const MintPageContent: React.VFC<MintPageContentPropsType> = ({
                 )}
 
                 <Grid container spacing={4} sx={{ mt: 2 }}>
-                  <Grid item xs={12} md={6}>
+                  {/* <Grid item xs={12} md={6}>
                     <MintBox
                       onClick={async () => await mintFunction("presale")}
                       type={"PRESALE"}
@@ -122,7 +122,7 @@ const MintPageContent: React.VFC<MintPageContentPropsType> = ({
                       disabled={!whitelistEnabled}
                       progress={whitelistEnabled}
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid item xs={12}>
                     <MintBox
                       onClick={async () => await mintFunction("public")}
