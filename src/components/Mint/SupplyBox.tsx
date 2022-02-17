@@ -19,7 +19,7 @@ const SupplyBox: React.VFC<SupplyBoxPropsType> = ({ sx }) => {
 
   const itemsRemaining = useMemo(() => {
     return max - (candyMachine?.state.itemsRemaining - 6666) ?? 0;
-  }, [candyMachine]);
+  }, [candyMachine, max]);
 
   const boxWidth = useMemo(() => {
     if (itemsRemaining && max) {
