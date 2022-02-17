@@ -62,7 +62,9 @@ const SupplyBox: React.VFC<SupplyBoxPropsType> = ({ sx }) => {
         <Box>NFTS MINTED</Box>
         <Box>
           <Box sx={{ color: "common.white", display: "inline" }}>
-            {itemsRemaining}
+            {itemsRemaining.toString() === "NaN"
+              ? "Loading ..."
+              : itemsRemaining}
           </Box>{" "}
           / {max} NFTS
         </Box>

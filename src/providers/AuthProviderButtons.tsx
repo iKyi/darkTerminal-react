@@ -112,9 +112,9 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
   }, [wallet]);
 
   const refreshCandyMachineState = useCallback(async () => {
-    if (!anchorWallet) {
-      return;
-    }
+    // if (!anchorWallet) {
+    //   return;
+    // }
 
     if (candyMachineId) {
       dispatch(setCandyMachineLoading(true));
