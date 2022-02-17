@@ -29,8 +29,6 @@ const MintBox: React.FC<MintBoxPropsType> = ({
   const wallet = useWallet();
   const { connected: walletActive } = wallet;
 
-  console.log(isMinting);
-
   useEffect(() => {
     if (gatewayStatus === GatewayStatus.ACTIVE && clicked) {
       onClick();
@@ -59,7 +57,6 @@ const MintBox: React.FC<MintBoxPropsType> = ({
       disabled={
         loading ||
         disabled ||
-        !walletActive ||
         candyMachine?.state.isSoldOut ||
         isMinting ||
         !candyMachine?.state.isActive
@@ -135,7 +132,7 @@ const MintBox: React.FC<MintBoxPropsType> = ({
           : !candyMachine || !candyMachine.state.isActive
           ? "Mint server off"
           : !walletActive && progress
-          ? "PLEASE SELECT WALLET"
+          ? "SELECT WALLET"
           : "MINT NOW"}
       </Box>
     </CardActionArea>

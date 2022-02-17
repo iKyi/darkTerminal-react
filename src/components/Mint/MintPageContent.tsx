@@ -16,6 +16,8 @@ import {
   WalletContext,
 } from "../../providers/AuthProviderButtons";
 import { StrapiContext } from "../../providers/StrapiPublicProvider";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export type MintPageContentPropsType = { pageHeader: any; pageDesc: string };
 
@@ -23,6 +25,11 @@ const MintPageContent: React.VFC<MintPageContentPropsType> = ({
   pageHeader,
   pageDesc,
 }) => {
+  const { setVisible: setWalletModalVisible } = useWalletModal();
+  const { wallet } = useWallet();
+  const triggerWalletModal = () => {
+    setWalletModalVisible(true);
+  };
   const { seasonsEnabled } = useContext(StrapiContext);
   const { onMint } = useContext(WalletContext);
   const Mobile = useMobile();
@@ -31,24 +38,28 @@ const MintPageContent: React.VFC<MintPageContentPropsType> = ({
     seasonsEnabled || {};
 
   const mintFunction = async (type: "presale" | "whitelist" | "public") => {
-    switch (type) {
-      case "presale":
-        if (presaleEnabled && onMint) {
-          return await onMint(presaleTokenPublicKey);
-        }
-        break;
-      case "whitelist":
-        if (whitelistEnabled && onMint) {
-          return await onMint(whitelistTokenPublicKey);
-        }
-        break;
-      case "public":
-        if (publicEnabled && onMint) {
-          return await onMint(null);
-        }
-        break;
-      default:
-        break;
+    if (wallet) {
+      switch (type) {
+        case "presale":
+          if (presaleEnabled && onMint) {
+            return await onMint(presaleTokenPublicKey);
+          }
+          break;
+        case "whitelist":
+          if (whitelistEnabled && onMint) {
+            return await onMint(whitelistTokenPublicKey);
+          }
+          break;
+        case "public":
+          if (publicEnabled && onMint) {
+            return await onMint(null);
+          }
+          break;
+        default:
+          break;
+      }
+    } else {
+      triggerWalletModal();
     }
   };
 
