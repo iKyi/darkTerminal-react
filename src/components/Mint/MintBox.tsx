@@ -107,7 +107,7 @@ const MintBox: React.FC<MintBoxPropsType> = ({
             fontSize: "1.3rem",
           }}
         >
-          {progress ? "IN PROGRESS" : "OPENING SOON"}
+          {progress ? "IN PROGRESS" : "CLOSED"}
         </Box>
       </Box>
       <Box
