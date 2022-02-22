@@ -35,6 +35,10 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
     setWalletModalVisible(true);
   };
 
+  const parseWalletValue = (value: any) => {
+    return !wallet ? "-" : value;
+  };
+
   // *************** RENDER *************** //
   return (
     <Card
@@ -115,7 +119,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                       sx={{ fontSize: "1.1rem", textAlign: "right" }}
                     >
                       <Box sx={{ color: "primary.main" }}>
-                        {tokens.length ?? 0}
+                        {parseWalletValue(tokens.length ?? 0)}
                       </Box>
                     </Grid>
                     <Grid item xs={6}>
@@ -125,7 +129,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                     </Grid>
                     <Grid item xs={6} sx={{ textAlign: "right" }}>
                       <Box sx={{ fontSize: "0.85rem", color: "error.main" }}>
-                        0
+                        {parseWalletValue(0)}
                       </Box>
                     </Grid>
                     <Grid item xs={6}>
@@ -135,7 +139,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                     </Grid>
                     <Grid item xs={6} sx={{ textAlign: "right" }}>
                       <Box sx={{ fontSize: "0.85rem", color: "primary.main" }}>
-                        {tokens.length ?? 0}
+                        {parseWalletValue(tokens.length ?? 0)}
                       </Box>
                     </Grid>
                   </Grid>
@@ -146,7 +150,9 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                   <Typography>DTAC</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "right" }}>
-                  <Typography color="primary">{datacBalance}</Typography>
+                  <Typography color="primary">
+                    {parseWalletValue(datacBalance)}
+                  </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -154,7 +160,9 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                   <Typography>SOL</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "right" }}>
-                  <Typography color="primary">{solanaBalance}</Typography>
+                  <Typography color="primary">
+                    {parseWalletValue(solanaBalance)}
+                  </Typography>
                 </TableCell>
               </TableRow>
             </TableBody>
