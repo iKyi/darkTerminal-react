@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { createContext, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { setPublicSiteData } from "../features/global/globalSlice";
@@ -32,15 +31,7 @@ const StrapiPublicProvider: React.VFC<StrapiPublicProviderPropsType> = ({
   }
   return (
     <StrapiContext.Provider value={PublicSiteData}>
-      <Box
-        sx={{
-          width: "1440px",
-          maxWidth: "100%",
-          margin: "0 auto",
-        }}
-      >
-        {children}
-      </Box>
+      {children}
     </StrapiContext.Provider>
   );
 };

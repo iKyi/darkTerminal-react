@@ -4,6 +4,8 @@ import GlitchFont from "../../../Reusable/GlitchFont";
 import { Box } from "@mui/system";
 import MarkdownParser from "../../../Reusable/MarkdownParser";
 import { FONTS } from "../../../../lib/theme";
+import { ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -30,12 +32,17 @@ function TabPanel(props: TabPanelProps) {
 export type ConsoleElementPropsType = {
   activeSection: number;
   sections: any[];
+  children?: ReactNode;
+  title?: string;
 };
 
 const ConsoleElement: React.VFC<ConsoleElementPropsType> = ({
   activeSection,
   sections,
+  children,
+  title,
 }) => {
+  const { pathname } = useLocation();
   // *************** RENDER *************** //
   return (
     <Card
@@ -79,7 +86,7 @@ const ConsoleElement: React.VFC<ConsoleElementPropsType> = ({
       >
         <Box
           sx={{
-            px: 4,
+            px: [1, 3],
             py: 2,
             backgroundColor: `rgba(0,120,0,0.10)`,
           }}
@@ -94,32 +101,63 @@ const ConsoleElement: React.VFC<ConsoleElementPropsType> = ({
                 `3px solid ${theme.palette.primary.main}`,
             }}
           >
-            <GlitchFont sx={{}}>HACKED TERMINAL</GlitchFont>
-            <Typography sx={{ fontSize: "1.3rem", lineHeight: 2 }}>
-              {"_____<"}
+            <GlitchFont sx={{ fontSize: ["1.3rem", "1.3rem", "1.5rem"] }}>
+              {title ? title : "HACKED TERMINAL"}
+            </GlitchFont>
+            <Typography>
+              <Box
+                sx={{
+                  color: "error.main",
+                  fontSize: ["1rem", "1rem", "1.1rem"],
+                  lineHeight: 2,
+                  fontWeight: "bold",
+                  fontFamily: FONTS.FURORE,
+                }}
+              >
+                @ROOT
+              </Box>
             </Typography>
           </Box>
         </Box>
         {/* CARD CONTENT */}
         <Box
           sx={{
-            p: 4,
+            p: [1, 3],
+            maxHeight: "650px",
+            overflowY: "auto",
+            "&::-webkit-scrollbar": {
+              width: "0.4em",
+            },
+            "&::-webkit-scrollbar-track": {
+              boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+              webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0,0,0,.1)",
+              outline: (theme) => `1px solid ${theme.palette.primary.main}`,
+            },
           }}
         >
-          {sections.map((item, index) => {
-            return (
-              <TabPanel key={item.title} value={activeSection} index={index}>
-                <Box
-                  sx={{
-                    fontFamily: FONTS.SOURCE,
-                    color: "primary.light",
-                  }}
-                >
-                  <MarkdownParser>{item.content}</MarkdownParser>
-                </Box>
-              </TabPanel>
-            );
-          })}
+          {!children &&
+            sections.map((item, index) => {
+              return (
+                <TabPanel key={item.title} value={activeSection} index={index}>
+                  <Box
+                    sx={{
+                      fontFamily: FONTS.SOURCE,
+                      color: "primary.light",
+                    }}
+                  >
+                    <MarkdownParser>{item.content}</MarkdownParser>
+                  </Box>
+                </TabPanel>
+              );
+            })}
+          {children && (
+            <TabPanel key={pathname} value={1} index={1}>
+              {children}
+            </TabPanel>
+          )}
         </Box>
       </CardContent>
     </Card>

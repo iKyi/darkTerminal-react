@@ -6,6 +6,7 @@ import { PublicKey, LAMPORTS_PER_SOL, Signer } from "@solana/web3.js";
 import {
   createContext,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useState,
@@ -17,6 +18,7 @@ import {
   setCandyMachineLoading,
   startSnackbar,
 } from "../features/global/globalSlice";
+import { DarkTerminalServiceProvider } from "./AuthDarkTerminalClassWrapper";
 import {
   awaitTransactionSignatureConfirmation,
   CANDY_MACHINE_PROGRAM,
@@ -25,9 +27,7 @@ import {
   mintOneToken,
 } from "./Solana/services/candyMachine";
 import { ANCHORWALLET } from "./Solana/services/connection";
-import darkTerminal, {
-  IDarkTerminalClass,
-} from "./Solana/services/darkTerminal";
+import { IDarkTerminalClass } from "./Solana/services/darkTerminal";
 
 export type AuthProviderButtonsPropsType = {
   children?: any;
@@ -70,10 +70,10 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
   const wallet = useWallet();
   const { publicKey, sendTransaction } = wallet;
   const { connection } = useConnection();
+  const { darkTerminal } = useContext(DarkTerminalServiceProvider);
 
   // STATE VALUES
-  const [darkTerminalService, setDarkTerminalService] =
-    useState<IDarkTerminalClass>(new darkTerminal(connection));
+
   const [isUserMinting, setIsUserMinting] = useState(false);
   const [candyMachine, setCandyMachine] = useState<ICandyMachineState | null>(
     null
@@ -90,9 +90,6 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
   });
 
   // EVENTS
-  useEffect(() => {
-    setDarkTerminalService(new darkTerminal(connection));
-  }, [connection]);
 
   const anchorWallet: ANCHORWALLET | null = useMemo(() => {
     if (
@@ -112,10 +109,6 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
   }, [wallet]);
 
   const refreshCandyMachineState = useCallback(async () => {
-    // if (!anchorWallet) {
-    //   return;
-    // }
-
     if (candyMachineId) {
       dispatch(setCandyMachineLoading(true));
       try {
@@ -158,8 +151,8 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
       setIsUserMinting(true);
       document.getElementById("#identity")?.click();
 
-      if (tokenAddress && publicKey) {
-        const hasWhitelistToken = await darkTerminalService.hasToken(
+      if (tokenAddress && publicKey && darkTerminal) {
+        const hasWhitelistToken = await darkTerminal.hasToken(
           publicKey,
           tokenAddress
         );
@@ -274,7 +267,7 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
   return (
     <WalletContext.Provider
       value={{
-        darkTerminal: darkTerminalService,
+        darkTerminal,
         wallet: anchorWallet,
         candyMachine: candyMachine,
         onMint: onMint,

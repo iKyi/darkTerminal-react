@@ -6,6 +6,7 @@ import {
   Tabs,
   Typography,
 } from "@mui/material";
+import useMobile from "src/hooks/useMobile";
 import IndicatorBox from "../../../../assets/sections/homepage/indicatorBox.png";
 import NavigationHeader from "../../../../assets/sections/homepage/navigationHeader.png";
 
@@ -29,6 +30,7 @@ const ConsoleNavigation: React.VFC<ConsoleNavigationPropsType> = ({
   setActiveSection,
   activeSection = 0,
 }) => {
+  const mobile = useMobile();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveSection(newValue);
   };
@@ -67,6 +69,7 @@ const ConsoleNavigation: React.VFC<ConsoleNavigationPropsType> = ({
           borderStyle: "solid",
           borderTop: "none",
           backgroundColor: `primary.dark`,
+          minHeight: !mobile ? "350px" : 0,
         }}
       >
         <Tabs

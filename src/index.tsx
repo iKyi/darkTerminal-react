@@ -1,24 +1,28 @@
+import "crypto";
+import "crypto-browserify";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-
 import * as serviceWorker from "./serviceWorker";
 import StoreProvider from "./providers/StoreProvider";
 import RouterProvider from "./providers/RouterProvider";
 import DarkTerminalThemeProvider from "./lib/theme";
 import AuthProviderWalletWrapper from "./providers/AuthProviderWalletWrapper";
+import AuthDarkTerminalClassWrapper from "./providers/AuthDarkTerminalClassWrapper";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProviderWalletWrapper>
-      <DarkTerminalThemeProvider>
-        <StoreProvider>
-          <RouterProvider>
-            <App />
-          </RouterProvider>
-        </StoreProvider>
-      </DarkTerminalThemeProvider>
-    </AuthProviderWalletWrapper>
+    <StoreProvider>
+      <AuthProviderWalletWrapper>
+        <AuthDarkTerminalClassWrapper>
+          <DarkTerminalThemeProvider>
+            <RouterProvider>
+              <App />
+            </RouterProvider>
+          </DarkTerminalThemeProvider>
+        </AuthDarkTerminalClassWrapper>
+      </AuthProviderWalletWrapper>
+    </StoreProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

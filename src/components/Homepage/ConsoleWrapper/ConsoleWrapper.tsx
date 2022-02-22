@@ -13,23 +13,23 @@ export interface IWalletEntry {
   currency: string;
 }
 
-const walletData: IWalletEntry[] = [
-  {
-    name: "NFTS",
-    value: 3,
-    currency: "HACKERS",
-  },
-  {
-    name: "DTAC",
-    value: 2500,
-    currency: "ON STAKE START",
-  },
-  {
-    name: "DTAC",
-    value: 1000,
-    currency: "PRE-SALE BONUS",
-  },
-];
+// const walletData: IWalletEntry[] = [
+//   {
+//     name: "NFTS",
+//     value: 3,
+//     currency: "HACKERS",
+//   },
+//   {
+//     name: "DTAC",
+//     value: 2500,
+//     currency: "ON STAKE START",
+//   },
+//   {
+//     name: "DTAC",
+//     value: 1000,
+//     currency: "PRE-SALE BONUS",
+//   },
+// ];
 
 export type ConsoleWrapperPropsType = {
   children?: any;
@@ -107,7 +107,7 @@ const ConsoleWrapper: React.VFC<ConsoleWrapperPropsType> = ({ children }) => {
                 lg={12}
                 sx={{ order: isMobile ? 0 : 3 }}
               >
-                <WalletBox walletData={walletData} />
+                <WalletBox />
               </Grid>
             </Grid>
           </Grid>

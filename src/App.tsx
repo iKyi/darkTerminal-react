@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useConnection } from "@solana/wallet-adapter-react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import FourOhFour from "./components/FourOhFour/404";
@@ -14,9 +16,21 @@ import NewsPage from "./Pages/NewsPage";
 import GameDashboard from "./Game/GameDashboard/GameDashboard";
 import MintPage from "./Pages/MintPage";
 import SnackbarProvider from "./providers/SnackbarProvider";
+import useStakeAction from "./hooks/useStakeAction";
+import Stake from "./Pages/Stake";
+import StakeIndex from "./components/Stake/StakeIndex";
+import StakeCardEntry from "./components/Stake/StakeCardEntry";
 
 function App() {
   // const { pathname } = useLocation();
+  const { wallet, connected } = useWallet();
+  const { connection } = useConnection();
+  const { debouncedRefreshNfts } = useStakeAction();
+
+  useEffect(() => {
+    debouncedRefreshNfts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connection, wallet, connected]);
 
   useEffect(() => {
     startAnimation();
@@ -41,12 +55,15 @@ function App() {
           <Route element={<NewsIndex />} index />
           <Route element={<ArticleEntry />} path=":slug" />
         </Route>
-
-        <Route element={<FourOhFour />} path="*" />
+        <Route element={<Stake />} path="stake">
+          <Route element={<StakeIndex />} index />
+          <Route element={<StakeCardEntry />} path="/stake/:id" />
+        </Route>
         <Route path="game" element={<GamePage />}>
           <Route index element={<GameDashboard />}></Route>
         </Route>
         <Route path="mint" element={<MintPage />} />
+        <Route element={<FourOhFour />} path="*" />
       </Routes>
       <GlobalModalsWrapper />
       <SnackbarProvider />

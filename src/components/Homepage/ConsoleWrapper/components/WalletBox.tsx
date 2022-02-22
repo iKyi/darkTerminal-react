@@ -2,28 +2,36 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Stack,
   Table,
   TableCell,
   TableContainer,
   TableRow,
   Typography,
   Box,
-  Button,
   TableBody,
-  Link as MUILink,
+  Grid,
+  Button,
 } from "@mui/material";
 import NavigationHeader from "../../../../assets/sections/homepage/navigationHeader.png";
-import { IWalletEntry } from "../ConsoleWrapper";
-import { Link } from "react-router-dom";
-import { ROUTES } from "../../../../constants/routes";
+import { useAppSelector } from "src/app/hooks";
+import { FONTS } from "src/lib/theme";
+import { useWallet } from "@solana/wallet-adapter-react";
+import {
+  useWalletModal,
+  WalletDisconnectButton,
+} from "@solana/wallet-adapter-react-ui";
 
-export type WalletBoxPropsType = {
-  walletData?: IWalletEntry[];
-};
+export type WalletBoxPropsType = {};
 
-const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
-  if (!walletData || walletData.length === 0) return null;
+const WalletBox: React.VFC<WalletBoxPropsType> = () => {
+  const { wallet } = useWallet();
+  const { tokens } = useAppSelector((state) => state.user);
+
+  const { setVisible: setWalletModalVisible } = useWalletModal();
+  const triggerWalletModal = () => {
+    setWalletModalVisible(true);
+  };
+
   // *************** RENDER *************** //
   return (
     <Card
@@ -62,63 +70,83 @@ const WalletBox: React.VFC<WalletBoxPropsType> = ({ walletData }) => {
         <TableContainer>
           <Table>
             <TableBody>
-              {walletData.map((entry) => {
-                return (
-                  <TableRow
-                    key={entry.name + entry.value}
-                    sx={{
-                      td: {
-                        textShadow: "1px 1px 1px rgba(255,255,255,0.35)",
-                      },
-                    }}
-                  >
-                    <TableCell
-                      sx={{ color: "primary.light", fontFamily: "Furore" }}
+              <TableRow>
+                <TableCell colSpan={2}>
+                  <Grid container sx={{ fontFamily: FONTS.FURORE }}>
+                    <Grid item xs={6}>
+                      <Box sx={{ color: "primary.light", fontSize: "1.1rem" }}>
+                        NFTs
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={6}
+                      sx={{ fontSize: "1.1rem", textAlign: "right" }}
                     >
-                      {entry.name}
-                    </TableCell>
-                    <TableCell
-                      sx={{ color: "primary.main", fontFamily: "Furore" }}
-                    >
-                      {entry.value}
-                    </TableCell>
-                    <TableCell
-                      sx={{ color: "primary.light", fontFamily: "Furore" }}
-                    >
-                      {entry.currency}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+                      <Box sx={{ color: "primary.main" }}>
+                        {tokens.length ?? 0}
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Box sx={{ fontSize: "0.85rem", color: "error.main" }}>
+                        STAKED
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6} sx={{ textAlign: "right" }}>
+                      <Box sx={{ fontSize: "0.85rem", color: "error.main" }}>
+                        0
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Box sx={{ fontSize: "0.85rem", color: "primary.main" }}>
+                        UNSTAKED
+                      </Box>
+                    </Grid>
+                    <Grid item xs={6} sx={{ textAlign: "right" }}>
+                      <Box sx={{ fontSize: "0.85rem", color: "primary.main" }}>
+                        0
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <Typography>DTAC</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "right" }}>
+                  <Typography color="primary">3500.00</Typography>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <Typography>SOL</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "right" }}>
+                  <Typography color="primary">3.5</Typography>
+                </TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
-        <Stack direction="row" sx={{ pt: 2 }}>
-          <Box sx={{ p: 1.5, width: "100%" }}>
-            <Button
-              component={Link}
-              to={`/${ROUTES.MINTPAGE}`}
-              fullWidth
-              variant="threeButtonAlt"
-              color="primary"
-            >
-              MINT NOW
-            </Button>
+        {!wallet && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={triggerWalletModal}
+            fullWidth
+          >
+            Connect Wallet
+          </Button>
+        )}
+        {wallet && (
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <WalletDisconnectButton
+              className=" logoutButton "
+              startIcon={undefined}
+            />
           </Box>
-          <Box sx={{ p: 1.5, width: "100%" }}>
-            <Button
-              fullWidth
-              variant="threeButtonAlt"
-              color="secondary"
-              component={MUILink}
-              href="https://darkterminal.io/darkterminal_whitepaper_v0.4.pdf"
-              target="_blank"
-              rel="noopener"
-            >
-              WHITE PAPER
-            </Button>
-          </Box>
-        </Stack>
+        )}
       </CardContent>
     </Card>
   );

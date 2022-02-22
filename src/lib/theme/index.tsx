@@ -7,7 +7,6 @@ import {
 import { Theme, ThemeProvider } from "@mui/system";
 import React, { createContext, ReactNode, useMemo, useState } from "react";
 import { ImmortalColorsGetter } from "./pallette";
-// import BinaryBg from "../../assets/images/binaryBg.png";
 import ThreeRed from "../../assets/buttons/threeRed.png";
 import ThreeWhite from "../../assets/buttons/threeWhite.png";
 import ThreeRedAlt from "../../assets/buttons/threeRedAlt.png";
@@ -36,8 +35,7 @@ declare module "@mui/material/Button" {
 
 let ImmortalMuITheme = createTheme({
   typography: {
-    fontFamily:
-      "Futura, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+    fontFamily: FONTS.FURORE,
     h1: {
       fontFamily: "Furore",
     },
@@ -274,8 +272,7 @@ const getOverRides = (theme: Theme) => {
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            fontFamily:
-              "Futura, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+            fontFamily: FONTS.FURORE,
             height: "100%",
             display: "flex",
             flexDirection: "column",
@@ -373,6 +370,7 @@ const getOverRides = (theme: Theme) => {
       MuiTableCell: {
         styleOverrides: {
           root: {
+            fontFamily: FONTS.FURORE,
             borderColor: theme.palette.secondary.main,
           },
         },

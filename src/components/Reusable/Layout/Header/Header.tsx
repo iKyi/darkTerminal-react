@@ -49,6 +49,10 @@ export const SiteNavLinks: INavLink[] = [
   //   title: "News",
   //   slug: "/news",
   // },
+  {
+    title: "Stake",
+    slug: "/stake",
+  },
 ];
 
 export type HeaderPropsType = {
@@ -104,7 +108,10 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
   );
   // *************** RENDER *************** //
   return (
-    <Box component="header">
+    <Box
+      component="header"
+      sx={{ width: "100%", maxWidth: "1440px", margin: "0 auto" }}
+    >
       <Box
         sx={{
           pt: isMobile ? "15px" : "20px",
