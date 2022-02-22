@@ -18,14 +18,17 @@ import { FONTS } from "src/lib/theme";
 import { useWallet } from "@solana/wallet-adapter-react";
 import {
   useWalletModal,
-  WalletDisconnectButton,
+  WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
+import { Brightness1 } from "@mui/icons-material";
 
 export type WalletBoxPropsType = {};
 
 const WalletBox: React.VFC<WalletBoxPropsType> = () => {
   const { wallet } = useWallet();
-  const { tokens } = useAppSelector((state) => state.user);
+  const { tokens, datacBalance, solanaBalance } = useAppSelector(
+    (state) => state.user
+  );
 
   const { setVisible: setWalletModalVisible } = useWalletModal();
   const triggerWalletModal = () => {
@@ -50,7 +53,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
           >
             <Typography
               sx={{
-                px: 2,
+                pr: 2,
                 fontFamily: "Furore",
                 fontSize: "0.8rem",
                 color: "primary.main",
@@ -58,16 +61,32 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
             >
               Wallet
             </Typography>
-            <Typography sx={{ color: "error.main", fontSize: "0.65rem" }}>
-              {wallet && "LOGGED IN"}
-            </Typography>
+            <Box>
+              {wallet && (
+                <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                  <WalletMultiButton
+                    className=" loginButtonSmall "
+                    startIcon={
+                      <Box
+                        sx={{
+                          fontSize: "12px",
+                        }}
+                      >
+                        <Brightness1 fontSize="inherit" color="primary" />
+                      </Box>
+                    }
+                  />
+                </Box>
+              )}
+            </Box>
           </Box>
         }
         sx={{
           background: `url('${NavigationHeader}')`,
           backgroundSize: "100% 100%",
           border: 0,
-          pr: 4,
+          p: 2,
+          pr: 3,
         }}
       />
       <CardContent
@@ -116,7 +135,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                     </Grid>
                     <Grid item xs={6} sx={{ textAlign: "right" }}>
                       <Box sx={{ fontSize: "0.85rem", color: "primary.main" }}>
-                        0
+                        {tokens.length ?? 0}
                       </Box>
                     </Grid>
                   </Grid>
@@ -127,7 +146,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                   <Typography>DTAC</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "right" }}>
-                  <Typography color="primary">3500.00</Typography>
+                  <Typography color="primary">{datacBalance}</Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -135,7 +154,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                   <Typography>SOL</Typography>
                 </TableCell>
                 <TableCell sx={{ textAlign: "right" }}>
-                  <Typography color="primary">3.5</Typography>
+                  <Typography color="primary">{solanaBalance}</Typography>
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -150,14 +169,6 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
           >
             Connect Wallet
           </Button>
-        )}
-        {wallet && (
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <WalletDisconnectButton
-              className=" logoutButton "
-              startIcon={undefined}
-            />
-          </Box>
         )}
       </CardContent>
     </Card>

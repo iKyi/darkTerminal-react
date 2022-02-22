@@ -6,6 +6,7 @@ import MarkdownParser from "../../../Reusable/MarkdownParser";
 import { FONTS } from "../../../../lib/theme";
 import { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
+import useMobile from "src/hooks/useMobile";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -42,6 +43,7 @@ const ConsoleElement: React.VFC<ConsoleElementPropsType> = ({
   children,
   title,
 }) => {
+  const mobile = useMobile();
   const { pathname } = useLocation();
   // *************** RENDER *************** //
   return (
@@ -104,26 +106,24 @@ const ConsoleElement: React.VFC<ConsoleElementPropsType> = ({
             <GlitchFont sx={{ fontSize: ["1.3rem", "1.3rem", "1.5rem"] }}>
               {title ? title : "HACKED TERMINAL"}
             </GlitchFont>
-            <Typography>
-              <Box
-                sx={{
-                  color: "error.main",
-                  fontSize: ["1rem", "1rem", "1.1rem"],
-                  lineHeight: 2,
-                  fontWeight: "bold",
-                  fontFamily: FONTS.FURORE,
-                }}
-              >
-                @ROOT
-              </Box>
-            </Typography>
+            <Box
+              sx={{
+                color: "error.main",
+                fontSize: ["1rem", "1rem", "1.1rem"],
+                lineHeight: 2,
+                fontWeight: "bold",
+                fontFamily: FONTS.FURORE,
+              }}
+            >
+              @ROOT
+            </Box>
           </Box>
         </Box>
         {/* CARD CONTENT */}
         <Box
           sx={{
             p: [1, 3],
-            maxHeight: "650px",
+            maxHeight: mobile ? "none" : "650px",
             overflowY: "auto",
             "&::-webkit-scrollbar": {
               width: "0.4em",

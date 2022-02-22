@@ -3,7 +3,11 @@ import { PublicKey } from "@solana/web3.js";
 import { useCallback, useContext } from "react";
 import { useAppDispatch } from "src/app/hooks";
 import { startSnackbar } from "src/features/global/globalSlice";
-import { setTokens } from "src/features/user/userSlice";
+import {
+  setdatacBalance,
+  setSolana,
+  setTokens,
+} from "src/features/user/userSlice";
 import { DarkTerminalServiceProvider } from "src/providers/AuthDarkTerminalClassWrapper";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -13,18 +17,26 @@ const useStakeAction = () => {
   const dispatch = useAppDispatch();
   const { publicKey } = wallet;
 
-  const refreshNfts = useCallback(() => {
+  const refreshNfts = useCallback(async () => {
     dispatch(setTokens([]));
+    dispatch(setSolana(null));
+    dispatch(setdatacBalance(null));
     if (publicKey && darkTerminal) {
-      darkTerminal
-        .getNFTs(
+      const [tokens, solana, dtac] = await Promise.all([
+        darkTerminal.getNFTs(
           publicKey.toBase58(),
           process.env.REACT_APP_UPDATE_AUTHORITY || "",
           process.env.REACT_APP_NFT_SYMBOL || ""
-        )
-        .then((tokens) => {
-          dispatch(setTokens(tokens));
-        });
+        ),
+        darkTerminal.getSolanaBalance(publicKey),
+        darkTerminal.getTokenBalance(
+          publicKey,
+          new PublicKey(process.env.REACT_APP_DTAC_TOKEN_ADDRESS ?? "")
+        ),
+      ]);
+      dispatch(setSolana(solana));
+      dispatch(setdatacBalance(dtac));
+      dispatch(setTokens(tokens));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [darkTerminal, publicKey]);

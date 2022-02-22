@@ -1,7 +1,15 @@
 import { getParsedNftAccountsByOwner } from "@nfteyez/sol-rayz";
-import { Connection, PublicKey, Transaction } from "@solana/web3.js";
+import {
+  Connection,
+  Keypair,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+  sendAndConfirmTransaction,
+  Transaction,
+} from "@solana/web3.js";
 import * as splToken from "@solana/spl-token";
 import { MetadataKey } from "@nfteyez/sol-rayz/dist/config/metaplex";
+import { massExtractNftIds, NFTNameTypes } from "src/utils/NFTutils";
 
 export interface ITokenCustomEntry {
   mint: string;
@@ -20,6 +28,10 @@ export interface ITokenCustomEntry {
   masterEdition?: string | undefined;
   edition?: string | undefined;
   image?: string;
+  typeId?: number;
+  name?: NFTNameTypes;
+  solRedeemValue?: number;
+  dtacRedeemValue?: number;
 }
 
 export interface IDarkTerminalClass {
@@ -35,6 +47,11 @@ export interface IDarkTerminalClass {
     wallet: any,
     stakingAccount: PublicKey
   ) => Promise<string>;
+  getSolanaBalance: (walletPublicKey: PublicKey) => Promise<number>;
+  getTokenBalance: (
+    walletPublicKey: PublicKey,
+    tokenAddress: PublicKey
+  ) => Promise<number>;
 }
 
 export default class darkTerminal implements IDarkTerminalClass {
@@ -91,7 +108,7 @@ export default class darkTerminal implements IDarkTerminalClass {
       allTokens[i] = token;
     }
 
-    return allTokens.filter((token: ITokenCustomEntry) => {
+    const filteredItems = allTokens.filter((token: ITokenCustomEntry) => {
       if (
         token.updateAuthority === _updateAuthority &&
         token.data.symbol === symbol
@@ -101,12 +118,13 @@ export default class darkTerminal implements IDarkTerminalClass {
         return false;
       }
     });
+    return massExtractNftIds(filteredItems);
   }
 
-  async transferNft(mint: PublicKey, wallet: any, stakingAccount: PublicKey) {
+  async transferNft(mintId: PublicKey, wallet: any, stakingAccount: PublicKey) {
     var myToken = new splToken.Token(
       this.connection,
-      mint,
+      mintId,
       splToken.TOKEN_PROGRAM_ID,
       wallet
     );
@@ -131,12 +149,10 @@ export default class darkTerminal implements IDarkTerminalClass {
       )
     );
 
-    transaction.recentBlockhash = (
-      await this.connection.getRecentBlockhash()
-    ).blockhash;
-    transaction.feePayer = wallet.publicKey;
+    const recentBlockHash = await this.connection.getRecentBlockhash();
 
-    await wallet.signTransaction(transaction);
+    transaction.recentBlockhash = recentBlockHash.blockhash;
+    transaction.feePayer = wallet.publicKey;
 
     const transactionId = await wallet.sendTransaction(
       transaction,
@@ -144,5 +160,116 @@ export default class darkTerminal implements IDarkTerminalClass {
     );
 
     return transactionId;
+  }
+
+  async transferToken(
+    fromWallet: Keypair,
+    toWallet: PublicKey,
+    mintId: PublicKey,
+    amount: number
+  ) {
+    var myToken = new splToken.Token(
+      this.connection,
+      mintId,
+      splToken.TOKEN_PROGRAM_ID,
+      fromWallet
+    );
+
+    var fromTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(
+      fromWallet.publicKey
+    );
+    var toTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(
+      toWallet
+    );
+
+    var transaction = new Transaction().add(
+      splToken.Token.createTransferInstruction(
+        splToken.TOKEN_PROGRAM_ID,
+        fromTokenAccount.address,
+        toTokenAccount.address,
+        fromWallet.publicKey,
+        [],
+        0
+      )
+    );
+
+    // Sign transaction, broadcast, and confirm
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    var signature = await sendAndConfirmTransaction(
+      this.connection,
+      transaction,
+      [fromWallet]
+    );
+  }
+
+  async validateStakeTransaction(
+    publicKey: PublicKey,
+    mintId: PublicKey,
+    txId: string
+  ): Promise<boolean> {
+    // this will return null if called right immediately
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const transaction = await this.connection.getTransaction(txId);
+
+    return true;
+  }
+
+  async determineNftExchangeToken(mintId: PublicKey): Promise<PublicKey> {
+    // map each NFT type exchange token to its mintId
+    const exchangeTokensMintIds = {
+      nyx: process.env.NYX_EXCHANGE_TOKEN_MINT_ID,
+    };
+
+    // map each mintId to a NFT type
+    const exchangeTokens = {
+      nyx: [
+        "GypyGXbG7s2FMPVpTK1jHuP6FktZET2o22qq39pz3h69",
+        "GypyGXbG7s2FMPVpTK1jHuP6FktZET2o22qq39pz3h68",
+        "GypyGXbG7s2FMPVpTK1jHuP6FktZET2o22qq39pz3h62",
+      ],
+    };
+
+    // return according exchange token mintId
+    switch (true) {
+      case exchangeTokens.nyx.includes(mintId.toBase58()) &&
+        exchangeTokensMintIds.nyx !== undefined:
+        return new PublicKey(exchangeTokensMintIds.nyx!);
+    }
+
+    // not found
+    return new PublicKey("1nc1nerator11111111111111111111111111111111");
+  }
+
+  async getSolanaLamportBalance(walletPublicKey: PublicKey): Promise<number> {
+    return await this.connection.getBalance(walletPublicKey);
+  }
+
+  async getSolanaBalance(walletPublicKey: PublicKey): Promise<number> {
+    return (
+      (await this.getSolanaLamportBalance(walletPublicKey)) / LAMPORTS_PER_SOL
+    );
+  }
+
+  async getTokenBalance(
+    walletPublicKey: PublicKey,
+    tokenAddress: PublicKey
+  ): Promise<number> {
+    const response = await this.connection.getTokenAccountsByOwner(
+      walletPublicKey,
+      {
+        mint: tokenAddress,
+      }
+    );
+
+    let balance = 0;
+
+    for (let i = 0; i < response.value.length; i++) {
+      const accountBalance = await this.connection.getTokenAccountBalance(
+        response.value[i].pubkey
+      );
+      balance += parseFloat(accountBalance.value.amount);
+    }
+
+    return balance;
   }
 }

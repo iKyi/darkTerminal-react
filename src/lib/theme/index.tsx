@@ -15,6 +15,8 @@ import RedSharp from "../../assets/buttons/red_sharp.png";
 import bigAngleGreen from "../../assets/buttons/bigAngleGreen.png";
 import complexRed from "../../assets/buttons/complexButtonRed.png";
 import complexGreen from "../../assets/buttons/complexButtonGreen.png";
+import angledRed from "../../assets/buttons/greenAngled/red.png";
+import angledGreen from "../../assets/buttons/greenAngled/green.png";
 
 export enum FONTS {
   FUTURA = "Futura, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
@@ -30,6 +32,7 @@ declare module "@mui/material/Button" {
     redSharp: true;
     bigAngleGreen: true;
     complex: true;
+    angled: true;
   }
 }
 
@@ -100,6 +103,48 @@ const getOverRides = (theme: Theme) => {
       },
       MuiButton: {
         variants: [
+          {
+            props: { variant: "angled", color: "primary" },
+            style: {
+              paddingTop: theme.spacing(1.5),
+              paddingBottom: theme.spacing(1.5),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
+              fontSize: "1rem",
+              fontFamily: FONTS.FURORE,
+              textTransform: "uppercase",
+              background: `url('${angledGreen}')`,
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              color: theme.palette.common.white,
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.primary.main,
+              },
+            },
+          },
+          {
+            props: { variant: "angled", color: "secondary" },
+            style: {
+              paddingTop: theme.spacing(1.5),
+              paddingBottom: theme.spacing(1.5),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
+              fontSize: "1rem",
+              fontFamily: FONTS.FURORE,
+              textTransform: "uppercase",
+              background: `url('${angledRed}')`,
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              color: theme.palette.common.white,
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.error.main,
+              },
+            },
+          },
           {
             props: { variant: "complex", color: "primary" },
             style: {
@@ -335,6 +380,12 @@ const getOverRides = (theme: Theme) => {
             fontWeight: 300,
             color: theme.palette.error.main,
             textAlign: "center",
+          },
+          ".wallet-adapter-button.loginButtonSmall": {
+            background: `url('${RedSharp}')`,
+            backgroundSize: "100% 100%",
+            height: "24px",
+            padding: "0 15px 0px 10px",
           },
           ".wallet-adapter-button.loginButton": {
             background: `url('${complexRed}')`,
