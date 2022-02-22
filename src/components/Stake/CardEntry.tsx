@@ -83,16 +83,6 @@ const CardEntry: React.VFC<CardEntryPropsType> = ({ data }) => {
         >
           <Grid item xs={9}>
             <Typography sx={{ fontSize: "0.85rem", color: "common.white" }}>
-              STATE
-            </Typography>
-          </Grid>
-          <Grid item xs={3} sx={{ textAlign: "right" }}>
-            <Typography sx={{ fontSize: "0.85rem", color: "primary.main" }}>
-              UNSTAKED
-            </Typography>
-          </Grid>
-          <Grid item xs={9}>
-            <Typography sx={{ fontSize: "0.85rem", color: "common.white" }}>
               DTAC REDEEMABLE
             </Typography>
           </Grid>
