@@ -48,7 +48,7 @@ const CardEntry: React.VFC<CardEntryPropsType> = ({ data }) => {
           py: 1,
         }}
       >
-        unstaked
+        unstaked {data.data.name.replace("Dark Terminal Hacker ", "")}
       </Box>
       <Box sx={{ position: "relative" }}>
         <img
@@ -83,12 +83,22 @@ const CardEntry: React.VFC<CardEntryPropsType> = ({ data }) => {
         >
           <Grid item xs={9}>
             <Typography sx={{ fontSize: "0.85rem", color: "common.white" }}>
+              STATE
+            </Typography>
+          </Grid>
+          <Grid item xs={3} sx={{ textAlign: "right" }}>
+            <Typography sx={{ fontSize: "0.85rem", color: "primary.main" }}>
+              UNSTAKED
+            </Typography>
+          </Grid>
+          <Grid item xs={9}>
+            <Typography sx={{ fontSize: "0.85rem", color: "common.white" }}>
               DTAC REDEEMABLE
             </Typography>
           </Grid>
           <Grid item xs={3} sx={{ textAlign: "right" }}>
             <Typography sx={{ fontSize: "0.85rem", color: "primary.main" }}>
-              500.00
+              3500.00
             </Typography>
           </Grid>
           <Grid item xs={9}>
@@ -98,7 +108,7 @@ const CardEntry: React.VFC<CardEntryPropsType> = ({ data }) => {
           </Grid>
           <Grid item xs={3} sx={{ textAlign: "right" }}>
             <Typography sx={{ fontSize: "0.85rem", color: "error.main" }}>
-              3.5
+              0.5
             </Typography>
           </Grid>
         </Grid>
