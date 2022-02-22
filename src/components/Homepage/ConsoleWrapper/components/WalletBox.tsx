@@ -41,21 +41,33 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
     >
       <CardHeader
         title={
-          <Typography
+          <Box
             sx={{
-              px: 2,
-              fontFamily: "Furore",
-              fontSize: "0.8rem",
-              color: "primary.main",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            Wallet
-          </Typography>
+            <Typography
+              sx={{
+                px: 2,
+                fontFamily: "Furore",
+                fontSize: "0.8rem",
+                color: "primary.main",
+              }}
+            >
+              Wallet
+            </Typography>
+            <Typography sx={{ color: "error.main", fontSize: "0.65rem" }}>
+              {wallet && "LOGGED IN"}
+            </Typography>
+          </Box>
         }
         sx={{
           background: `url('${NavigationHeader}')`,
           backgroundSize: "100% 100%",
           border: 0,
+          pr: 4,
         }}
       />
       <CardContent

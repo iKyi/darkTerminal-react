@@ -93,7 +93,7 @@ export default class darkTerminal implements IDarkTerminalClass {
 
     return allTokens.filter((token: ITokenCustomEntry) => {
       if (
-        // token.updateAuthority === updateAuthority &&
+        token.updateAuthority === _updateAuthority &&
         token.data.symbol === symbol
       ) {
         return true;

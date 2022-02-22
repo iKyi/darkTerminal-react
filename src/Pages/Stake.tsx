@@ -36,7 +36,7 @@ const Stake: React.VFC<StakePropsType> = ({ children }) => {
           py: 5.5,
         }}
       >
-        <Container maxWidth={false} sx={{ maxWidth: "1920px", width: "100%" }}>
+        <Container maxWidth={false} sx={{ maxWidth: "1650px", width: "100%" }}>
           <Grid container spacing={isMobile ? 1 : 2}>
             {sections && (
               <Grid
