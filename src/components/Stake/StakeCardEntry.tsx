@@ -214,7 +214,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                             component="span"
                             sx={{ ...bigTextStyles, color: "primary.main" }}
                           >
-                            0.0003232 / day
+                            1.8 dtac / hour
                           </Typography>
                           {/* <Typography
                             component="span"

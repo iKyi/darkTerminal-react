@@ -63,7 +63,8 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
   children,
 }) => {
   // STATIC VALUES
-  const rpcUrl = process.env.REACT_APP_RPC_URL;
+  const rpcUrl =
+    process.env.REACT_APP_RPC_URL ?? "https://ssc-dao.genesysgo.net";
 
   // DYNAMIC VALUES
   const dispatch = useAppDispatch();

@@ -36,6 +36,10 @@ const AuthProviderWalletWrapper: React.VFC<
       ? "https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899"
       : process.env.REACT_APP_RPC_URL ?? "https://ssc-dao.genesysgo.net";
 
+  // AG: forcing mainnet on dev env for testing
+  // const network = WalletAdapterNetwork.Mainnet;
+  // const endpoint = "https://ssc-dao.genesysgo.net";
+
   const wallets = useMemo(
     () => [
       new PhantomWalletAdapter(),
