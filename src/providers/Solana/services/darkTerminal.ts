@@ -270,6 +270,6 @@ export default class darkTerminal implements IDarkTerminalClass {
       balance += parseFloat(accountBalance.value.amount);
     }
 
-    return balance;
+    return balance  / LAMPORTS_PER_SOL;
   }
 }
