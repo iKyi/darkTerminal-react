@@ -24,6 +24,8 @@ import { Brightness1 } from "@mui/icons-material";
 
 export type WalletBoxPropsType = {};
 
+const dollarUSLocale = Intl.NumberFormat("en-US");
+
 const WalletBox: React.VFC<WalletBoxPropsType> = () => {
   const { wallet } = useWallet();
   const { tokens, datacBalance, solanaBalance, redeemableDtac, redeemableSol } =
@@ -35,7 +37,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
   };
 
   const parseWalletValue = (value: any) => {
-    return !wallet ? "-" : value;
+    return !wallet ? "-" : dollarUSLocale.format(value);
   };
 
   // *************** RENDER *************** //

@@ -28,12 +28,12 @@ export const userSlice = createSlice({
     },
     setSolana: (state, action: PayloadAction<number | null>) => {
       const { payload } = action;
-      const value = payload ? Number(payload.toFixed(4)) : null;
+      const value = payload ? payload : null;
       state.solanaBalance = value;
     },
     setdatacBalance: (state, action: PayloadAction<number | null>) => {
       const { payload } = action;
-      const value = payload ? Number(payload.toFixed(4)) : null;
+      const value = payload ? payload : null;
       state.datacBalance = value;
     },
     setRedeemableSol: (state, action: PayloadAction<number | null>) => {
@@ -66,8 +66,8 @@ export const writeUserNftData =
           (iterationNft.dtacRedeemValue ? iterationNft.dtacRedeemValue : 0),
         0
       );
-      dispatch(setRedeemableSol(Number(redeemableSol.toFixed(4))));
-      dispatch(setRedeemableDtac(Number(redeemableDtac.toFixed(4))));
+      dispatch(setRedeemableSol(redeemableSol));
+      dispatch(setRedeemableDtac(redeemableDtac));
     }
   };
 
