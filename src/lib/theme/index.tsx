@@ -423,6 +423,8 @@ const getOverRides = (theme: Theme) => {
           root: {
             fontFamily: FONTS.FURORE,
             borderColor: theme.palette.secondary.main,
+            paddingTop: "6px",
+            paddingBottom: "6px",
           },
         },
       },

@@ -26,9 +26,8 @@ export type WalletBoxPropsType = {};
 
 const WalletBox: React.VFC<WalletBoxPropsType> = () => {
   const { wallet } = useWallet();
-  const { tokens, datacBalance, solanaBalance } = useAppSelector(
-    (state) => state.user
-  );
+  const { tokens, datacBalance, solanaBalance, redeemableDtac, redeemableSol } =
+    useAppSelector((state) => state.user);
 
   const { setVisible: setWalletModalVisible } = useWalletModal();
   const triggerWalletModal = () => {
@@ -162,6 +161,26 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                 <TableCell sx={{ textAlign: "right" }}>
                   <Typography color="primary">
                     {parseWalletValue(solanaBalance)}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <Typography>REDEEMABLE SOL</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "right" }}>
+                  <Typography color="primary">
+                    {parseWalletValue(redeemableSol)}
+                  </Typography>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  <Typography>REDEEMABLE DTAC</Typography>
+                </TableCell>
+                <TableCell sx={{ textAlign: "right" }}>
+                  <Typography color="primary">
+                    {parseWalletValue(redeemableDtac)}
                   </Typography>
                 </TableCell>
               </TableRow>

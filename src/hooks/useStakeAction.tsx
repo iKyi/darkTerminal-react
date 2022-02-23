@@ -6,7 +6,7 @@ import { startSnackbar } from "src/features/global/globalSlice";
 import {
   setdatacBalance,
   setSolana,
-  setTokens,
+  writeUserNftData,
 } from "src/features/user/userSlice";
 import { DarkTerminalServiceProvider } from "src/providers/AuthDarkTerminalClassWrapper";
 import { useDebouncedCallback } from "use-debounce";
@@ -18,7 +18,7 @@ const useStakeAction = () => {
   const { publicKey } = wallet;
 
   const refreshNfts = useCallback(async () => {
-    dispatch(setTokens([]));
+    dispatch(writeUserNftData([]));
     dispatch(setSolana(null));
     dispatch(setdatacBalance(null));
     if (publicKey && darkTerminal) {
@@ -36,7 +36,7 @@ const useStakeAction = () => {
       ]);
       dispatch(setSolana(solana));
       dispatch(setdatacBalance(dtac));
-      dispatch(setTokens(tokens));
+      dispatch(writeUserNftData(tokens));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [darkTerminal, publicKey]);
