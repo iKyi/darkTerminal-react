@@ -5,7 +5,7 @@ import ButtonLogo from "../../../../assets/sections/homepage/indicatorBox.png";
 import Logo from "../../../../assets/images/logo.png";
 import { SiteNavLinks, TerminalButton } from "./Header";
 import { NavLink } from "react-router-dom";
-import { CropFree } from "@mui/icons-material";
+import ActiveHeaderLinkIcon from "src/icons/ActiveHeaderLinkIcon";
 
 const HeaderMobileButton: React.VFC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -53,7 +53,7 @@ const HeaderMobileButton: React.VFC = () => {
                       alignItems: "center",
                     }}
                   >
-                    <CropFree fontSize="small" sx={{ mr: 1 }} />
+                    <ActiveHeaderLinkIcon sx={{ mr: 1 }} />
                   </Box>
                   {item.title}
                 </ListItem>

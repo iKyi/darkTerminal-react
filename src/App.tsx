@@ -34,6 +34,7 @@ function App() {
 
   useEffect(() => {
     startAnimation();
+    console.log(process.env.REACT_APP_RPC_URL);
   }, []);
 
   // useEffect(() => {

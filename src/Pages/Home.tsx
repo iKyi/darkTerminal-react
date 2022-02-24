@@ -32,8 +32,10 @@ const Home: React.VFC<HomePropsType> = ({ children }) => {
       <SeoComp seo={seo} />
       {/* <Container>
         <HeroBox heroImage={heroImage} heroVideo={heroVideo} />
-      </Container>
-      <ReportLine /> */}
+      </Container>*/}
+      {/* <Container>
+        <ReportLine />
+      </Container> */}
       <ConsoleWrapper />
       <Footer />
     </StrapiPublicProvider>

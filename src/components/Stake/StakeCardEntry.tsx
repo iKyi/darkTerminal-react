@@ -14,6 +14,7 @@ import greenBars from "../../assets/images/stakeCards/greenBars.png";
 import redBars from "../../assets/images/stakeCards/redBars.png";
 import { ReactNode } from "react";
 import { SxProps } from "@mui/system";
+import useStakeAction from "src/hooks/useStakeAction";
 
 export type StakeCardEntryPropsType = {
   children?: any;
@@ -81,12 +82,14 @@ const bigTextStyles: SxProps = {
 };
 
 const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
+  const { stakeAction } = useStakeAction();
   const dispatch = useAppDispatch();
   const { id: paramId } = useParams();
   const data = useAppSelector((state) => state.user.tokens).find(
     (tkn) => tkn.mint === paramId
   );
-  const { dtacRedeemValue, solRedeemValue, name, typeId, image } = data || {};
+  const { dtacRedeemValue, solRedeemValue, name, typeId, image, mint } =
+    data || {};
 
   const staked = false;
   const imageFrame = staked ? redImageFrame : greenImageFrame;
@@ -95,6 +98,14 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
   // *************** METHODS  *************** //
   const startComingSoon = () => {
     dispatch(setComingSoon(true));
+  };
+
+  const localDoStake = () => {
+    if (data) {
+      stakeAction(mint!, name!);
+    } else {
+      throw new Error("Error 5231");
+    }
   };
 
   // *************** RENDER *************** //
@@ -281,7 +292,8 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                       color={staked ? "secondary" : "primary"}
                       startIcon={<Lock color={staked ? "error" : "primary"} />}
                       fullWidth
-                      onClick={startComingSoon}
+                      onClick={localDoStake}
+                      disabled={staked}
                     >
                       {staked ? "CLAIM ALL & UNSTAKE" : "STAKE NOW"}
                     </Button>

@@ -32,6 +32,7 @@ export interface ITokenCustomEntry {
   name?: NFTNameTypes;
   solRedeemValue?: number;
   dtacRedeemValue?: number;
+  staked?: boolean;
 }
 
 export interface IDarkTerminalClass {
@@ -205,13 +206,71 @@ export default class darkTerminal implements IDarkTerminalClass {
   async validateStakeTransaction(
     publicKey: PublicKey,
     mintId: PublicKey,
+    stakingAccount: PublicKey,
     txId: string
   ): Promise<boolean> {
     // this will return null if called right immediately
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const transaction = await this.connection.getTransaction(txId);
 
-    return true;
+    let preTokenBalancesValidation = 0;
+    let postTokenBalancesValidation = 0;
+
+    if (transaction?.meta?.preTokenBalances) {
+      for (let i = 0; i < transaction.meta.preTokenBalances.length; i++) {
+        const balance = transaction.meta.preTokenBalances[i];
+
+        // Incorrect mint
+        if (balance.mint !== mintId.toBase58()) {
+          return false;
+        }
+
+        // Checks that user had the token in wallet before transaction
+        if (balance.owner === publicKey.toBase58()) {
+          if (parseInt(balance.uiTokenAmount.amount) === 1) {
+            preTokenBalancesValidation++;
+          }
+        }
+
+        // Checks that owner didn't have the token in wallet before transaction
+        if (balance.owner === stakingAccount.toBase58()) {
+          if (parseInt(balance.uiTokenAmount.amount) === 0) {
+            preTokenBalancesValidation++;
+          }
+        }
+      }
+    } else {
+      throw new Error("Error code 6782");
+    }
+
+    if (transaction?.meta?.postTokenBalances) {
+      for (let i = 0; i < transaction.meta.postTokenBalances.length; i++) {
+        const balance = transaction.meta.postTokenBalances[i];
+        // Incorrect mint
+        if (balance.mint !== mintId.toBase58()) {
+          return false;
+        }
+
+        // Checks that user didn't have the token in wallet after transaction
+        if (balance.owner === publicKey.toBase58()) {
+          if (parseInt(balance.uiTokenAmount.amount) === 0) {
+            postTokenBalancesValidation++;
+          }
+        }
+
+        // Checks that owner had the token in wallet after transaction
+        if (balance.owner === stakingAccount.toBase58()) {
+          if (parseInt(balance.uiTokenAmount.amount) === 1) {
+            postTokenBalancesValidation++;
+          }
+        }
+      }
+
+      return (
+        preTokenBalancesValidation === 2 && postTokenBalancesValidation === 2
+      );
+    } else {
+      throw new Error("Error code 6783");
+    }
   }
 
   async determineNftExchangeToken(mintId: PublicKey): Promise<PublicKey> {
@@ -231,8 +290,7 @@ export default class darkTerminal implements IDarkTerminalClass {
 
     // return according exchange token mintId
     switch (true) {
-      case exchangeTokens.nyx.includes(mintId.toBase58()) &&
-        exchangeTokensMintIds.nyx !== undefined:
+      case exchangeTokens.nyx.includes(mintId.toBase58()):
         return new PublicKey(exchangeTokensMintIds.nyx!);
     }
 
@@ -270,6 +328,6 @@ export default class darkTerminal implements IDarkTerminalClass {
       balance += parseFloat(accountBalance.value.amount);
     }
 
-    return balance  / LAMPORTS_PER_SOL;
+    return balance / LAMPORTS_PER_SOL;
   }
 }

@@ -8,7 +8,10 @@ import {
   setSolana,
   writeUserNftData,
 } from "src/features/user/userSlice";
+import axiosInstance from "src/lib/axios/axiosInstance";
+import { REST_ENDPOINTS } from "src/lib/axios/endpoints";
 import { DarkTerminalServiceProvider } from "src/providers/AuthDarkTerminalClassWrapper";
+import { NFTNameTypes } from "src/utils/NFTutils";
 import { useDebouncedCallback } from "use-debounce";
 
 const useStakeAction = () => {
@@ -22,7 +25,7 @@ const useStakeAction = () => {
     dispatch(setSolana(null));
     dispatch(setdatacBalance(null));
     if (publicKey && darkTerminal) {
-      const [tokens, solana, dtac] = await Promise.all([
+      const [tokens, solana, dtac, loginData] = await Promise.all([
         darkTerminal.getNFTs(
           publicKey.toBase58(),
           process.env.REACT_APP_UPDATE_AUTHORITY || "",
@@ -33,7 +36,11 @@ const useStakeAction = () => {
           publicKey,
           new PublicKey(process.env.REACT_APP_DTAC_TOKEN_ADDRESS ?? "")
         ),
+        axiosInstance(
+          `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.LOGIN}${publicKey}`
+        ),
       ]);
+      console.log(loginData);
       dispatch(setSolana(solana));
       dispatch(setdatacBalance(dtac));
       dispatch(writeUserNftData(tokens));
@@ -44,26 +51,45 @@ const useStakeAction = () => {
   const debouncedRefreshNfts = useDebouncedCallback(refreshNfts, 1000);
 
   const stakeAction = useCallback(
-    async (mint: string) => {
+    async (mint: string, nameType: NFTNameTypes) => {
       if (darkTerminal) {
-        const txId = await darkTerminal.transferNft(
-          new PublicKey(mint),
-          wallet,
-          new PublicKey(process.env.REACT_APP_STAKING_ACCOUNT_PUBLIC_KEY || "")
-        );
-        dispatch(
-          startSnackbar({
-            variant: "success",
-            content: `Transaction ${txId} successful !`,
-          })
-        );
-        debouncedRefreshNfts();
+        try {
+          // transfer action
+          const txId = await darkTerminal.transferNft(
+            new PublicKey(mint),
+            wallet,
+            new PublicKey(
+              process.env.REACT_APP_STAKING_ACCOUNT_PUBLIC_KEY || ""
+            )
+          );
+          // posts the transaction to local backend
+          await axiosInstance.post("www.google.com", {
+            publicKey,
+            mintId: mint,
+            nameType,
+          });
+          dispatch(
+            startSnackbar({
+              variant: "success",
+              content: `Transaction ${txId} successful !`,
+            })
+          );
+          debouncedRefreshNfts();
+        } catch (err) {
+          dispatch(
+            startSnackbar({
+              variant: "error",
+              content: `Transaction failed !`,
+            })
+          );
+          throw new Error(JSON.stringify(err));
+        }
       }
 
       return;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [darkTerminal, wallet]
+    [darkTerminal, wallet, publicKey]
   );
 
   return { stakeAction, refreshNfts, debouncedRefreshNfts };

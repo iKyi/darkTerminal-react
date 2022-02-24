@@ -2,7 +2,6 @@ import { Box, Button, Link as MUILink } from "@mui/material";
 import { ReactComponent as DiscordIcon } from "../../../../assets/icons/Discord-Logo-White.svg";
 import useMobile from "../../../../hooks/useMobile";
 import { NavLink } from "react-router-dom";
-import { CropFree } from "@mui/icons-material";
 import RedButtonBg from "../../../../assets/buttons/red_angle.png";
 import { ReactComponent as DiscordBar } from "../../../../assets/sections/homepage/discordButton.svg";
 import HeaderMobileButton from "./HeaderMobileButton";
@@ -10,6 +9,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useContext } from "react";
 import { StrapiContext } from "../../../../providers/StrapiPublicProvider";
 import { getStrapiMedia } from "../../../../lib/theme/media";
+import ActiveHeaderLinkIcon from "src/icons/ActiveHeaderLinkIcon";
 
 interface INavLink {
   title: string;
@@ -93,7 +93,7 @@ const HeaderButton = (props: any) => {
         opacity: !isActive ? "0.85" : "1",
       }}
     >
-      {isActive && <CropFree fontSize="small" sx={{ mr: 1 }} />}
+      {isActive && <ActiveHeaderLinkIcon sx={{ mr: 1 }} />}
       {children}
     </Button>
   );

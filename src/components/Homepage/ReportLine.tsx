@@ -1,8 +1,9 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import axiosGetter from "../../lib/axios/axiosGetter";
 import { getStrapiURL } from "../../lib/theme/api";
+import GlitchFont from "../Reusable/GlitchFont";
 
 export type ReportLinePropsType = {};
 
@@ -81,19 +82,16 @@ const ReportLine: React.VFC<ReportLinePropsType> = () => {
           textAlign: "center",
         }}
       >
-        <Typography
-          variant="body2"
+        <GlitchFont
           sx={{
-            textTransform: "uppercase",
-            fontFamily: "Furore",
-            fontSize: "0.8rem",
-            color: "common.gray",
+            fontSize: "0.9rem",
+            color: "primary.light",
+            lineHeight: 1,
+            pt: 0.3,
           }}
         >
-          {
-            "Prizes displayed in sol are the amounts in case the nft drop sells out"
-          }
-        </Typography>
+          {"DARK TERMINAL STATS"}
+        </GlitchFont>
       </Box>
     </Box>
   );
