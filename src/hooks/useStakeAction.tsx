@@ -25,7 +25,7 @@ const useStakeAction = () => {
     dispatch(setSolana(null));
     dispatch(setdatacBalance(null));
     if (publicKey && darkTerminal) {
-      const [tokens, solana, dtac, loginData] = await Promise.all([
+      const [tokens, solana, dtac] = await Promise.all([
         darkTerminal.getNFTs(
           publicKey.toBase58(),
           process.env.REACT_APP_UPDATE_AUTHORITY || "",
@@ -36,11 +36,10 @@ const useStakeAction = () => {
           publicKey,
           new PublicKey(process.env.REACT_APP_DTAC_TOKEN_ADDRESS ?? "")
         ),
-        axiosInstance(
-          `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.LOGIN}${publicKey}`
-        ),
+        // axiosInstance.post(
+        //   `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.LOGIN}${publicKey}`
+        // ),
       ]);
-      console.log(loginData);
       dispatch(setSolana(solana));
       dispatch(setdatacBalance(dtac));
       dispatch(writeUserNftData(tokens));
@@ -63,11 +62,14 @@ const useStakeAction = () => {
             )
           );
           // posts the transaction to local backend
-          await axiosInstance.post("www.google.com", {
-            publicKey,
-            mintId: mint,
-            nameType,
-          });
+          await axiosInstance.post(
+            `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.LOGIN}${publicKey}`,
+            {
+              publicKey,
+              mintId: mint,
+              nameType,
+            }
+          );
           dispatch(
             startSnackbar({
               variant: "success",
