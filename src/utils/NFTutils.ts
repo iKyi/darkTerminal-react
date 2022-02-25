@@ -28,11 +28,11 @@ const bindNftClaimValue = (nft: ITokenCustomEntry) => {
   const { name } = nft;
   switch (true) {
     case name === "Nyx":
-      return 0.962;
+      return 1.045;
     case name === "D3gen":
-      return 0.072;
+      return 0.082;
     default:
-      return 0.063;
+      return 0.070;
   }
 };
 

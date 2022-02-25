@@ -155,9 +155,9 @@ const HeroBox: React.VFC<HeroBoxPropsType> = ({ heroImage, heroVideo }) => {
                 variant="threeButton"
                 color="primary"
                 component={Link}
-                to={`/${ROUTES.MINTPAGE}`}
+                to={`#`}
               >
-                MINT NOW
+                SOLD OUT
               </Button>
             </Box>
             <Box sx={{ p: 1.5, width: "100%" }}>

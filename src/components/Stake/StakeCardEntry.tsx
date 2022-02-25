@@ -292,7 +292,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                       color={staked ? "secondary" : "primary"}
                       startIcon={<Lock color={staked ? "error" : "primary"} />}
                       fullWidth
-                      onClick={localDoStake}
+                      onClick={startComingSoon}
                       disabled={staked}
                     >
                       {staked ? "CLAIM ALL & UNSTAKE" : "STAKE NOW"}

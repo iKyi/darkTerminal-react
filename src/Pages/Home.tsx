@@ -1,6 +1,6 @@
-// import { Container } from "@mui/material";
-// import HeroBox from "../components/Homepage/HeroBox";
-// import ReportLine from "../components/Homepage/ReportLine";
+import { Container } from "@mui/material";
+import HeroBox from "../components/Homepage/HeroBox";
+import ReportLine from "../components/Homepage/ReportLine";
 import { useEffect, useState } from "react";
 import ConsoleWrapper from "../components/Homepage/ConsoleWrapper/ConsoleWrapper";
 import Footer from "../components/Reusable/Layout/Footer/Footer";
@@ -23,19 +23,19 @@ const Home: React.VFC<HomePropsType> = ({ children }) => {
     });
   }, []);
   const seo = data?.data?.attributes?.seo;
-  // const { heroImage, heroVideo } = data || {};
+  const { heroImage, heroVideo } = data || {};
   // *************** RENDER *************** //
   if (!data) return null;
   return (
     <StrapiPublicProvider>
       <Header />
       <SeoComp seo={seo} />
-      {/* <Container>
+      <Container>
         <HeroBox heroImage={heroImage} heroVideo={heroVideo} />
-      </Container>*/}
-      {/* <Container>
+      </Container>
+      <Container>
         <ReportLine />
-      </Container> */}
+      </Container>
       <ConsoleWrapper />
       <Footer />
     </StrapiPublicProvider>
