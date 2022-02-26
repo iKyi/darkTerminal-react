@@ -1,10 +1,11 @@
 import { Box } from "@mui/material";
+import { ReactNode } from "react";
 import useMobile from "src/hooks/useMobile";
 import GlitchFont from "../Reusable/GlitchFont";
 
 export type BigSectionWrapperPropsType = {
   children?: any;
-  title: string;
+  title: string | ReactNode;
 };
 
 const BigSectionWrapper: React.VFC<BigSectionWrapperPropsType> = ({

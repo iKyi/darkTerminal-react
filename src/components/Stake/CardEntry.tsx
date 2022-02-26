@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import ImageFrame from "../../assets/images/imageFrame.png";
 import redImageFrame from "../../assets/images/redImageFrame.png";
 import greenTopFrame from "../../assets/images/greenTopFrame.png";
-import redTopFrame from "../../assets/images/greenTopFrame.png";
+import redTopFrame from "../../assets/images/redTopFrame.png";
 import { centerFlex } from "../../lib/sxUtils";
 import threeButtonWhite from "../../assets/buttons/threeWhite.png";
 
@@ -14,9 +14,17 @@ export type CardEntryPropsType = {
 };
 
 const CardEntry: React.VFC<CardEntryPropsType> = ({ data }) => {
-  const { image, mint, name, typeId, solRedeemValue, dtacRedeemValue } = data;
+  const {
+    image,
+    mint,
+    name,
+    typeId,
+    solRedeemValue,
+    dtacRedeemValue,
+    isStaked,
+  } = data;
 
-  const staked = false;
+  const staked = isStaked ? true : false;
 
   const mainColor = staked ? "error.main" : "primary.main";
   const topBorder = staked ? redTopFrame : greenTopFrame;

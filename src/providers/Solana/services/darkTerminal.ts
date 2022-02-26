@@ -9,7 +9,15 @@ import {
 } from "@solana/web3.js";
 import * as splToken from "@solana/spl-token";
 import { MetadataKey } from "@nfteyez/sol-rayz/dist/config/metaplex";
-import { massExtractNftIds, NFTNameTypes } from "src/utils/NFTutils";
+import {
+  convertToFrontendObjectNftStyle,
+  massExtractNftIds,
+  NFTNameTypes,
+} from "src/utils/NFTutils";
+import { WalletContextState } from "@solana/wallet-adapter-react";
+import axiosGetter from "src/lib/axios/axiosGetter";
+import { REST_ENDPOINTS } from "src/lib/axios/endpoints";
+import { web3 } from "@project-serum/anchor";
 
 export interface ITokenCustomEntry {
   mint: string;
@@ -32,7 +40,7 @@ export interface ITokenCustomEntry {
   name?: NFTNameTypes;
   solRedeemValue?: number;
   dtacRedeemValue?: number;
-  staked?: boolean;
+  isStaked?: boolean;
 }
 
 export interface IDarkTerminalClass {
@@ -96,10 +104,18 @@ export default class darkTerminal implements IDarkTerminalClass {
     _updateAuthority: string,
     symbol: string
   ) {
-    const allTokens: ITokenCustomEntry[] = await getParsedNftAccountsByOwner({
+    let allTokens: ITokenCustomEntry[] = await getParsedNftAccountsByOwner({
       publicAddress: walletPublicKey,
       connection: this.connection,
     });
+
+    let stakedItems = await axiosGetter(
+      `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.GET_NFTS}/HBkYuHXSZ9PM46176PR27syFkFe1khRnvxSNRx4NvEHj`
+    );
+    stakedItems = stakedItems.stakedNFTs.map((item: any) =>
+      convertToFrontendObjectNftStyle(item)
+    );
+    allTokens = [...stakedItems, ...allTokens];
 
     for (let i = 0; i < allTokens.length; i++) {
       const token: ITokenCustomEntry = allTokens[i];
@@ -119,41 +135,78 @@ export default class darkTerminal implements IDarkTerminalClass {
         return false;
       }
     });
+
     return massExtractNftIds(filteredItems);
   }
 
-  async transferNft(mintId: PublicKey, wallet: any, stakingAccount: PublicKey) {
-    var myToken = new splToken.Token(
+  async transferNft(
+    mintId: PublicKey,
+    wallet: WalletContextState | any,
+    stakingAccount: PublicKey
+  ) {
+    const mintPublicKey = new web3.PublicKey(mintId);
+    const mintToken = new splToken.Token(
+      this.connection,
+      mintPublicKey,
+      splToken.TOKEN_PROGRAM_ID,
+      wallet.payer // the wallet owner will pay to transfer and to create recipients associated token account if it does not yet exist.
+    );
+
+    const myToken = new splToken.Token(
       this.connection,
       mintId,
       splToken.TOKEN_PROGRAM_ID,
       wallet
     );
 
+    const associatedDestinationTokenAddr =
+      await splToken.Token.getAssociatedTokenAddress(
+        mintToken.associatedProgramId,
+        mintToken.programId,
+        mintPublicKey,
+        stakingAccount
+      );
+
     // Create associated token accounts for my token if they don't exist yet
-    var fromTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(
+    const fromTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(
       wallet.publicKey
     );
 
-    var toTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(
-      stakingAccount
+    const receiverAccount = await this.connection.getAccountInfo(
+      associatedDestinationTokenAddr
     );
 
-    const transaction = new Transaction().add(
+    const instructions: web3.TransactionInstruction[] = [];
+
+    if (receiverAccount === null) {
+      instructions.push(
+        splToken.Token.createAssociatedTokenAccountInstruction(
+          mintToken.associatedProgramId,
+          mintToken.programId,
+          mintPublicKey,
+          associatedDestinationTokenAddr,
+          stakingAccount,
+          wallet.publicKey
+        )
+      );
+    }
+
+    instructions.push(
       splToken.Token.createTransferInstruction(
         splToken.TOKEN_PROGRAM_ID,
         fromTokenAccount.address,
-        toTokenAccount.address,
+        associatedDestinationTokenAddr,
         wallet.publicKey,
         [],
         1
       )
     );
 
-    const recentBlockHash = await this.connection.getRecentBlockhash();
-
-    transaction.recentBlockhash = recentBlockHash.blockhash;
+    const transaction = new web3.Transaction().add(...instructions);
     transaction.feePayer = wallet.publicKey;
+    transaction.recentBlockhash = (
+      await this.connection.getRecentBlockhash()
+    ).blockhash;
 
     const transactionId = await wallet.sendTransaction(
       transaction,

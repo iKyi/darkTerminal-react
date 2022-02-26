@@ -20,6 +20,7 @@ import useStakeAction from "./hooks/useStakeAction";
 import Stake from "./Pages/Stake";
 import StakeIndex from "./components/Stake/StakeIndex";
 import StakeCardEntry from "./components/Stake/StakeCardEntry";
+import AppLoader from "./components/Reusable/AppLoader";
 
 function App() {
   // const { pathname } = useLocation();
@@ -67,6 +68,7 @@ function App() {
       </Routes>
       <GlobalModalsWrapper />
       <SnackbarProvider />
+      <AppLoader />
     </>
   );
 }

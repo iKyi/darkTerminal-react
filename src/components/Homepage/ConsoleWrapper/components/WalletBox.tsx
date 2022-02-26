@@ -130,7 +130,9 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                     </Grid>
                     <Grid item xs={6} sx={{ textAlign: "right" }}>
                       <Box sx={{ fontSize: "0.85rem", color: "error.main" }}>
-                        {parseWalletValue(0)}
+                        {parseWalletValue(
+                          tokens.filter((item) => item.isStaked).length
+                        )}
                       </Box>
                     </Grid>
                     <Grid item xs={6}>
@@ -140,7 +142,9 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
                     </Grid>
                     <Grid item xs={6} sx={{ textAlign: "right" }}>
                       <Box sx={{ fontSize: "0.85rem", color: "primary.main" }}>
-                        {parseWalletValue(tokens.length ?? 0)}
+                        {parseWalletValue(
+                          tokens.filter((item) => !item.isStaked).length
+                        )}
                       </Box>
                     </Grid>
                   </Grid>

@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Lock, SubdirectoryArrowLeftSharp } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "src/app/hooks";
 import FourOhFourComp from "../FourOhFour/FourOhFourComp";
-import { setComingSoon } from "src/features/global/globalSlice";
+import { setComingSoon, setInfoModal } from "src/features/global/globalSlice";
 import greenImageFrame from "../../assets/images/imageFrame.png";
 import redImageFrame from "../../assets/images/redImageFrame.png";
 import greenTopFrame from "../../assets/images/greenTopFrame.png";
@@ -88,10 +88,17 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
   const data = useAppSelector((state) => state.user.tokens).find(
     (tkn) => tkn.mint === paramId
   );
-  const { dtacRedeemValue, solRedeemValue, name, typeId, image, mint } =
-    data || {};
+  const {
+    dtacRedeemValue,
+    solRedeemValue,
+    name,
+    typeId,
+    image,
+    mint,
+    isStaked,
+  } = data || {};
 
-  const staked = false;
+  const staked = isStaked ? true : false;
   const imageFrame = staked ? redImageFrame : greenImageFrame;
   const topBorder = staked ? redTopFrame : greenTopFrame;
   const mainColor = staked ? "error.main" : "primary.main";
@@ -108,6 +115,19 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
     }
   };
 
+  const localDoClaim = () => {
+    if (staked) {
+      startComingSoon();
+    } else {
+      dispatch(
+        setInfoModal(
+          <Box sx={{ color: "error.main" }}>
+            NFT needs to be staked in order to claim
+          </Box>
+        )
+      );
+    }
+  };
   // *************** RENDER *************** //
   if (!data) return <FourOhFourComp />;
   return (
@@ -239,7 +259,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                             fullWidth
                             variant="threeButton"
                             color="secondary"
-                            onClick={startComingSoon}
+                            onClick={localDoClaim}
                           >
                             CLAIM DTAC
                           </Button>
@@ -278,7 +298,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                             fullWidth
                             variant="threeButton"
                             color="secondary"
-                            onClick={startComingSoon}
+                            onClick={localDoClaim}
                           >
                             CLAIM SOL
                           </Button>

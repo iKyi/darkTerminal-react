@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ReactNode } from "react";
 import { setTimeout } from "timers-browserify";
 import { AppThunk } from "../../app/store";
 
@@ -12,6 +13,8 @@ export interface GlobalState {
     variant: SnackbarVariants;
   };
   snackbarVisible: boolean;
+  infoModal: string | null | ReactNode;
+  loaders: string[];
 }
 
 const initialState: GlobalState = {
@@ -20,6 +23,8 @@ const initialState: GlobalState = {
   publicSiteData: null,
   snackBar: null,
   snackbarVisible: false,
+  infoModal: null,
+  loaders: [],
 };
 
 export const globalSlice = createSlice({
@@ -27,6 +32,17 @@ export const globalSlice = createSlice({
   initialState,
 
   reducers: {
+    addLoader: (state, action: PayloadAction<string>) => {
+      const { payload } = action;
+      state.loaders = [...state.loaders, payload];
+    },
+    removeLoader: (state, action: PayloadAction<string>) => {
+      const { payload } = action;
+      state.loaders = state.loaders.filter((item) => item !== payload);
+    },
+    setInfoModal: (state, action: PayloadAction<string | null | ReactNode>) => {
+      state.infoModal = action.payload;
+    },
     setComingSoon: (state, action: PayloadAction<boolean>) => {
       state.showComingSoon = action.payload;
     },
@@ -69,6 +85,9 @@ export const {
   closeSnackbar,
   cleanSnackbarObj,
   setCandyMachineLoading,
+  setInfoModal,
+  addLoader,
+  removeLoader,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

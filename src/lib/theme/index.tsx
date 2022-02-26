@@ -148,6 +148,7 @@ const getOverRides = (theme: Theme) => {
           {
             props: { variant: "complex", color: "primary" },
             style: {
+              minWidth: "120px",
               paddingTop: theme.spacing(1.36),
               paddingBottom: theme.spacing(1.36),
               paddingLeft: theme.spacing(2),
@@ -169,6 +170,7 @@ const getOverRides = (theme: Theme) => {
           {
             props: { variant: "complex", color: "secondary" },
             style: {
+              minWidth: "120px",
               paddingTop: theme.spacing(1.36),
               paddingBottom: theme.spacing(1.36),
               paddingLeft: theme.spacing(2),
@@ -341,6 +343,9 @@ const getOverRides = (theme: Theme) => {
           },
           ".TS": {
             color: theme.palette.secondary.main,
+          },
+          ".TW": {
+            color: theme.palette.common.white,
           },
           h1: {
             fontFamily: "Furore",
