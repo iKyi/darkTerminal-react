@@ -40,22 +40,22 @@ let ImmortalMuITheme = createTheme({
   typography: {
     fontFamily: FONTS.FURORE,
     h1: {
-      fontFamily: "Furore",
+      fontFamily: FONTS.FURORE,
     },
     h2: {
-      fontFamily: "Furore",
+      fontFamily: FONTS.FURORE,
     },
     h3: {
-      fontFamily: "Furore",
+      fontFamily: FONTS.FURORE,
     },
     h4: {
-      fontFamily: "Furore",
+      fontFamily: FONTS.FURORE,
     },
     h5: {
-      fontFamily: "Furore",
+      fontFamily: FONTS.FURORE,
     },
     h6: {
-      fontFamily: "Furore",
+      fontFamily: FONTS.FURORE,
     },
   },
   shape: {
@@ -303,7 +303,7 @@ const getOverRides = (theme: Theme) => {
         ],
         styleOverrides: {
           root: {
-            fontFamily: "Furore",
+            fontFamily: FONTS.FURORE,
             textShadow: "1px 1px 0px rgba(0,0,0,0.75)",
           },
         },
@@ -348,22 +348,22 @@ const getOverRides = (theme: Theme) => {
             color: theme.palette.common.white,
           },
           h1: {
-            fontFamily: "Furore",
+            fontFamily: FONTS.FURORE,
           },
           h2: {
-            fontFamily: "Furore",
+            fontFamily: FONTS.FURORE,
           },
           h3: {
-            fontFamily: "Furore",
+            fontFamily: FONTS.FURORE,
           },
           h4: {
-            fontFamily: "Furore",
+            fontFamily: FONTS.FURORE,
           },
           h5: {
-            fontFamily: "Furore",
+            fontFamily: FONTS.FURORE,
           },
           h6: {
-            fontFamily: "Furore",
+            fontFamily: FONTS.FURORE,
           },
           "@keyframes hackTextEffect": {
             "0%": {
