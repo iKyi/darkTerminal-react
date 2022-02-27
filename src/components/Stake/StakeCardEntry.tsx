@@ -16,6 +16,7 @@ import { ReactNode } from "react";
 import { SxProps } from "@mui/system";
 import useStakeAction from "src/hooks/useStakeAction";
 import SeoComp from "../Reusable/Seo";
+import { LOADING_KEY } from "src/constants/loadingKeys";
 
 export type StakeCardEntryPropsType = {
   children?: any;
@@ -98,6 +99,10 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
     mint,
     isStaked,
   } = data || {};
+
+  const loadingInProgres = useAppSelector(
+    (state) => state.global.loaders
+  ).includes(LOADING_KEY.STAKING);
 
   const staked = isStaked ? true : false;
   const imageFrame = staked ? redImageFrame : greenImageFrame;
@@ -321,7 +326,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                       startIcon={<Lock color={staked ? "error" : "primary"} />}
                       fullWidth
                       onClick={localDoStake}
-                      disabled={staked}
+                      disabled={staked || loadingInProgres}
                     >
                       {staked ? "CLAIM ALL & UNSTAKE" : "STAKE NOW"}
                     </Button>

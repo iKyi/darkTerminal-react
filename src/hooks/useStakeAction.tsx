@@ -3,6 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "src/app/hooks";
+import { LOADING_KEY } from "src/constants/loadingKeys";
 import {
   addLoader,
   removeLoader,
@@ -65,7 +66,7 @@ const useStakeAction = () => {
   const stakeAction = useCallback(
     async (mint: string, nameType: NFTNameTypes) => {
       if (darkTerminal) {
-        dispatch(addLoader("stakeaction"));
+        dispatch(addLoader(LOADING_KEY.STAKING));
         try {
           // transfer action
           const txId = await darkTerminal.transferNft(
@@ -84,7 +85,7 @@ const useStakeAction = () => {
               nftType: nameType,
             }
           );
-          dispatch(removeLoader("stakeaction"));
+          dispatch(removeLoader(LOADING_KEY.STAKING));
           dispatch(
             startSnackbar({
               variant: "success",
@@ -95,7 +96,7 @@ const useStakeAction = () => {
           refreshNfts();
           navigate("/stake");
         } catch (err) {
-          dispatch(removeLoader("stakeaction"));
+          dispatch(removeLoader(LOADING_KEY.STAKING));
           dispatch(
             startSnackbar({
               variant: "error",
