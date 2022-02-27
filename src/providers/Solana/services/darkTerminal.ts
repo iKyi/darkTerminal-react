@@ -110,7 +110,7 @@ export default class darkTerminal implements IDarkTerminalClass {
     });
 
     let stakedItems = await axiosGetter(
-      `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.GET_NFTS}/HBkYuHXSZ9PM46176PR27syFkFe1khRnvxSNRx4NvEHj`
+      `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.GET_NFTS}/${walletPublicKey}`
     );
     stakedItems = stakedItems.stakedNFTs.map((item: any) =>
       convertToFrontendObjectNftStyle(item)

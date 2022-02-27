@@ -15,6 +15,7 @@ import redBars from "../../assets/images/stakeCards/redBars.png";
 import { ReactNode } from "react";
 import { SxProps } from "@mui/system";
 import useStakeAction from "src/hooks/useStakeAction";
+import SeoComp from "../Reusable/Seo";
 
 export type StakeCardEntryPropsType = {
   children?: any;
@@ -128,10 +129,17 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
       );
     }
   };
+
+  const seo = data
+    ? {
+        metaTitle: `${name} NFT #${typeId}`,
+      }
+    : null;
   // *************** RENDER *************** //
   if (!data) return <FourOhFourComp />;
   return (
     <Box>
+      <SeoComp seo={seo} />
       <Box sx={{ mb: 2 }}>
         <Button
           size="large"

@@ -26,8 +26,8 @@ const HowToBuy: React.VFC<HowToBuyPropsType> = ({ children }) => {
         setData(resp.data.attributes);
       })
       .catch((err) => {
-        console.log(err);
         navigate("/");
+        throw new Error(err.message);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

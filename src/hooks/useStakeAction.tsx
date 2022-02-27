@@ -99,10 +99,10 @@ const useStakeAction = () => {
           dispatch(
             startSnackbar({
               variant: "error",
-              content: `Transaction failed !`,
+              content: `Transaction failed ! ${err}`,
             })
           );
-          console.log(err);
+          throw new Error(err as string);
         }
       }
 

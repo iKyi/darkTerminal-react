@@ -23,8 +23,8 @@ const ArticleEntry: React.VFC = () => {
         setData(resp.data[0].attributes);
       })
       .catch((err) => {
-        console.log(err);
         navigate("/404");
+        throw new Error(err as string);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);

@@ -1,20 +1,35 @@
 import { Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import ConsoleElement from "src/components/Homepage/ConsoleWrapper/components/ConsoleElement";
 import ConsoleNavigation from "src/components/Homepage/ConsoleWrapper/components/ConsoleNavigation";
 import WalletBox from "src/components/Homepage/ConsoleWrapper/components/WalletBox";
 import Header from "src/components/Reusable/Layout/Header/Header";
+import SeoComp from "src/components/Reusable/Seo";
+import { addLoader, removeLoader } from "src/features/global/globalSlice";
 import useMobile from "src/hooks/useMobile";
+import axiosGetter from "src/lib/axios/axiosGetter";
+import { getStrapiURL } from "src/lib/theme/api";
 import StrapiPublicProvider from "src/providers/StrapiPublicProvider";
 // import SeoComp from "src/components/Reusable/Seo";
 
-export type StakePropsType = {
-  children?: any;
-};
+export type StakePropsType = {};
 
-const Stake: React.VFC<StakePropsType> = ({ children }) => {
+const Stake: React.VFC<StakePropsType> = () => {
+  const dispatch = useDispatch();
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    dispatch(addLoader("homeData"));
+    axiosGetter(getStrapiURL("stake-page?populate=*")).then((resp) => {
+      setData(resp.data.attributes);
+      dispatch(removeLoader("homeData"));
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const isMobile = useMobile(true);
   const [activeSection, setActiveSection] = useState<number>(0);
 
@@ -26,11 +41,13 @@ const Stake: React.VFC<StakePropsType> = ({ children }) => {
       },
     ];
   }, []);
+
+  const seo = data?.seo ?? null;
   // *************** RENDER *************** //
   return (
     <StrapiPublicProvider>
       <Header />
-      {/* <SeoComp seo={seo} /> */}
+      {seo && <SeoComp seo={seo} />}
       <Box
         sx={{
           py: 5.5,
