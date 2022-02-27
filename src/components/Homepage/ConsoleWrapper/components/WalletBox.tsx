@@ -37,7 +37,11 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
   };
 
   const parseWalletValue = (value: any) => {
-    return !wallet ? "-" : dollarUSLocale.format(value);
+    return !wallet
+      ? "-"
+      : process.env.NODE_ENV === "development"
+      ? value
+      : dollarUSLocale.format(value);
   };
 
   // *************** RENDER *************** //
@@ -101,6 +105,7 @@ const WalletBox: React.VFC<WalletBoxPropsType> = () => {
           borderStyle: "solid",
           borderTop: "none",
           backgroundColor: `primary.dark`,
+          px: 0,
         }}
       >
         <TableContainer>
