@@ -83,7 +83,7 @@ const useStakeAction = () => {
             addBlockingSnackbar({
               id: "transactionConfirming",
               state: "loading",
-              text: "Confirming transaction, please wait ...",
+              text: "Confirming transaction, please do not close this window ...",
             })
           );
           await axiosInstance.post(
