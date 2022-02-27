@@ -21,6 +21,7 @@ import Stake from "./Pages/Stake";
 import StakeIndex from "./components/Stake/StakeIndex";
 import StakeCardEntry from "./components/Stake/StakeCardEntry";
 import AppLoader from "./components/Reusable/AppLoader";
+import BlockingSnabarsProvider from "./components/BlockingSnabarsProvider";
 
 function App() {
   // const { pathname } = useLocation();
@@ -69,6 +70,7 @@ function App() {
       <GlobalModalsWrapper />
       <SnackbarProvider />
       <AppLoader />
+      <BlockingSnabarsProvider />
     </>
   );
 }

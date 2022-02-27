@@ -4,6 +4,13 @@ import { setTimeout } from "timers-browserify";
 import { AppThunk } from "../../app/store";
 
 export type SnackbarVariants = "error" | "success" | "info";
+export type BlockingTransactionsStates = "loading";
+
+export interface IBlockingSnackbar {
+  state: BlockingTransactionsStates;
+  text: string;
+  id: string;
+}
 export interface GlobalState {
   showComingSoon: boolean;
   candyMachineReloading: boolean;
@@ -15,6 +22,7 @@ export interface GlobalState {
   snackbarVisible: boolean;
   infoModal: string | null | ReactNode;
   loaders: string[];
+  blockingSnackbars: IBlockingSnackbar[];
 }
 
 const initialState: GlobalState = {
@@ -25,6 +33,7 @@ const initialState: GlobalState = {
   snackbarVisible: false,
   infoModal: null,
   loaders: [],
+  blockingSnackbars: [],
 };
 
 export const globalSlice = createSlice({
@@ -32,6 +41,16 @@ export const globalSlice = createSlice({
   initialState,
 
   reducers: {
+    addBlockingSnackbar: (state, action: PayloadAction<IBlockingSnackbar>) => {
+      const { payload } = action;
+      state.blockingSnackbars = [...state.blockingSnackbars, payload];
+    },
+    removeBlockingSnackbar: (state, action: PayloadAction<string>) => {
+      const { payload } = action;
+      state.blockingSnackbars = state.blockingSnackbars.filter(
+        (item) => item.id !== payload
+      );
+    },
     addLoader: (state, action: PayloadAction<string>) => {
       const { payload } = action;
       state.loaders = [...state.loaders, payload];
@@ -88,6 +107,8 @@ export const {
   setInfoModal,
   addLoader,
   removeLoader,
+  addBlockingSnackbar,
+  removeBlockingSnackbar,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

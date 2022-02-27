@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "src/app/hooks";
 import { LOADING_KEY } from "src/constants/loadingKeys";
 import {
+  addBlockingSnackbar,
   addLoader,
+  removeBlockingSnackbar,
   removeLoader,
   startSnackbar,
 } from "src/features/global/globalSlice";
@@ -28,12 +30,12 @@ const useStakeAction = () => {
   const navigate = useNavigate();
 
   const refreshNfts = useCallback(async () => {
-    dispatch(addLoader("charsLoad"));
     dispatch(writeUserNftData([]));
     dispatch(setSolana(null));
     dispatch(setdatacBalance(null));
     if (publicKey && darkTerminal) {
       try {
+        dispatch(addLoader("charsLoad"));
         const [tokens, solana, dtac] = await Promise.all([
           darkTerminal.getNFTs(
             publicKey.toBase58(),
@@ -77,6 +79,13 @@ const useStakeAction = () => {
             )
           );
           // posts the transaction to local backend
+          dispatch(
+            addBlockingSnackbar({
+              id: "transactionConfirming",
+              state: "loading",
+              text: "Confirming transaction, please wait ...",
+            })
+          );
           await axiosInstance.post(
             `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.STAKE_NFT}${publicKey}`,
             {
@@ -85,11 +94,12 @@ const useStakeAction = () => {
               nftType: nameType,
             }
           );
+          dispatch(removeBlockingSnackbar("transactionConfirming"));
           dispatch(removeLoader(LOADING_KEY.STAKING));
           dispatch(
             startSnackbar({
               variant: "success",
-              content: `Transaction ${txId} successful !`,
+              content: `Transaction successful !`,
             })
           );
 
