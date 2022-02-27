@@ -50,24 +50,8 @@ export const writeUserNftData =
   (dispatch) => {
     if (nfts.length === 0) {
       dispatch(setTokens([]));
-      dispatch(setRedeemableSol(null));
-      dispatch(setRedeemableDtac(null));
     } else {
       dispatch(setTokens(nfts));
-      const redeemableSol = nfts.reduce(
-        (previousValue, iterationNft) =>
-          previousValue +
-          (iterationNft.solRedeemValue ? iterationNft.solRedeemValue : 0),
-        0
-      );
-      const redeemableDtac = nfts.reduce(
-        (previousValue, iterationNft) =>
-          previousValue +
-          (iterationNft.dtacRedeemValue ? iterationNft.dtacRedeemValue : 0),
-        0
-      );
-      dispatch(setRedeemableSol(redeemableSol));
-      dispatch(setRedeemableDtac(redeemableDtac));
     }
   };
 

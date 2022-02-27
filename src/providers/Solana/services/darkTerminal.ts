@@ -41,6 +41,8 @@ export interface ITokenCustomEntry {
   solRedeemValue?: number;
   dtacRedeemValue?: number;
   isStaked?: boolean;
+  isLocked?: boolean;
+  stakeEndDate?: string;
 }
 
 export interface IDarkTerminalClass {
@@ -50,7 +52,11 @@ export interface IDarkTerminalClass {
     walletPublicKey: string,
     updateAuthority: string,
     symbol: string
-  ) => Promise<ITokenCustomEntry[]>;
+  ) => Promise<{
+    nfts: ITokenCustomEntry[];
+    totalClaimableDTAC: number;
+    totalClaimableSOL: number;
+  }>;
   transferNft: (
     mint: PublicKey,
     wallet: any,
@@ -112,10 +118,11 @@ export default class darkTerminal implements IDarkTerminalClass {
     let stakedItems = await axiosGetter(
       `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.GET_NFTS}/${walletPublicKey}`
     );
-    stakedItems = stakedItems.stakedNFTs.map((item: any) =>
+    let { stakedNFTs, totalClaimableDTAC, totalClaimableSOL } = stakedItems;
+    stakedNFTs = stakedNFTs.map((item: any) =>
       convertToFrontendObjectNftStyle(item)
     );
-    allTokens = [...stakedItems, ...allTokens];
+    allTokens = [...stakedNFTs, ...allTokens];
 
     for (let i = 0; i < allTokens.length; i++) {
       const token: ITokenCustomEntry = allTokens[i];
@@ -136,7 +143,11 @@ export default class darkTerminal implements IDarkTerminalClass {
       }
     });
 
-    return massExtractNftIds(filteredItems);
+    return {
+      nfts: massExtractNftIds(filteredItems),
+      totalClaimableDTAC,
+      totalClaimableSOL,
+    };
   }
 
   async transferNft(

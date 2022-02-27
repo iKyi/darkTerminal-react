@@ -17,6 +17,7 @@ import { SxProps } from "@mui/system";
 import useStakeAction from "src/hooks/useStakeAction";
 import SeoComp from "../Reusable/Seo";
 import { LOADING_KEY } from "src/constants/loadingKeys";
+import { DateTime } from "luxon";
 
 export type StakeCardEntryPropsType = {
   children?: any;
@@ -84,7 +85,7 @@ const bigTextStyles: SxProps = {
 };
 
 const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
-  const { stakeAction } = useStakeAction();
+  const { stakeAction, claimDTAC } = useStakeAction();
   const dispatch = useAppDispatch();
   const { id: paramId } = useParams();
   const data = useAppSelector((state) => state.user.tokens).find(
@@ -98,6 +99,8 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
     image,
     mint,
     isStaked,
+    isLocked,
+    stakeEndDate,
   } = data || {};
 
   const loadingInProgres = useAppSelector(
@@ -124,6 +127,20 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
   const localDoClaim = () => {
     if (staked) {
       startComingSoon();
+    } else {
+      dispatch(
+        setInfoModal(
+          <Box sx={{ color: "error.main" }}>
+            NFT needs to be staked in order to claim
+          </Box>
+        )
+      );
+    }
+  };
+
+  const localDoClaimDTAC = () => {
+    if (staked) {
+      claimDTAC(mint ?? "");
     } else {
       dispatch(
         setInfoModal(
@@ -260,19 +277,13 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                           >
                             1.8 dtac / hour
                           </Typography>
-                          {/* <Typography
-                            component="span"
-                            sx={{ ...bigTextStyles, color: "primary.light" }}
-                          >
-                            SOL
-                          </Typography> */}
                         </SectionWrapper>
                         <Box sx={{ mt: "auto" }}>
                           <Button
                             fullWidth
                             variant="threeButton"
                             color="secondary"
-                            onClick={localDoClaim}
+                            onClick={localDoClaimDTAC}
                           >
                             CLAIM DTAC
                           </Button>
@@ -326,9 +337,15 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                       startIcon={<Lock color={staked ? "error" : "primary"} />}
                       fullWidth
                       onClick={localDoStake}
-                      disabled={staked || loadingInProgres}
+                      disabled={staked || loadingInProgres || isLocked}
                     >
-                      {staked ? "CLAIM ALL & UNSTAKE" : "STAKE NOW"}
+                      {isLocked
+                        ? `Claim locked until ${DateTime.fromISO(
+                            stakeEndDate!
+                          ).toLocaleString(DateTime.DATETIME_SHORT)} `
+                        : staked
+                        ? "CLAIM ALL & UNSTAKE"
+                        : "STAKE NOW"}
                     </Button>
                   </Grid>
                 </Grid>

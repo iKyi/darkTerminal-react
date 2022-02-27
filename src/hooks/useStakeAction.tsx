@@ -13,6 +13,8 @@ import {
 } from "src/features/global/globalSlice";
 import {
   setdatacBalance,
+  setRedeemableDtac,
+  setRedeemableSol,
   setSolana,
   writeUserNftData,
 } from "src/features/user/userSlice";
@@ -36,7 +38,7 @@ const useStakeAction = () => {
     if (publicKey && darkTerminal) {
       try {
         dispatch(addLoader("charsLoad"));
-        const [tokens, solana, dtac] = await Promise.all([
+        const [nftsGetterResponse, solana, dtac] = await Promise.all([
           darkTerminal.getNFTs(
             publicKey.toBase58(),
             process.env.REACT_APP_UPDATE_AUTHORITY || "",
@@ -51,10 +53,14 @@ const useStakeAction = () => {
             `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.LOGIN}${publicKey}`
           ),
         ]);
+        const { nfts, totalClaimableDTAC, totalClaimableSOL } =
+          nftsGetterResponse;
+        dispatch(setRedeemableSol(totalClaimableSOL));
+        dispatch(setRedeemableDtac(totalClaimableDTAC));
         dispatch(removeLoader("charsLoad"));
         dispatch(setSolana(solana));
         dispatch(setdatacBalance(dtac));
-        dispatch(writeUserNftData(tokens));
+        dispatch(writeUserNftData(nfts));
       } catch (err) {
         dispatch(removeLoader("charsLoad"));
         throw new Error((err as any).toString());
@@ -123,6 +129,35 @@ const useStakeAction = () => {
     [darkTerminal, wallet, publicKey]
   );
 
-  return { stakeAction, refreshNfts, debouncedRefreshNfts };
+  const claimDTAC = useCallback(
+    async (mintId: string) => {
+      try {
+        dispatch(
+          addBlockingSnackbar({
+            id: "DTACClaimtransaction",
+            state: "loading",
+            text: "Processing transaction, please do not close this window ...",
+          })
+        );
+        await axiosInstance.put(
+          `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.CLAIM_DTAC}/${publicKey}`,
+          {
+            mintID: mintId,
+          }
+        );
+        dispatch(removeBlockingSnackbar("DTACClaimtransaction"));
+        refreshNfts();
+      } catch (err) {
+        startSnackbar({
+          variant: "error",
+          content: `Transaction failed ! ${err}`,
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [publicKey]
+  );
+
+  return { stakeAction, refreshNfts, debouncedRefreshNfts, claimDTAC };
 };
 export default useStakeAction;
