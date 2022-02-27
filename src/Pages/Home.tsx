@@ -1,4 +1,4 @@
-import AboutBoxesHome from "src/components/Homepage/AboutBoxesHome";
+// import AboutBoxesHome from "src/components/Homepage/AboutBoxesHome";
 import { Container } from "@mui/material";
 import HeroBox from "../components/Homepage/HeroBox";
 import ReportLine from "../components/Homepage/ReportLine";
@@ -42,7 +42,7 @@ const Home: React.VFC<HomePropsType> = () => {
         <ReportLine />
       </Container>
       <ConsoleWrapper />
-      <AboutBoxesHome />
+      {/* <AboutBoxesHome /> */}
       <Footer />
     </StrapiPublicProvider>
   );
