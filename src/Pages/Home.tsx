@@ -1,7 +1,7 @@
-// import { Container } from "@mui/material";
-// import HeroBox from "../components/Homepage/HeroBox";
-// import ReportLine from "../components/Homepage/ReportLine";
-// import AboutBoxesHome from "src/components/Homepage/AboutBoxesHome";
+import AboutBoxesHome from "src/components/Homepage/AboutBoxesHome";
+import { Container } from "@mui/material";
+import HeroBox from "../components/Homepage/HeroBox";
+import ReportLine from "../components/Homepage/ReportLine";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import ConsoleWrapper from "../components/Homepage/ConsoleWrapper/ConsoleWrapper";
@@ -28,21 +28,21 @@ const Home: React.VFC<HomePropsType> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const seo = data?.data?.attributes?.seo;
-  // const { heroImage, heroVideo } = data || {};
+  const { heroImage, heroVideo } = data || {};
   // *************** RENDER *************** //
   if (!data) return null;
   return (
     <StrapiPublicProvider>
       <Header />
       <SeoComp seo={seo} />
-      {/* <Container>
+      <Container>
         <HeroBox heroImage={heroImage} heroVideo={heroVideo} />
-      </Container>*/}
-      {/* <Container>
+      </Container>
+      <Container>
         <ReportLine />
-      </Container> */}
+      </Container>
       <ConsoleWrapper />
-      {/* <AboutBoxesHome /> */}
+      <AboutBoxesHome />
       <Footer />
     </StrapiPublicProvider>
   );
