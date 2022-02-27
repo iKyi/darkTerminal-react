@@ -15,7 +15,7 @@ import { getStrapiURL } from "../../lib/theme/api";
 import axiosGetter from "../../lib/axios/axiosGetter";
 import { getStrapiMedia } from "../../lib/theme/media";
 import { Link } from "react-router-dom";
-import { ROUTES } from "../../constants/routes";
+// import { ROUTES } from "../../constants/routes";
 
 export type HeroBoxPropsType = {
   heroImage: any;
