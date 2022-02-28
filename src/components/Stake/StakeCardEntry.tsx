@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import { Lock, SubdirectoryArrowLeftSharp } from "@mui/icons-material";
@@ -88,6 +88,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
   const { stakeAction, claimDTAC } = useStakeAction();
   const dispatch = useAppDispatch();
   const { id: paramId } = useParams();
+  const { charsLoading } = useAppSelector((state) => state.user);
   const data = useAppSelector((state) => state.user.tokens).find(
     (tkn) => tkn.mint === paramId
   );
@@ -158,7 +159,14 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
       }
     : null;
   // *************** RENDER *************** //
-  if (!data) return <FourOhFourComp />;
+  if (!data && !charsLoading) return <FourOhFourComp />;
+  if (charsLoading) {
+    return (
+      <Box sx={{ flex: 1, height: "100%", width: "100%", ...centerFlex }}>
+        <CircularProgress size="3rem" />
+      </Box>
+    );
+  }
   return (
     <Box>
       <SeoComp seo={seo} />

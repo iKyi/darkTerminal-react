@@ -12,6 +12,7 @@ import {
   startSnackbar,
 } from "src/features/global/globalSlice";
 import {
+  setCharLoading,
   setdatacBalance,
   setRedeemableDtac,
   setRedeemableSol,
@@ -37,6 +38,7 @@ const useStakeAction = () => {
     dispatch(setdatacBalance(null));
     if (publicKey && darkTerminal) {
       try {
+        dispatch(setCharLoading(true));
         dispatch(addLoader("charsLoad"));
         const [nftsGetterResponse, solana, dtac] = await Promise.all([
           darkTerminal.getNFTs(
@@ -61,6 +63,7 @@ const useStakeAction = () => {
         dispatch(setSolana(solana));
         dispatch(setdatacBalance(dtac));
         dispatch(writeUserNftData(nfts));
+        dispatch(setCharLoading(false));
       } catch (err) {
         dispatch(removeLoader("charsLoad"));
         throw new Error((err as any).toString());

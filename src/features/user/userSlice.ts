@@ -8,6 +8,7 @@ export interface UserState {
   datacBalance: number | null;
   redeemableDtac: number | null;
   redeemableSol: number | null;
+  charsLoading: boolean;
 }
 
 const initialState: UserState = {
@@ -16,6 +17,7 @@ const initialState: UserState = {
   datacBalance: null,
   redeemableDtac: null,
   redeemableSol: null,
+  charsLoading: false,
 };
 
 export const userSlice = createSlice({
@@ -23,6 +25,9 @@ export const userSlice = createSlice({
   initialState,
 
   reducers: {
+    setCharLoading: (state, action: PayloadAction<boolean>) => {
+      state.charsLoading = action.payload;
+    },
     setTokens: (state, action: PayloadAction<ITokenCustomEntry[]>) => {
       state.tokens = action.payload;
     },
@@ -61,6 +66,7 @@ export const {
   setdatacBalance,
   setRedeemableSol,
   setRedeemableDtac,
+  setCharLoading,
 } = userSlice.actions;
 
 export default userSlice.reducer;
