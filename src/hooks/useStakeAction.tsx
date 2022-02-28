@@ -89,7 +89,7 @@ const useStakeAction = () => {
             addBlockingSnackbar({
               id: "transactionConfirming",
               state: "loading",
-              text: "Processing transaction, please do not close this window ...",
+              text: "Validating transactions... This might take up to 2 minutes, please do not close this window ...",
             })
           );
           await axiosInstance.post(
@@ -136,7 +136,7 @@ const useStakeAction = () => {
           addBlockingSnackbar({
             id: "DTACClaimtransaction",
             state: "loading",
-            text: "Processing transaction, please do not close this window ...",
+            text: "Validating transactions... This might take up to 2 minutes, please do not close this window ...",
           })
         );
         await axiosInstance.put(

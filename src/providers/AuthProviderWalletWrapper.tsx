@@ -26,15 +26,15 @@ const AuthProviderWalletWrapper: React.VFC<
   AuthProviderWalletWrapperPropsType
 > = ({ children }) => {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-  const network = !process.env.REACT_APP_RPC_URL?.includes("ssc-dao")
-    ? WalletAdapterNetwork.Devnet
-    : WalletAdapterNetwork.Mainnet;
+  // const network = !process.env.REACT_APP_RPC_URL?.includes("ssc-dao")
+  //   ? WalletAdapterNetwork.Devnet
+  //   : WalletAdapterNetwork.Mainnet;
 
-  const endpoint = process.env.REACT_APP_RPC_URL ?? "";
+  // const endpoint = process.env.REACT_APP_RPC_URL ?? "";
 
   // AG: forcing mainnet on dev env for testing
-  // const network = WalletAdapterNetwork.Mainnet;
-  // const endpoint = "https://ssc-dao.genesysgo.net";
+  const network = WalletAdapterNetwork.Mainnet;
+  const endpoint = "https://ssc-dao.genesysgo.net";
 
   const wallets = useMemo(
     () => [
