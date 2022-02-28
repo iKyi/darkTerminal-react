@@ -88,7 +88,9 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
   const { stakeAction, claimDTAC } = useStakeAction();
   const dispatch = useAppDispatch();
   const { id: paramId } = useParams();
-  const { charsLoading } = useAppSelector((state) => state.user);
+  const charsLoading = useAppSelector((state) => state.global.loaders).includes(
+    LOADING_KEY.CHARS_LOADING
+  );
   const data = useAppSelector((state) => state.user.tokens).find(
     (tkn) => tkn.mint === paramId
   );
