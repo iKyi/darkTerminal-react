@@ -4,7 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { Lock, SubdirectoryArrowLeftSharp } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "src/app/hooks";
 import FourOhFourComp from "../FourOhFour/FourOhFourComp";
-import { setComingSoon, setInfoModal } from "src/features/global/globalSlice";
+import { setInfoModal } from "src/features/global/globalSlice";
 import greenImageFrame from "../../assets/images/imageFrame.png";
 import redImageFrame from "../../assets/images/redImageFrame.png";
 import greenTopFrame from "../../assets/images/greenTopFrame.png";
@@ -85,7 +85,7 @@ const bigTextStyles: SxProps = {
 };
 
 const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
-  const { stakeAction, claimDTAC } = useStakeAction();
+  const { stakeAction, claimDTAC, claimSOL } = useStakeAction();
   const dispatch = useAppDispatch();
   const { id: paramId } = useParams();
   const charsLoading = useAppSelector((state) => state.global.loaders).includes(
@@ -115,9 +115,6 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
   const topBorder = staked ? redTopFrame : greenTopFrame;
   const mainColor = staked ? "error.main" : "primary.main";
   // *************** METHODS  *************** //
-  const startComingSoon = () => {
-    dispatch(setComingSoon(true));
-  };
 
   const localDoStake = () => {
     if (data) {
@@ -127,9 +124,11 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
     }
   };
 
-  const localDoClaim = () => {
-    if (staked) {
-      startComingSoon();
+  const localDoClaimDTAC = () => {
+    if (dtacRedeemValue === 0) {
+      dispatch(setInfoModal("No DTAC to claim"));
+    } else if (staked) {
+      claimDTAC(mint ?? "");
     } else {
       dispatch(
         setInfoModal(
@@ -141,9 +140,11 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
     }
   };
 
-  const localDoClaimDTAC = () => {
-    if (staked) {
-      claimDTAC(mint ?? "");
+  const localDoClaimSOL = () => {
+    if (solRedeemValue === 0) {
+      dispatch(setInfoModal("No SOL to claim"));
+    } else if (staked) {
+      claimSOL(mint ?? "");
     } else {
       dispatch(
         setInfoModal(
@@ -332,7 +333,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                             fullWidth
                             variant="threeButton"
                             color="secondary"
-                            onClick={localDoClaim}
+                            onClick={localDoClaimSOL}
                           >
                             CLAIM SOL
                           </Button>
@@ -350,7 +351,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                       disabled={staked || loadingInProgres || isLocked}
                     >
                       {isLocked
-                        ? `Claim locked until ${DateTime.fromISO(
+                        ? `Unstake locked until ${DateTime.fromISO(
                             stakeEndDate!
                           ).toLocaleString(DateTime.DATETIME_SHORT)} `
                         : staked

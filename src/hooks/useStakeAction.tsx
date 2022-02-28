@@ -158,6 +158,41 @@ const useStakeAction = () => {
     [publicKey]
   );
 
-  return { stakeAction, refreshNfts, debouncedRefreshNfts, claimDTAC };
+  const claimSOL = useCallback(
+    async (mintId: string) => {
+      try {
+        dispatch(
+          addBlockingSnackbar({
+            id: "SOLClaimtransaction",
+            state: "loading",
+            text: "Processing transaction, please do not close this window ...",
+          })
+        );
+        await axiosInstance.put(
+          `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.CLAIM_SOL}/${publicKey}`,
+          {
+            mintID: mintId,
+          }
+        );
+        dispatch(removeBlockingSnackbar("SOLClaimtransaction"));
+        refreshNfts();
+      } catch (err) {
+        startSnackbar({
+          variant: "error",
+          content: `Transaction failed ! ${err}`,
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [publicKey]
+  );
+
+  return {
+    stakeAction,
+    refreshNfts,
+    debouncedRefreshNfts,
+    claimDTAC,
+    claimSOL,
+  };
 };
 export default useStakeAction;
