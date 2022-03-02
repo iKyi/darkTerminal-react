@@ -24,7 +24,6 @@ import AppLoader from "./components/Reusable/AppLoader";
 import BlockingSnabarsProvider from "./components/BlockingSnabarsProvider";
 
 function App() {
-  // const { pathname } = useLocation();
   const { wallet, connected } = useWallet();
   const { connection } = useConnection();
   const { debouncedRefreshNfts } = useStakeAction();

@@ -31,7 +31,11 @@ const HeaderMobileButton: React.VFC = () => {
                 <ListItem
                   key={item.title}
                   component={NavLink}
-                  to={item.slug}
+                  to={{ pathname: item.slug, hash: item.anchor }}
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                  className={`${item.anchor ? "hasAnchor" : ""}`}
                   sx={{
                     textDecoration: "none !important",
                     display: "inline-flex",
@@ -42,6 +46,11 @@ const HeaderMobileButton: React.VFC = () => {
                       opacity: "0.85",
                       ".iconSpace": {
                         display: "none",
+                      },
+                    },
+                    "&.hasAnchor": {
+                      ".iconSpace": {
+                        display: "none !important",
                       },
                     },
                   }}

@@ -6,16 +6,25 @@ import GlitchFont from "../Reusable/GlitchFont";
 export type BigSectionWrapperPropsType = {
   children?: any;
   title: string | ReactNode;
+  fRef?:
+    | ((instance: HTMLDivElement | null) => void)
+    | React.RefObject<HTMLDivElement>
+    | null
+    | undefined;
 };
 
 const BigSectionWrapper: React.VFC<BigSectionWrapperPropsType> = ({
   children,
   title,
+  fRef,
 }) => {
   const mobile = useMobile();
   // *************** RENDER *************** //
   return (
-    <Box sx={{ marginBottom: !mobile ? "70px" : "25px", mt: [4, 4, 8] }}>
+    <Box
+      sx={{ marginBottom: !mobile ? "70px" : "25px", mt: [4, 4, 8] }}
+      ref={fRef}
+    >
       <Box sx={{ textAlign: "center", position: "relative", mb: [2, 2, 4] }}>
         <GlitchFont
           sx={{

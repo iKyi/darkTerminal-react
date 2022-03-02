@@ -10,6 +10,9 @@ import { centerFlex } from "src/lib/sxUtils";
 import imageOne from "../../assets/images/homeCardsPesentation/1.png";
 import imageTwo from "../../assets/images/homeCardsPesentation/2.png";
 import imageThree from "../../assets/images/homeCardsPesentation/3.png";
+import { useEffect, useRef } from "react";
+import { setTimeout } from "timers-browserify";
+import { useLocation } from "react-router-dom";
 
 const GridCardEntry: React.FC<NFTObject> = (props: NFTObject) => {
   const { color, image, name, royal, sol } = props;
@@ -159,9 +162,25 @@ const items: NFTObject[] = [
 export type OurNftsBoxPropsType = {};
 
 const OurNftsBox: React.VFC<OurNftsBoxPropsType> = () => {
+  const boxRef = useRef<HTMLDivElement | null>(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    setTimeout(() => {
+      const currentHref = window.location.href;
+      if (currentHref.includes("#nfts")) {
+        boxRef?.current?.scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+          block: "start",
+        });
+      }
+    }, 400);
+  }, [location]);
+
   // *************** RENDER *************** //
   return (
-    <BigSectionWrapper title={title}>
+    <BigSectionWrapper title={title} fRef={boxRef}>
       <Container maxWidth="md">
         <Grid
           container

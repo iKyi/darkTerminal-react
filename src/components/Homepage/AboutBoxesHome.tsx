@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "src/app/hooks";
 import { setComingSoon } from "src/features/global/globalSlice";
 import axiosGetter from "src/lib/axios/axiosGetter";
@@ -131,6 +131,20 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
 export type AboutBoxesHomePropsType = {};
 
 const AboutBoxesHome: React.VFC<AboutBoxesHomePropsType> = () => {
+  const boxRef = useRef<HTMLDivElement | null>(null);
+  const location = useLocation();
+  useEffect(() => {
+    setTimeout(() => {
+      const currentHref = window.location.href;
+      if (currentHref.includes("#games")) {
+        boxRef?.current?.scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+          block: "start",
+        });
+      }
+    }, 400);
+  }, [location]);
   const [data, setData] = useState<Record<any, any> | null>(null);
 
   useEffect(() => {
@@ -152,7 +166,7 @@ const AboutBoxesHome: React.VFC<AboutBoxesHomePropsType> = () => {
 
   // *************** RENDER *************** //
   return (
-    <BigSectionWrapper title={title}>
+    <BigSectionWrapper title={title} fRef={boxRef}>
       {data &&
         data.map((box: any, index: number) => {
           return (

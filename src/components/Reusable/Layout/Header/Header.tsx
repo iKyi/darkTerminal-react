@@ -14,6 +14,7 @@ import ActiveHeaderLinkIcon from "src/icons/ActiveHeaderLinkIcon";
 interface INavLink {
   title: string;
   slug: string;
+  anchor?: string;
 }
 
 export const TerminalButton: React.FC = (props) => {
@@ -45,10 +46,20 @@ export const SiteNavLinks: INavLink[] = [
   //   title: "How to buy",
   //   slug: "/how-to-buy",
   // },
-  // {
-  //   title: "News",
-  //   slug: "/news",
-  // },
+  {
+    title: "NFTS",
+    slug: "/",
+    anchor: "nfts",
+  },
+  {
+    title: "Games",
+    slug: "/",
+    anchor: "games",
+  },
+  {
+    title: "our News",
+    slug: "/news",
+  },
   {
     title: "Stake",
     slug: "/stake",
@@ -158,11 +169,11 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
                   display: "inline-block",
                   marginRight: "20px",
                 }}
-                to={item.slug}
+                to={{ pathname: item.slug, hash: item.anchor }}
               >
                 {({ isActive }) => {
                   return (
-                    <HeaderButton isActive={isActive}>
+                    <HeaderButton isActive={isActive && !item.anchor}>
                       {item.title}
                     </HeaderButton>
                   );
