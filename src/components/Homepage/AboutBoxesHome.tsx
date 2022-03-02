@@ -1,5 +1,6 @@
 import { Box, Button, Container, Grid } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "src/app/hooks";
 import { setComingSoon } from "src/features/global/globalSlice";
 import axiosGetter from "src/lib/axios/axiosGetter";
@@ -24,6 +25,7 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
   } = data;
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const imageElementData = useMemo(() => {
     return image && image.data ? getStrapiMedia(image.data) : false;
@@ -43,8 +45,10 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
   return (
     <Box
       sx={{
-        py: 7,
-        mb: 4,
+        py: [3, 3, 5],
+        "&:first-of-type": {
+          pt: 0,
+        },
       }}
     >
       <Container maxWidth="lg">
@@ -106,7 +110,11 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
                   <Button
                     variant="complex"
                     color="secondary"
-                    onClick={() => dispatch(setComingSoon(true))}
+                    onClick={() =>
+                      actionButtonUrl.includes("Soon")
+                        ? dispatch(setComingSoon(true))
+                        : navigate(actionButtonUrl)
+                    }
                   >
                     {actionButtonText}
                   </Button>
