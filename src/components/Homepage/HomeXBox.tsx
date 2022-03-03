@@ -207,13 +207,14 @@ const HomeXBox: React.VFC<HomeXBoxPropsType> = () => {
                 p: 4.5,
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: "center",
                 minHeight: 170,
                 [theme.breakpoints.down("lg")]: {
                   m: 3,
                 },
                 [theme.breakpoints.up("lg")]: {
                   gridArea: position,
+                  width: "100%",
                 },
               })}
             >
