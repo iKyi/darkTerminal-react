@@ -15,6 +15,8 @@ import RedSharp from "../../assets/buttons/red_sharp.png";
 import bigAngleGreen from "../../assets/buttons/bigAngleGreen.png";
 import complexRed from "../../assets/buttons/complexButtonRed.png";
 import complexGreen from "../../assets/buttons/complexButtonGreen.png";
+import complexGray from "../../assets/buttons/complexButtonGray.png";
+import complexWhite from "../../assets/buttons/complexButtonWhite.png";
 import angledRed from "../../assets/buttons/greenAngled/red.png";
 import angledGreen from "../../assets/buttons/greenAngled/green.png";
 
@@ -148,6 +150,7 @@ const getOverRides = (theme: Theme) => {
           {
             props: { variant: "complex", color: "primary" },
             style: {
+              whiteSpace: "nowrap",
               minWidth: "120px",
               paddingTop: theme.spacing(3),
               paddingBottom: theme.spacing(3),
@@ -165,11 +168,18 @@ const getOverRides = (theme: Theme) => {
                 backgroundColor: "transparent",
                 color: theme.palette.common.white,
               },
+              "&:disabled": {
+                background: `url('${complexGray}')`,
+                backgroundSize: "100% 100%",
+                backgroundPosition: "center center",
+                backgroundRepeat: "no-repeat",
+              },
             },
           },
           {
             props: { variant: "complex", color: "secondary" },
             style: {
+              whiteSpace: "nowrap",
               minWidth: "120px",
               paddingTop: theme.spacing(3),
               paddingBottom: theme.spacing(3),
@@ -186,6 +196,41 @@ const getOverRides = (theme: Theme) => {
               "&:hover": {
                 backgroundColor: "transparent",
                 color: theme.palette.common.white,
+              },
+              "&:disabled": {
+                background: `url('${complexGray}')`,
+                backgroundSize: "100% 100%",
+                backgroundPosition: "center center",
+                backgroundRepeat: "no-repeat",
+              },
+            },
+          },
+          {
+            props: { variant: "complex", color: "info" },
+            style: {
+              whiteSpace: "nowrap",
+              minWidth: "120px",
+              paddingTop: theme.spacing(3),
+              paddingBottom: theme.spacing(3),
+              paddingLeft: theme.spacing(8),
+              paddingRight: theme.spacing(8),
+              fontSize: "1rem",
+              fontFamily: FONTS.FURORE,
+              textTransform: "uppercase",
+              background: `url('${complexWhite}')`,
+              backgroundSize: "100% 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+              color: theme.palette.common.white,
+              "&:hover": {
+                backgroundColor: "transparent",
+                color: theme.palette.error.main,
+              },
+              "&:disabled": {
+                background: `url('${complexGray}')`,
+                backgroundSize: "100% 100%",
+                backgroundPosition: "center center",
+                backgroundRepeat: "no-repeat",
               },
             },
           },
@@ -346,6 +391,9 @@ const getOverRides = (theme: Theme) => {
           },
           ".TW": {
             color: theme.palette.common.white,
+          },
+          ".TE": {
+            color: theme.palette.error.main,
           },
           h1: {
             fontFamily: FONTS.FURORE,

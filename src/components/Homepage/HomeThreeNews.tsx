@@ -1,4 +1,11 @@
-import { Box, CircularProgress, Grid, Alert, Container } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Grid,
+  Alert,
+  Container,
+  CardActionArea,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "src/app/hooks";
 import { LOADING_KEY } from "src/constants/loadingKeys";
@@ -9,6 +16,9 @@ import { centerFlex } from "src/lib/sxUtils";
 import { getStrapiURL } from "src/lib/theme/api";
 import ArticleGridItem from "../Newspage/ArticleGridItem";
 import BigSectionWrapper from "./BigSectionWrapper";
+import fillerBox from "../../assets/images/articlesBox/fillerBox.png";
+import fillerBoxHover from "../../assets/images/articlesBox/fillerBoxHover.png";
+import { Link as RouterLink } from "react-router-dom";
 
 export type HomeThreeNewsPropsType = {
   children?: any;
@@ -17,7 +27,7 @@ export type HomeThreeNewsPropsType = {
 const title = (
   <Box component="span">
     <Box component="span" sx={{ color: "common.white" }}>
-      LATEST
+      DARK TERMINAL
     </Box>{" "}
     <Box component="span" sx={{ color: "primary.main" }}>
       NEWS
@@ -39,7 +49,9 @@ const HomeThreeNews: React.VFC<HomeThreeNewsPropsType> = ({ children }) => {
       const procResponse = resp.data.map((item: any) => {
         return { id: item.id, ...item.attributes };
       });
-      setData(procResponse.length > 3 ? procResponse.slice(3) : procResponse);
+      setData(
+        procResponse.length > 2 ? procResponse.slice(0, 2) : procResponse
+      );
       dispatch(removeLoader(LOADING_KEY.NEWS_HOME_LOADING));
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,6 +79,27 @@ const HomeThreeNews: React.VFC<HomeThreeNewsPropsType> = ({ children }) => {
             })
           ) : (
             <Alert title="No articles found" />
+          )}
+          {articles && articles.length > 0 && (
+            <Grid item xs={12} sm={6} md={4} sx={{ display: "flex" }}>
+              <CardActionArea
+                sx={{
+                  minHeight: "456px",
+                  color: "transparent",
+                  height: "100%",
+                  background: `url('${fillerBox}')`,
+                  backgroundSize: "100% 100%",
+                  backgroundPosition: "center center",
+                  "&:hover": {
+                    background: `url('${fillerBoxHover}')`,
+                    backgroundSize: "100% 100%",
+                    backgroundPosition: "center center",
+                  },
+                }}
+                component={RouterLink}
+                to="/news"
+              />
+            </Grid>
           )}
         </Grid>
       </Container>

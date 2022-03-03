@@ -1,4 +1,4 @@
-import { Box, Typography, Link as MUILink, Button } from "@mui/material";
+import { Box, Link as MUILink, Button } from "@mui/material";
 import GlitchFont from "../Reusable/GlitchFont";
 import topLeft from "../../assets/images/homexbox/topLeft.png";
 import topRight from "../../assets/images/homexbox/topRight.png";
@@ -9,54 +9,100 @@ import topLefti from "../../assets/images/homexbox/topLeftIcon.png";
 import topRighti from "../../assets/images/homexbox/topRightIcon.png";
 import bottomLefti from "../../assets/images/homexbox/bottomLeftIcon.png";
 import bottomRighti from "../../assets/images/homexbox/bottomRightIcon.png";
-import { centerFlex } from "src/lib/sxUtils";
 import overAllBg from "../../assets/images/homexbox/overAllBg.png";
 import MarkdownParser from "../Reusable/MarkdownParser";
+import HomeVideoBox from "./HomeVideoBox";
+import { useNavigate } from "react-router-dom";
 
+export type HomeXBoxButtonActionType =
+  | "buyNowNft"
+  | "buyNowDTAC"
+  | "mintingServices"
+  | "play";
 interface IBoxData {
   title: string;
-  desc: string | number;
   position: string;
   background: any;
   icon: any;
+  button: {
+    text: string;
+    action: HomeXBoxButtonActionType;
+    disabled?: boolean;
+    url?: string;
+  };
 }
-const mainBoxText: string = `<span class="TW">OPEN UP</span><br /><span class="TP">YOUR TERMINAL</span>`;
-const mainBoxDesc: string = `<span class="TW">DARK</span> <span class="TP">TERMINAL</span> is a platform which hosts multiple hacking themed games >_`;
+const mainBoxText: string = `<span class="TW">OPEN UP</span> <span class="TP">YOUR TERMINAL</span>`;
+const mainBoxDesc: string = `<span class="TE">GAMES</span> & <span class="TE">MINTING SERVICES</span>`;
 
 const squareBoxes: IBoxData[] = [
   {
-    desc: "3",
-    title: "DT GAMES",
+    title: "hacking <span class='TP'>GAMES</span>",
     position: "topLeft",
     background: topLeft,
     icon: topLefti,
+    button: {
+      action: "play",
+      text: "PLAY NOW",
+    },
   },
   {
-    title: "Royalties",
-    desc: "30%",
+    title: "minting <span class='TP'>services</span>",
     position: "topRight",
     background: topRight,
     icon: topRighti,
+    button: {
+      disabled: true,
+      text: "COMING SOON",
+      action: "mintingServices",
+    },
   },
   {
-    title: "COIN",
-    desc: "DTAC",
+    title: "25 mil <span class='TP'>dtac</span>",
     position: "bottomLeft",
     background: bottomLeft,
     icon: bottomLefti,
+    button: {
+      action: "buyNowDTAC",
+      text: "BUY NOW",
+    },
   },
   {
-    title: "DT NFTS",
-    desc: 3,
+    title: "nfts <span class='TP'>111</span>",
     position: "bottomRight",
     background: bottomRight,
     icon: bottomRighti,
+    button: {
+      action: "buyNowNft",
+      text: "BUY NOW",
+    },
   },
 ];
 
 export type HomeXBoxPropsType = {};
 
 const HomeXBox: React.VFC<HomeXBoxPropsType> = () => {
+  const navigate = useNavigate();
+  const buttonAction = (
+    action: "buyNowNft" | "buyNowDTAC" | "mintingServices" | "play"
+  ) => {
+    switch (action) {
+      case "play":
+        navigate("/#games");
+        break;
+      case "buyNowDTAC":
+        window.open("https://www.google.com/dtac", "_blank");
+        break;
+      case "buyNowNft":
+        window.open("https://www.google.com/nft", "_blank");
+        break;
+      case "mintingServices":
+        window.open("https://www.google.com/nft", "_blank");
+        break;
+      default:
+        break;
+    }
+  };
+
   // *************** RENDER *************** //
   return (
     <Box sx={{ my: [3, 3, 6] }}>
@@ -72,18 +118,57 @@ const HomeXBox: React.VFC<HomeXBoxPropsType> = () => {
             justifyContent: "center",
           },
           [theme.breakpoints.up("lg")]: {
-            p: 10,
+            p: 6,
             display: "grid",
-            rowGap: "30px",
-            columnGap: "30px",
+            rowGap: "0px",
+            columnGap: "6px",
             gridTemplateRows: "auto",
-            gridTemplateAreas: `"topLeft o o topRight" "s main main b" "bottomLeft whitepaper whitepaper bottomRight"`,
+            gridTemplateAreas: `
+            "title title title title"
+            "topLeft bigSpaceTwo bigSpaceTwo topRight" 
+            "main main main main" 
+            "bottomLeft bigSpace bigSpace bottomRight"
+            "footerO whitepaper whitepaper footerU"`,
             background: `url('${overAllBg}')`,
             backgroundSize: "100% 100%",
           },
         })}
       >
         <Box
+          className="Titlebox"
+          sx={(theme) => ({
+            textAlign: "center",
+            width: "100%",
+            my: 3,
+            [theme.breakpoints.up("lg")]: {
+              gridArea: "title",
+              m: "0 auto",
+              pb: 3,
+            },
+          })}
+        >
+          <Box
+            sx={() => ({
+              lineHeight: 1.1,
+              mb: 1,
+              fontSize: ["1.4rem", "1.4rem", "1.8rem"],
+            })}
+          >
+            <GlitchFont>
+              <MarkdownParser>{mainBoxText}</MarkdownParser>
+            </GlitchFont>
+          </Box>
+          <Box
+            sx={{
+              color: "primary.light",
+              textTransform: "uppercase",
+            }}
+          >
+            <MarkdownParser>{mainBoxDesc}</MarkdownParser>
+          </Box>
+        </Box>
+        <Box
+          className="videobox"
           sx={(theme) => ({
             textAlign: "center",
             [theme.breakpoints.down("lg")]: {
@@ -91,45 +176,31 @@ const HomeXBox: React.VFC<HomeXBoxPropsType> = () => {
             },
             [theme.breakpoints.up("lg")]: {
               gridArea: "main",
-              maxWidth: "450px",
+              width: "100%",
+              maxWidth: "540px",
               m: "0 auto",
-              p: 4,
+              py: 2,
             },
           })}
         >
           <Box
             sx={(theme) => ({
               [theme.breakpoints.down("lg")]: {
-                maxWidth: "360px",
                 margin: "0 auto",
                 mb: 4,
               },
             })}
           >
-            <Box
-              sx={() => ({
-                lineHeight: 1.1,
-                mb: 2,
-                fontSize: ["1.8rem", "1.8rem", "2.2rem"],
-              })}
-            >
-              <GlitchFont>
-                <MarkdownParser>{mainBoxText}</MarkdownParser>
-              </GlitchFont>
-            </Box>
-            <Box sx={{ color: "primary.light", textTransform: "uppercase" }}>
-              <MarkdownParser>{mainBoxDesc}</MarkdownParser>
-            </Box>
+            <HomeVideoBox />
           </Box>
         </Box>
-        {squareBoxes.map((item) => {
+        {squareBoxes.map(({ title, background, button, icon, position }) => {
           return (
             <Box
-              key={item.title}
+              key={title}
               sx={(theme) => ({
-                maxWidth: "230px",
                 margin: "0 auto",
-                background: `url('${item.background}')`,
+                background: `url('${background}')`,
                 backgroundSize: "100% 100%",
                 backgroundPosition: "center center",
                 backgroundRepeat: "no-repeat",
@@ -142,26 +213,28 @@ const HomeXBox: React.VFC<HomeXBoxPropsType> = () => {
                   m: 3,
                 },
                 [theme.breakpoints.up("lg")]: {
-                  gridArea: item.position,
+                  gridArea: position,
                 },
               })}
             >
-              <Box sx={{ ...centerFlex, mr: 2 }}>
-                <img src={item.icon} alt={`icon for item ${item.title}`} />
-              </Box>
-              <Box sx={{ textAlign: "right", lineHeight: 1.01 }}>
-                <Typography sx={{ lineHeight: "inherit", fontSize: "1rem" }}>
-                  {item.title}
-                </Typography>
-                <Typography
-                  sx={{
-                    lineHeight: "inherit",
-                    fontSize: "1.8rem",
-                    color: "primary.main",
-                  }}
-                >
-                  {item.desc}
-                </Typography>
+              <Box
+                sx={{
+                  textAlign: "center",
+                  lineHeight: 1.01,
+                  fontSize: "1.4rem",
+                }}
+              >
+                <MarkdownParser>{title}</MarkdownParser>
+                <Box sx={{ mt: 3 }}>
+                  <Button
+                    variant="complex"
+                    sx={{ mt: "auto", mx: "auto" }}
+                    disabled={button.disabled}
+                    onClick={() => buttonAction(button.action)}
+                  >
+                    {button.text}
+                  </Button>
+                </Box>
               </Box>
             </Box>
           );
@@ -179,6 +252,7 @@ const HomeXBox: React.VFC<HomeXBoxPropsType> = () => {
         >
           <Button
             variant="complex"
+            color="info"
             sx={{ mt: "auto", mx: "auto" }}
             component={MUILink}
             href="https://darkterminal.io/darkterminal_whitepaper_v0.4.pdf"

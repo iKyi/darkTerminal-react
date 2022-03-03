@@ -22,7 +22,7 @@ const BigSectionWrapper: React.VFC<BigSectionWrapperPropsType> = ({
   // *************** RENDER *************** //
   return (
     <Box
-      sx={{ marginBottom: !mobile ? "70px" : "25px", mt: [4, 4, 8] }}
+      sx={{ marginBottom: !mobile ? "70px" : "25px", mt: [4, 4, 8], px: 2 }}
       ref={fRef}
     >
       <Box sx={{ textAlign: "center", position: "relative", mb: [2, 2, 4] }}>
@@ -37,6 +37,7 @@ const BigSectionWrapper: React.VFC<BigSectionWrapperPropsType> = ({
         </GlitchFont>
         <Box
           sx={{
+            display: ["none", "none", "block"],
             position: "absolute",
             width: "100%",
             left: 0,

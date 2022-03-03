@@ -14,6 +14,7 @@ import { addLoader, removeLoader } from "../features/global/globalSlice";
 import HomeXBox from "src/components/Homepage/HomeXBox";
 import HomeThreeNews from "src/components/Homepage/HomeThreeNews";
 import OurNftsBox from "src/components/Homepage/OurNftsBox";
+import HomeContentTabs from "src/components/Homepage/HomeContentTabs";
 
 export type HomePropsType = {};
 
@@ -48,6 +49,7 @@ const Home: React.VFC<HomePropsType> = () => {
       </Container>
       <OurNftsBox />
       <AboutBoxesHome />
+      <HomeContentTabs />
       <HomeThreeNews />
       <Footer />
     </StrapiPublicProvider>

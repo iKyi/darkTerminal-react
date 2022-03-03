@@ -156,7 +156,7 @@ const AboutBoxesHome: React.VFC<AboutBoxesHomePropsType> = () => {
   const title = (
     <Box component="span">
       <Box component="span" sx={{ color: "common.white" }}>
-        OUR
+        DARK TERMINAL
       </Box>{" "}
       <Box component="span" sx={{ color: "primary.main" }}>
         GAMES

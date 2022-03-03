@@ -13,9 +13,12 @@ import imageThree from "../../assets/images/homeCardsPesentation/3.png";
 import { useEffect, useRef } from "react";
 import { setTimeout } from "timers-browserify";
 import { useLocation } from "react-router-dom";
+import MarkdownParser from "../Reusable/MarkdownParser";
+import { FONTS } from "src/lib/theme";
+import FillerDivider from "./FillerDivider";
 
 const GridCardEntry: React.FC<NFTObject> = (props: NFTObject) => {
-  const { color, image, name, royal, sol } = props;
+  const { color, image, name, royal, supply } = props;
 
   const mainColor =
     color === "error"
@@ -77,7 +80,7 @@ const GridCardEntry: React.FC<NFTObject> = (props: NFTObject) => {
         <Grid
           container
           sx={{
-            border: (theme) => `1px solid`,
+            border: () => `1px solid`,
             borderColor: mainColor,
             bgcolor:
               color === "error"
@@ -102,12 +105,12 @@ const GridCardEntry: React.FC<NFTObject> = (props: NFTObject) => {
           </Grid>
           <Grid item xs={8}>
             <Typography sx={{ fontSize: "0.85rem", color: "common.white" }}>
-              SOL REDEEMABLE
+              SUPPLY
             </Typography>
           </Grid>
           <Grid item xs={4} sx={{ textAlign: "right" }}>
             <Typography sx={{ fontSize: "0.75rem", color: "error.main" }}>
-              {sol}
+              {supply}
             </Typography>
           </Grid>
         </Grid>
@@ -119,7 +122,7 @@ const GridCardEntry: React.FC<NFTObject> = (props: NFTObject) => {
 const title = (
   <Box component="span">
     <Box component="span" sx={{ color: "common.white" }}>
-      OUR
+      DARK TERMINAL
     </Box>{" "}
     <Box component="span" sx={{ color: "primary.main" }}>
       NFTS
@@ -127,11 +130,14 @@ const title = (
   </Box>
 );
 
+const textContent: string = `Holders of our collection's NFTs receive 50% of all secondary royalties and 50% of all fees taken by Dark Terminal from the games and minting services through staking.
+Each NFT also features DTAC mining passively as long as it is staked.`;
+
 interface NFTObject {
   image: any;
   name: string;
   royal: number;
-  sol: number;
+  supply: number;
   color: "light" | "primary" | "error";
 }
 
@@ -140,22 +146,22 @@ const items: NFTObject[] = [
     color: "error",
     image: imageOne,
     royal: 30,
-    sol: 3.5,
     name: "NYX",
+    supply: 109,
   },
   {
     color: "primary",
     name: "D3GEN",
     image: imageTwo,
     royal: 10,
-    sol: 3.5,
+    supply: 460,
   },
   {
     color: "light",
     image: imageThree,
     name: "CODEX",
     royal: 10,
-    sol: 3.5,
+    supply: 542,
   },
 ];
 
@@ -182,6 +188,17 @@ const OurNftsBox: React.VFC<OurNftsBoxPropsType> = () => {
   return (
     <BigSectionWrapper title={title} fRef={boxRef}>
       <Container maxWidth="md">
+        <Box
+          className="sectionDescription"
+          sx={{
+            mb: [2, 2, 4],
+            fontFamily: FONTS.SOURCE,
+            color: "primary.light",
+            textAlign: "center",
+          }}
+        >
+          <MarkdownParser>{textContent}</MarkdownParser>
+        </Box>
         <Grid
           container
           columnSpacing={[0, 2, 4]}
@@ -197,6 +214,7 @@ const OurNftsBox: React.VFC<OurNftsBoxPropsType> = () => {
           })}
         </Grid>
       </Container>
+      <FillerDivider sx={{ mt: [3, 3, 7] }} />
     </BigSectionWrapper>
   );
 };
