@@ -214,7 +214,7 @@ const HomeXBox: React.VFC<HomeXBoxPropsType> = () => {
                 },
                 [theme.breakpoints.up("lg")]: {
                   gridArea: position,
-                  width: "100%",
+                  width: "370px",
                 },
               })}
             >
