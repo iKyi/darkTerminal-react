@@ -19,10 +19,11 @@ interface TabEntry {
 const TabsData: TabEntry[] = [
   {
     title: "PACK MINTING",
-    content: `
-    <p>First feature that our minting services will provide will be the ability to create Pack mints. What this means is that people will be buying a Pack NFT, which they can open and receive any number of additional NFTs from it. A perfect example for this would be a Card Game which uses NFTs for their game. </p> 
-    <br />
-<p>
+    content: `<p>
+   First feature that our minting services will provide will be the ability to create Pack mints. What this means is that people will be buying a Pack NFT, which they can open and receive any number of additional NFTs from it. A perfect example for this would be a Card Game which uses NFTs for their game. 
+   </p> 
+  <br />
+  <p>
     People can buy a Booster Pack, or a Starter Pack, which holds 10 different cards inside it. The rarity of the cards found inside can be adjusted, so you can have 2 Legendary cards and 8 Common cards, or you can assign a % of drop chance for each slot. 
     </p> 
     <br />
