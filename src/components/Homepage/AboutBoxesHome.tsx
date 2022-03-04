@@ -1,5 +1,6 @@
 import { Box, Button, Container, Grid } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "src/app/hooks";
 import { setComingSoon } from "src/features/global/globalSlice";
 import axiosGetter from "src/lib/axios/axiosGetter";
@@ -24,6 +25,7 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
   } = data;
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const imageElementData = useMemo(() => {
     return image && image.data ? getStrapiMedia(image.data) : false;
@@ -43,8 +45,10 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
   return (
     <Box
       sx={{
-        py: 7,
-        mb: 4,
+        py: [3, 3, 5],
+        "&:first-of-type": {
+          pt: 0,
+        },
       }}
     >
       <Container maxWidth="lg">
@@ -106,7 +110,11 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
                   <Button
                     variant="complex"
                     color="secondary"
-                    onClick={() => dispatch(setComingSoon(true))}
+                    onClick={() =>
+                      actionButtonUrl.includes("Soon")
+                        ? dispatch(setComingSoon(true))
+                        : navigate(actionButtonUrl)
+                    }
                   >
                     {actionButtonText}
                   </Button>
@@ -123,6 +131,20 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
 export type AboutBoxesHomePropsType = {};
 
 const AboutBoxesHome: React.VFC<AboutBoxesHomePropsType> = () => {
+  const boxRef = useRef<HTMLDivElement | null>(null);
+  const location = useLocation();
+  useEffect(() => {
+    setTimeout(() => {
+      const currentHref = window.location.href;
+      if (currentHref.includes("#games")) {
+        boxRef?.current?.scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+          block: "start",
+        });
+      }
+    }, 400);
+  }, [location]);
   const [data, setData] = useState<Record<any, any> | null>(null);
 
   useEffect(() => {
@@ -134,7 +156,7 @@ const AboutBoxesHome: React.VFC<AboutBoxesHomePropsType> = () => {
   const title = (
     <Box component="span">
       <Box component="span" sx={{ color: "common.white" }}>
-        OUR
+        DARK TERMINAL
       </Box>{" "}
       <Box component="span" sx={{ color: "primary.main" }}>
         GAMES
@@ -144,7 +166,7 @@ const AboutBoxesHome: React.VFC<AboutBoxesHomePropsType> = () => {
 
   // *************** RENDER *************** //
   return (
-    <BigSectionWrapper title={title}>
+    <BigSectionWrapper title={title} fRef={boxRef}>
       {data &&
         data.map((box: any, index: number) => {
           return (

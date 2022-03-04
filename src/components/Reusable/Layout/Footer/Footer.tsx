@@ -1,6 +1,8 @@
 import { Box, Container, IconButton, Link, Stack } from "@mui/material";
 import { useContext } from "react";
 import { StrapiContext } from "../../../../providers/StrapiPublicProvider";
+import footerLogo from "../../../../assets/images/logoFooter.png";
+import { Link as RouterLink } from "react-router-dom";
 
 export type FooterPropsType = {
   children?: any;
@@ -24,7 +26,14 @@ const Footer: React.VFC<FooterPropsType> = ({ children }) => {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ fontFamily: "Furore" }}>
+        <Box
+          sx={(theme) => ({
+            fontFamily: "Furore",
+            [theme.breakpoints.up("md")]: {
+              width: "250px",
+            },
+          })}
+        >
           <span className="TP">DARK TERMINAL</span> Ⓒ{" "}
           <Box
             style={{ display: "inline", color: "#fff", textDecoration: "none" }}
@@ -32,7 +41,28 @@ const Footer: React.VFC<FooterPropsType> = ({ children }) => {
             2022
           </Box>
         </Box>
-        <Stack spacing={1} direction="row">
+        <Box
+          sx={{
+            display: ["none", "none", "flex"],
+            alignItems: "center",
+            justifyContent: "center",
+            width: "120px",
+          }}
+        >
+          <RouterLink to="/">
+            <img src={footerLogo} alt="footer logo" style={{ width: "100%" }} />
+          </RouterLink>
+        </Box>
+        <Stack
+          spacing={1}
+          direction="row"
+          justifyContent="flex-end"
+          sx={(theme) => ({
+            [theme.breakpoints.up("md")]: {
+              width: "250px",
+            },
+          })}
+        >
           {socials &&
             socials.map((item: Record<any, any>) => {
               return (
