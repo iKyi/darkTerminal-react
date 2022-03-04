@@ -37,7 +37,7 @@ const useStakeAction = () => {
     dispatch(setdatacBalance(null));
     if (publicKey && darkTerminal) {
       try {
-        dispatch(addLoader("charsLoad"));
+        dispatch(addLoader(LOADING_KEY.CHARS_LOADING));
         const [nftsGetterResponse, solana, dtac] = await Promise.all([
           darkTerminal.getNFTs(
             publicKey.toBase58(),
@@ -57,12 +57,12 @@ const useStakeAction = () => {
           nftsGetterResponse;
         dispatch(setRedeemableSol(totalClaimableSOL));
         dispatch(setRedeemableDtac(totalClaimableDTAC));
-        dispatch(removeLoader("charsLoad"));
+        dispatch(removeLoader(LOADING_KEY.CHARS_LOADING));
         dispatch(setSolana(solana));
         dispatch(setdatacBalance(dtac));
         dispatch(writeUserNftData(nfts));
       } catch (err) {
-        dispatch(removeLoader("charsLoad"));
+        dispatch(removeLoader(LOADING_KEY.CHARS_LOADING));
         throw new Error((err as any).toString());
       }
     }
@@ -158,6 +158,41 @@ const useStakeAction = () => {
     [publicKey]
   );
 
-  return { stakeAction, refreshNfts, debouncedRefreshNfts, claimDTAC };
+  const claimSOL = useCallback(
+    async (mintId: string) => {
+      try {
+        dispatch(
+          addBlockingSnackbar({
+            id: "SOLClaimtransaction",
+            state: "loading",
+            text: "Processing transaction, please do not close this window ...",
+          })
+        );
+        await axiosInstance.put(
+          `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.CLAIM_SOL}/${publicKey}`,
+          {
+            mintID: mintId,
+          }
+        );
+        dispatch(removeBlockingSnackbar("SOLClaimtransaction"));
+        refreshNfts();
+      } catch (err) {
+        startSnackbar({
+          variant: "error",
+          content: `Transaction failed ! ${err}`,
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [publicKey]
+  );
+
+  return {
+    stakeAction,
+    refreshNfts,
+    debouncedRefreshNfts,
+    claimDTAC,
+    claimSOL,
+  };
 };
 export default useStakeAction;
