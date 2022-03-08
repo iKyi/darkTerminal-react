@@ -2,7 +2,7 @@ const startAnimation = () => {
   let c: any = document.getElementById("canvasForBg");
   let ctx = c.getContext("2d");
   //making the canvas full screen
-  c.height = window.innerHeight;
+  c.height = window.outerHeight;
   c.width = window.innerWidth;
 
   //chinese characters - taken from the unicode charset
@@ -10,7 +10,7 @@ const startAnimation = () => {
   //converting the string into an array of single characters
   chinese = chinese.split("");
 
-  let font_size = 13;
+  let font_size = 14;
   let columns = c.width / font_size; //number of columns for the rain
   //an array of drops - one per column
   let drops: any[] = [];
