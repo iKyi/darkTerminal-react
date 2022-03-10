@@ -3,11 +3,15 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import ButtonLogo from "../../../../assets/sections/homepage/indicatorBox.png";
 import Logo from "../../../../assets/images/logo.png";
-import { SiteNavLinks, TerminalButton } from "./Header";
+import { SiteNavLinks } from "./Header";
 import { NavLink } from "react-router-dom";
 import ActiveHeaderLinkIcon from "src/icons/ActiveHeaderLinkIcon";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { PersonOutline } from "@mui/icons-material";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const HeaderMobileButton: React.VFC = () => {
+  const wallet = useWallet();
   const [open, setOpen] = useState<boolean>(false);
 
   // *************** RENDER *************** //
@@ -69,7 +73,21 @@ const HeaderMobileButton: React.VFC = () => {
               );
             })}
           </List>
-          <TerminalButton />
+          <WalletMultiButton
+            className=" loginButton headerGameVariant"
+            startIcon={
+              <Box
+                sx={{
+                  fontSize: "12px",
+                }}
+              >
+                <PersonOutline
+                  fontSize="inherit"
+                  color={wallet.connected ? "primary" : "error"}
+                />
+              </Box>
+            }
+          />
         </Box>
       </Drawer>
     </>
