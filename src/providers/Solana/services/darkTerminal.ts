@@ -124,14 +124,6 @@ export default class darkTerminal implements IDarkTerminalClass {
     );
     allTokens = [...stakedNFTs, ...allTokens];
 
-    for (let i = 0; i < allTokens.length; i++) {
-      const token: ITokenCustomEntry = allTokens[i];
-      const result = await fetch(token.data.uri);
-      const metadata = await result.json();
-      token.image = metadata.image;
-      allTokens[i] = token;
-    }
-
     const filteredItems = allTokens.filter((token: ITokenCustomEntry) => {
       if (
         token.updateAuthority === _updateAuthority &&
@@ -142,6 +134,14 @@ export default class darkTerminal implements IDarkTerminalClass {
         return false;
       }
     });
+
+    for (let i = 0; i < filteredItems.length; i++) {
+      const token: ITokenCustomEntry = filteredItems[i];
+      const result = await fetch(token.data.uri);
+      const metadata = await result.json();
+      token.image = metadata.image;
+      filteredItems[i] = token;
+    }
 
     return {
       nfts: massExtractNftIds(filteredItems),
