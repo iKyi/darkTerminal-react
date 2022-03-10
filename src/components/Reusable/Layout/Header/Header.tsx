@@ -138,7 +138,16 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
         <Box sx={{ display: { lg: "none" } }}>
           <HeaderMobileButton />
         </Box>
-        <Box sx={{ display: { xs: "none", lg: "block" } }}>
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              lg: "flex",
+              whiteSpace: "nowrap",
+              alignItems: "center",
+            },
+          }}
+        >
           {SiteNavLinks.map((item) => {
             return (
               <NavLink
