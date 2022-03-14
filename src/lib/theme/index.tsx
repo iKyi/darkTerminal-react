@@ -452,6 +452,16 @@ const getOverRides = (theme: Theme) => {
             fontSize: "0.9rem",
             height: "36px",
           },
+          ".wallet-adapter-button.loginButton.headerGameVariant": {
+            height: "60px",
+            padding: "0 30px",
+            lineHeight: 1.05,
+            svg: {
+              width: "22px",
+              height: "22px",
+            },
+          },
+
           "@keyframes hackEffect": {
             "0%": {
               background: theme.palette.primary.main,

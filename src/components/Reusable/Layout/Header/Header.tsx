@@ -2,44 +2,22 @@ import { Box, Button, Link as MUILink } from "@mui/material";
 import { ReactComponent as DiscordIcon } from "../../../../assets/icons/Discord-Logo-White.svg";
 import useMobile from "../../../../hooks/useMobile";
 import { NavLink } from "react-router-dom";
-import RedButtonBg from "../../../../assets/buttons/red_angle.png";
+// import RedButtonBg from "../../../../assets/buttons/red_angle.png";
 import { ReactComponent as DiscordBar } from "../../../../assets/sections/homepage/discordButton.svg";
 import HeaderMobileButton from "./HeaderMobileButton";
-import { Link as RouterLink } from "react-router-dom";
 import { useContext } from "react";
 import { StrapiContext } from "../../../../providers/StrapiPublicProvider";
 import { getStrapiMedia } from "../../../../lib/theme/media";
 import ActiveHeaderLinkIcon from "src/icons/ActiveHeaderLinkIcon";
+import { PersonOutline } from "@mui/icons-material";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 interface INavLink {
   title: string;
   slug: string;
   anchor?: string;
 }
-
-export const TerminalButton: React.FC = (props) => {
-  return (
-    <Button
-      variant="outlined"
-      color="error"
-      component={RouterLink}
-      to="/game"
-      // onClick={() => dispatch(setComingSoon(true))}
-      sx={{
-        border: "none",
-        background: `url('${RedButtonBg}')`,
-        backgroundSize: "100% 100% !important",
-        pt: 1.5,
-        pb: 1.1,
-        "&:hover": {
-          border: "none",
-        },
-      }}
-    >
-      {">_"} Terminal Demo
-    </Button>
-  );
-};
 
 export const SiteNavLinks: INavLink[] = [
   // {
@@ -113,6 +91,7 @@ const HeaderButton = (props: any) => {
 const Header: React.VFC<HeaderPropsType> = ({ children }) => {
   const { logo, socials } = useContext(StrapiContext);
   const isMobile = useMobile();
+  const wallet = useWallet();
 
   const discordItem = socials.find(
     (item: Record<any, any>) => item.name === "discord"
@@ -159,7 +138,16 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
         <Box sx={{ display: { lg: "none" } }}>
           <HeaderMobileButton />
         </Box>
-        <Box sx={{ display: { xs: "none", lg: "block" } }}>
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              lg: "flex",
+              whiteSpace: "nowrap",
+              alignItems: "center",
+            },
+          }}
+        >
           {SiteNavLinks.map((item) => {
             return (
               <NavLink
@@ -182,7 +170,21 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
             );
           })}
 
-          <TerminalButton />
+          <WalletMultiButton
+            className=" loginButton headerGameVariant"
+            startIcon={
+              <Box
+                sx={{
+                  fontSize: "12px",
+                }}
+              >
+                <PersonOutline
+                  fontSize="inherit"
+                  color={wallet.connected ? "primary" : "error"}
+                />
+              </Box>
+            }
+          />
         </Box>
         {isMobile && discordItem && (
           <Box
