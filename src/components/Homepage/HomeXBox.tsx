@@ -12,7 +12,7 @@ import bottomRighti from "../../assets/images/homexbox/bottomRightIcon.png";
 import overAllBg from "../../assets/images/homexbox/overAllBg.png";
 import MarkdownParser from "../Reusable/MarkdownParser";
 import HomeVideoBox from "./HomeVideoBox";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export type HomeXBoxButtonActionType =
   | "buyNowNft"
@@ -81,13 +81,14 @@ const squareBoxes: IBoxData[] = [
 export type HomeXBoxPropsType = {};
 
 const HomeXBox: React.VFC<HomeXBoxPropsType> = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const buttonAction = (
     action: "buyNowNft" | "buyNowDTAC" | "mintingServices" | "play"
   ) => {
     switch (action) {
       case "play":
-        navigate("/#games");
+        window.open("https://games.darkterminal.io", "_blank");
+        // navigate("/#games");
         break;
       case "buyNowDTAC":
         window.open("https://www.google.com/dtac", "_blank");
