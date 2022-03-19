@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid } from "@mui/material";
+import { Box, Button, Container, Grid, Link as MUILink } from "@mui/material";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "src/app/hooks";
@@ -105,7 +105,7 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
               >
                 <MarkdownParser>{content}</MarkdownParser>
               </Box>
-              {actionButton ? (
+              {actionButton && !actionButtonUrl.includes("http") ? (
                 <Box sx={{ marginTop: 4 }}>
                   <Button
                     variant="complex"
@@ -115,6 +115,20 @@ const AboutBox: React.VFC<{ index: number; data: Record<any, any> }> = ({
                         ? dispatch(setComingSoon(true))
                         : navigate(actionButtonUrl)
                     }
+                  >
+                    {actionButtonText}
+                  </Button>
+                </Box>
+              ) : null}
+              {actionButton && actionButtonUrl.includes("http") ? (
+                <Box sx={{ marginTop: 4 }}>
+                  <Button
+                    variant="complex"
+                    color="secondary"
+                    component={MUILink}
+                    href={actionButtonUrl}
+                    target="_blank"
+                    rel="noopener"
                   >
                     {actionButtonText}
                   </Button>
