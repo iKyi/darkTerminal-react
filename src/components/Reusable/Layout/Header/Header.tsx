@@ -34,10 +34,10 @@ export const SiteNavLinks: INavLink[] = [
     slug: "/",
     anchor: "games",
   },
-  {
-    title: "our News",
-    slug: "/news",
-  },
+  // {
+  //   title: "Operations",
+  //   slug: "/news",
+  // },
   {
     title: "Stake",
     slug: "/stake",

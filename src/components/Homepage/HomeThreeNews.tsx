@@ -30,7 +30,7 @@ const title = (
       DARK TERMINAL
     </Box>{" "}
     <Box component="span" sx={{ color: "primary.main" }}>
-      NEWS
+      OPERATIONS
     </Box>
   </Box>
 );

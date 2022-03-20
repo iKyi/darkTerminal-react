@@ -26,7 +26,7 @@ const NewsIndex: React.VFC<NewsIndexPropsType> = ({ children }) => {
   // *************** RENDER *************** //
   return (
     <Box>
-      <PageHeader title="LATEST NEWS" subtitle="OUR" />
+      <PageHeader title="OPERATIONS" subtitle="DARK TERMINAL" />
       <Grid container spacing={mobile ? 3 : 5}>
         {articles && articles.length > 0 ? (
           articles.map((item: any) => {

@@ -12,7 +12,7 @@ import { getStrapiURL } from "../lib/theme/api";
 import StrapiPublicProvider from "../providers/StrapiPublicProvider";
 import { addLoader, removeLoader } from "../features/global/globalSlice";
 import HomeXBox from "src/components/Homepage/HomeXBox";
-import HomeThreeNews from "src/components/Homepage/HomeThreeNews";
+// import HomeThreeNews from "src/components/Homepage/HomeThreeNews";
 import OurNftsBox from "src/components/Homepage/OurNftsBox";
 import HomeContentTabs from "src/components/Homepage/HomeContentTabs";
 
@@ -50,7 +50,7 @@ const Home: React.VFC<HomePropsType> = () => {
       <OurNftsBox />
       <AboutBoxesHome />
       <HomeContentTabs />
-      <HomeThreeNews />
+      {/* <HomeThreeNews /> */}
       <Footer />
     </StrapiPublicProvider>
   );

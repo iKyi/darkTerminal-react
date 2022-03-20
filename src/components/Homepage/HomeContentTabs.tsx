@@ -33,11 +33,16 @@ const TabsData: TabEntry[] = [
   },
   {
     title: "GENERATIVE NFTS",
-    content: "tab 2",
+    content:
+      "<p>Anyone will be able to set up their own generative art style mint directly from our browser interface.</p>",
   },
   {
     title: "NFT BLENDS",
-    content: "tab 3",
+    content: `<p>The second feature we are developing is the Blending mechanism, which allows you to burn 1 
+     or more NFTs and receive a new NFT in return.<p> 
+     <p>This can be used for mechanics such as upgrading lower rarity NFTs into a higher rarity one, 
+      upgrading a Character level NFT to a higher Character level, upgrading weapons / items, cards or any
+      other NFT gaming systems projects might use.</p>`,
   },
 ];
 

@@ -62,12 +62,13 @@ const squareBoxes: IBoxData[] = [
     background: bottomLeft,
     icon: bottomLefti,
     button: {
+      disabled: true,
+      text: "COMING SOON",
       action: "buyNowDTAC",
-      text: "BUY NOW",
     },
   },
   {
-    title: "nfts <span class='TP'>111</span>",
+    title: "nfts <span class='TP'>1111</span>",
     position: "bottomRight",
     background: bottomRight,
     icon: bottomRighti,
@@ -94,7 +95,7 @@ const HomeXBox: React.VFC<HomeXBoxPropsType> = () => {
         window.open("https://www.google.com/dtac", "_blank");
         break;
       case "buyNowNft":
-        window.open("https://www.google.com/nft", "_blank");
+        window.open("https://magiceden.io/marketplace/darkterminal", "_blank");
         break;
       case "mintingServices":
         window.open("https://www.google.com/nft", "_blank");
