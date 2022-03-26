@@ -358,7 +358,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                       startIcon={<Lock color={staked ? "error" : "primary"} />}
                       fullWidth
                       onClick={localDoStake}
-                      disabled={loadingInProgres || isLocked}
+                      disabled={loadingInProgres || isLocked || hasBalance}
                     >
                       {isLocked
                         ? `Unstake locked until ${DateTime.fromISO(
