@@ -85,7 +85,7 @@ const bigTextStyles: SxProps = {
 };
 
 const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
-  const { stakeAction, claimDTAC, claimSOL } = useStakeAction();
+  const { stakeAction, claimDTAC, claimSOL, unstakeAction } = useStakeAction();
   const dispatch = useAppDispatch();
   const { id: paramId } = useParams();
   const charsLoading = useAppSelector((state) => state.global.loaders).includes(
@@ -114,11 +114,20 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
   const imageFrame = staked ? redImageFrame : greenImageFrame;
   const topBorder = staked ? redTopFrame : greenTopFrame;
   const mainColor = staked ? "error.main" : "primary.main";
+
+  const hasBalance =
+    (dtacRedeemValue && dtacRedeemValue > 0) ||
+    (solRedeemValue && solRedeemValue > 0);
   // *************** METHODS  *************** //
 
   const localDoStake = () => {
     if (data) {
-      stakeAction(mint!, name!);
+      if (!staked) {
+        stakeAction(mint!, name!);
+      } else {
+        // this is where unstake takes place
+        unstakeAction(mint!);
+      }
     } else {
       throw new Error("Error 5231");
     }
@@ -161,6 +170,7 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
         metaTitle: `${name} NFT #${typeId}`,
       }
     : null;
+
   // *************** RENDER *************** //
   if (!data && !charsLoading) return <FourOhFourComp />;
   if (charsLoading) {
@@ -348,14 +358,16 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
                       startIcon={<Lock color={staked ? "error" : "primary"} />}
                       fullWidth
                       onClick={localDoStake}
-                      disabled={staked || loadingInProgres || isLocked}
+                      disabled={loadingInProgres || isLocked}
                     >
                       {isLocked
                         ? `Unstake locked until ${DateTime.fromISO(
                             stakeEndDate!
                           ).toLocaleString(DateTime.DATETIME_SHORT)} `
+                        : hasBalance
+                        ? `Please claim all balances before unstaking`
                         : staked
-                        ? "CLAIM ALL & UNSTAKE"
+                        ? "UNSTAKE"
                         : "STAKE NOW"}
                     </Button>
                   </Grid>

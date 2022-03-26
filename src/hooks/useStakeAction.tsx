@@ -129,6 +129,46 @@ const useStakeAction = () => {
     [darkTerminal, wallet, publicKey]
   );
 
+  const unstakeAction = useCallback(
+    async (mint: string) => {
+      if (darkTerminal) {
+        try {
+          dispatch(
+            addBlockingSnackbar({
+              id: "unstakeNft",
+              state: "loading",
+              text: "Validating transactions... This might take up to 2 minutes, please do not close this window ...",
+            })
+          );
+          await axiosInstance.post(
+            `${REST_ENDPOINTS.BASE}${REST_ENDPOINTS.UNSATKE_NFT}/${publicKey}`,
+            {
+              mintid: mint,
+            }
+          );
+          setTimeout(() => {
+            refreshNfts();
+            navigate("/stake");
+            dispatch(removeBlockingSnackbar("unstakeNft"));
+          }, 1000);
+        } catch (err) {
+          dispatch(removeBlockingSnackbar("unstakeNft"));
+          dispatch(
+            startSnackbar({
+              variant: "error",
+              content: `Transaction failed ! ${err}`,
+            })
+          );
+          throw new Error(err as string);
+        }
+      }
+
+      return;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [darkTerminal, wallet, publicKey]
+  );
+
   const claimDTAC = useCallback(
     async (mintId: string) => {
       try {
@@ -193,6 +233,7 @@ const useStakeAction = () => {
     debouncedRefreshNfts,
     claimDTAC,
     claimSOL,
+    unstakeAction,
   };
 };
 export default useStakeAction;
