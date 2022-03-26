@@ -115,9 +115,11 @@ const StakeCardEntry: React.VFC<StakeCardEntryPropsType> = ({ children }) => {
   const topBorder = staked ? redTopFrame : greenTopFrame;
   const mainColor = staked ? "error.main" : "primary.main";
 
-  const hasBalance =
+  const hasBalance: boolean =
     (dtacRedeemValue && dtacRedeemValue > 0) ||
-    (solRedeemValue && solRedeemValue > 0);
+    (solRedeemValue && solRedeemValue > 0)
+      ? true
+      : false;
   // *************** METHODS  *************** //
 
   const localDoStake = () => {
