@@ -46,7 +46,7 @@ const massExtractNftIds = (items: ITokenCustomEntry[]) => {
         ? item.solRedeemValue
         : bindNftClaimValue(item);
     item.dtacRedeemValue =
-      item.dtacRedeemValue !== undefined ? item.dtacRedeemValue : 3500.0;
+      item.dtacRedeemValue !== undefined ? item.dtacRedeemValue : 0;
     return item;
   });
 };
