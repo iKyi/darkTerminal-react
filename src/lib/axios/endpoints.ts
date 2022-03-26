@@ -5,4 +5,5 @@ export enum REST_ENDPOINTS {
   GET_NFTS = "GetNFTs/",
   CLAIM_DTAC = "ClaimDTAC",
   CLAIM_SOL = "ClaimSOL",
+  UNSATKE_NFT = "UnstakeNft",
 }
