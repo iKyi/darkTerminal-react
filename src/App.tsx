@@ -8,12 +8,9 @@ import GlobalModalsWrapper from "./components/GlobalModalsWrapper";
 import NewsIndex from "./components/Newspage/NewsIndex";
 import { startAnimation } from "./lib/bgAnim";
 import ArticleEntry from "./Pages/ArticleEntry";
-import GamePage from "./Pages/GamePage";
 import Home from "./Pages/Home";
 import HowToBuy from "./Pages/HowToBuy";
 import NewsPage from "./Pages/NewsPage";
-// import GameHome from "./Game/GameHome/GameHome";
-import GameDashboard from "./Game/GameDashboard/GameDashboard";
 import MintPage from "./Pages/MintPage";
 import SnackbarProvider from "./providers/SnackbarProvider";
 import useStakeAction from "./hooks/useStakeAction";
@@ -59,9 +56,6 @@ function App() {
         <Route element={<Stake />} path="stake">
           <Route element={<StakeIndex />} index />
           <Route element={<StakeCardEntry />} path="/stake/:id" />
-        </Route>
-        <Route path="game" element={<GamePage />}>
-          <Route index element={<GameDashboard />}></Route>
         </Route>
         <Route path="mint" element={<MintPage />} />
         <Route element={<FourOhFour />} path="*" />
