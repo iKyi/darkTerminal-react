@@ -1,5 +1,5 @@
 export enum REST_ENDPOINTS {
-  BASE = "https://api-dt-api-dt-dev.azurewebsites.net/api/",
+  BASE = "https://api-dt.darkterminal.io/api/",
   LOGIN = "Login/",
   STAKE_NFT = "StakeNFT/",
   GET_NFTS = "GetNFTs/",
