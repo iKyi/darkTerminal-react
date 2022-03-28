@@ -6,7 +6,7 @@ import {
   Tabs,
   Typography,
 } from "@mui/material";
-import useMobile from "src/hooks/useMobile";
+import useMobile from "hooks/useMobile";
 import IndicatorBox from "../../../../assets/sections/homepage/indicatorBox.png";
 import NavigationHeader from "../../../../assets/sections/homepage/navigationHeader.png";
 

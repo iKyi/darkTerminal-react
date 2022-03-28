@@ -1,12 +1,12 @@
 import { Box, Button, Container, Grid, Link as MUILink } from "@mui/material";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "src/app/hooks";
-import { setComingSoon } from "src/features/global/globalSlice";
-import axiosGetter from "src/lib/axios/axiosGetter";
-import { FONTS } from "src/lib/theme";
-import { getStrapiURL } from "src/lib/theme/api";
-import { getStrapiMedia } from "src/lib/theme/media";
+import { useAppDispatch } from "app/hooks";
+import { setComingSoon } from "features/global/globalSlice";
+import axiosGetter from "lib/axios/axiosGetter";
+import { FONTS } from "lib/theme";
+import { getStrapiURL } from "lib/theme/api";
+import { getStrapiMedia } from "lib/theme/media";
 import GlitchFont from "../Reusable/GlitchFont";
 import MarkdownParser from "../Reusable/MarkdownParser";
 import BigSectionWrapper from "./BigSectionWrapper";

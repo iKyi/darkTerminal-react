@@ -1,5 +1,5 @@
 import { Box, SxProps } from "@mui/material";
-import { FONTS } from "src/lib/theme";
+import { FONTS } from "lib/theme";
 
 export type GlitchFontPropsType = {
   children?: any;

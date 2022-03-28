@@ -7,13 +7,13 @@ import {
   CardActionArea,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "src/app/hooks";
-import { LOADING_KEY } from "src/constants/loadingKeys";
-import { addLoader, removeLoader } from "src/features/global/globalSlice";
-import useMobile from "src/hooks/useMobile";
-import axiosGetter from "src/lib/axios/axiosGetter";
-import { centerFlex } from "src/lib/sxUtils";
-import { getStrapiURL } from "src/lib/theme/api";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { LOADING_KEY } from "constants/loadingKeys";
+import { addLoader, removeLoader } from "features/global/globalSlice";
+import useMobile from "hooks/useMobile";
+import axiosGetter from "lib/axios/axiosGetter";
+import { centerFlex } from "lib/sxUtils";
+import { getStrapiURL } from "lib/theme/api";
 import ArticleGridItem from "../Newspage/ArticleGridItem";
 import BigSectionWrapper from "./BigSectionWrapper";
 import fillerBox from "../../assets/images/articlesBox/fillerBox.png";

@@ -1,12 +1,12 @@
 import { Box, Typography, Tabs, Tab, Container } from "@mui/material";
 import { useState, ReactNode } from "react";
-import { FONTS } from "src/lib/theme";
+import { FONTS } from "lib/theme";
 import GlitchFont from "../Reusable/GlitchFont";
 import MarkdownParser from "../Reusable/MarkdownParser";
 import BigSectionWrapper from "./BigSectionWrapper";
 import FillerDivider from "./FillerDivider";
 import tabsActiveSymbol from "../../assets/images/tabsActiveSymbol.png";
-import { centerFlex } from "src/lib/sxUtils";
+import { centerFlex } from "lib/sxUtils";
 
 const textContent: string = `Dark Terminal is bringing a new and innovative approach to NFT minting on Solana.
 From our experiences on other blockchains, we were shocked to find out that Solana is missing on a lot of interesting and exciting ways to mint and use the NFTs.`;

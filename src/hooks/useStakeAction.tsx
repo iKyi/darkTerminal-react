@@ -2,26 +2,26 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "src/app/hooks";
-import { LOADING_KEY } from "src/constants/loadingKeys";
+import { useAppDispatch } from "app/hooks";
+import { LOADING_KEY } from "constants/loadingKeys";
 import {
   addBlockingSnackbar,
   addLoader,
   removeBlockingSnackbar,
   removeLoader,
   startSnackbar,
-} from "src/features/global/globalSlice";
+} from "features/global/globalSlice";
 import {
   setdatacBalance,
   setRedeemableDtac,
   setRedeemableSol,
   setSolana,
   writeUserNftData,
-} from "src/features/user/userSlice";
-import axiosInstance from "src/lib/axios/axiosInstance";
-import { REST_ENDPOINTS } from "src/lib/axios/endpoints";
-import { DarkTerminalServiceProvider } from "src/providers/AuthDarkTerminalClassWrapper";
-import { NFTNameTypes } from "src/utils/NFTutils";
+} from "features/user/userSlice";
+import axiosInstance from "lib/axios/axiosInstance";
+import { REST_ENDPOINTS } from "lib/axios/endpoints";
+import { DarkTerminalServiceProvider } from "providers/AuthDarkTerminalClassWrapper";
+import { NFTNameTypes } from "utils/NFTutils";
 import { useDebouncedCallback } from "use-debounce";
 
 const useStakeAction = () => {

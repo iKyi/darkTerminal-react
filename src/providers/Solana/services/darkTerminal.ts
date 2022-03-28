@@ -13,10 +13,10 @@ import {
   convertToFrontendObjectNftStyle,
   massExtractNftIds,
   NFTNameTypes,
-} from "src/utils/NFTutils";
+} from "utils/NFTutils";
 import { WalletContextState } from "@solana/wallet-adapter-react";
-import axiosGetter from "src/lib/axios/axiosGetter";
-import { REST_ENDPOINTS } from "src/lib/axios/endpoints";
+import axiosGetter from "lib/axios/axiosGetter";
+import { REST_ENDPOINTS } from "lib/axios/endpoints";
 import { web3 } from "@project-serum/anchor";
 
 export interface ITokenCustomEntry {

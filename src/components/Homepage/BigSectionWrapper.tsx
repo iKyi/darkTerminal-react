@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
-import useMobile from "src/hooks/useMobile";
+import useMobile from "hooks/useMobile";
 import GlitchFont from "../Reusable/GlitchFont";
 
 export type BigSectionWrapperPropsType = {

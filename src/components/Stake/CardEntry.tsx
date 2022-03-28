@@ -1,5 +1,5 @@
 import { CardActionArea, Grid, Typography } from "@mui/material";
-import { ITokenCustomEntry } from "src/providers/Solana/services/darkTerminal";
+import { ITokenCustomEntry } from "providers/Solana/services/darkTerminal";
 import { Link as RouterLink } from "react-router-dom";
 import { Box } from "@mui/system";
 import ImageFrame from "../../assets/images/imageFrame.png";

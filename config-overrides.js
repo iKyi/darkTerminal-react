@@ -1,3 +1,7 @@
+const { alias, configPaths, aliasJest } = require("react-app-rewire-alias");
+
+const aliasMap = configPaths("./tsconfig.paths.json"); // or jsconfig.paths.json
+
 /* config-overrides.js */
 // const webpack = require("webpack");
 module.exports = function override(config, env) {
@@ -16,3 +20,6 @@ module.exports = function override(config, env) {
 
   return config;
 };
+
+module.exports = alias(aliasMap);
+module.exports.jest = aliasJest(aliasMap);

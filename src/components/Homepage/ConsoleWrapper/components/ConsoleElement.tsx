@@ -6,7 +6,7 @@ import MarkdownParser from "../../../Reusable/MarkdownParser";
 import { FONTS } from "../../../../lib/theme";
 import { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
-import useMobile from "src/hooks/useMobile";
+import useMobile from "hooks/useMobile";
 
 interface TabPanelProps {
   children?: React.ReactNode;

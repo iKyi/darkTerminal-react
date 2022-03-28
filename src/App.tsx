@@ -3,22 +3,24 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import FourOhFour from "./components/FourOhFour/404";
-import GlobalModalsWrapper from "./components/GlobalModalsWrapper";
-import NewsIndex from "./components/Newspage/NewsIndex";
+import FourOhFour from "components/FourOhFour/404";
+import GlobalModalsWrapper from "components/GlobalModalsWrapper";
+import NewsIndex from "components/Newspage/NewsIndex";
 import { startAnimation } from "./lib/bgAnim";
-import ArticleEntry from "./Pages/ArticleEntry";
-import Home from "./Pages/Home";
-import HowToBuy from "./Pages/HowToBuy";
-import NewsPage from "./Pages/NewsPage";
-import MintPage from "./Pages/MintPage";
-import SnackbarProvider from "./providers/SnackbarProvider";
-import useStakeAction from "./hooks/useStakeAction";
-import Stake from "./Pages/Stake";
-import StakeIndex from "./components/Stake/StakeIndex";
-import StakeCardEntry from "./components/Stake/StakeCardEntry";
-import AppLoader from "./components/Reusable/AppLoader";
-import BlockingSnabarsProvider from "./components/BlockingSnabarsProvider";
+import ArticleEntry from "pages/ArticleEntry";
+import Home from "pages/Home";
+import HowToBuy from "pages/HowToBuy";
+import NewsPage from "pages/NewsPage";
+// import MintPage from "pages/MintPage";
+import SnackbarProvider from "providers/SnackbarProvider";
+import useStakeAction from "hooks/useStakeAction";
+import Stake from "pages/Stake";
+import StakeIndex from "components/Stake/StakeIndex";
+import StakeCardEntry from "components/Stake/StakeCardEntry";
+import AppLoader from "components/Reusable/AppLoader";
+import BlockingSnabarsProvider from "components/BlockingSnabarsProvider";
+import Mint from "pages/Mint/Mint";
+import Dashboard from "pages/Mint/Sub/Dashboard";
 
 function App() {
   const { wallet, connected } = useWallet();
@@ -57,7 +59,10 @@ function App() {
           <Route element={<StakeIndex />} index />
           <Route element={<StakeCardEntry />} path="/stake/:id" />
         </Route>
-        <Route path="mint" element={<MintPage />} />
+        {/* <Route path="mint" element={<MintPage />} /> */}
+        <Route element={<Mint />} path="minting">
+          <Route element={<Dashboard />} index></Route>
+        </Route>
         <Route element={<FourOhFour />} path="*" />
       </Routes>
       <GlobalModalsWrapper />

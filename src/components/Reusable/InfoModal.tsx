@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "src/app/hooks";
-import { setInfoModal } from "src/features/global/globalSlice";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { setInfoModal } from "features/global/globalSlice";
 import TerminalModalWrapper from "./TerminalModalWrapper";
 
 export type InfoModalPropsType = {

@@ -6,7 +6,7 @@ import lightImageFrame from "../../assets/images/lightImageFrame.png";
 import greenTopFrame from "../../assets/images/greenTopFrame.png";
 import redTopFrame from "../../assets/images/redTopFrame.png";
 import lightTopFrame from "../../assets/images/lightTopFrame.png";
-import { centerFlex } from "src/lib/sxUtils";
+import { centerFlex } from "lib/sxUtils";
 import imageOne from "../../assets/images/homeCardsPesentation/1.png";
 import imageTwo from "../../assets/images/homeCardsPesentation/2.png";
 import imageThree from "../../assets/images/homeCardsPesentation/3.png";
@@ -14,7 +14,7 @@ import { useEffect, useRef } from "react";
 import { setTimeout } from "timers-browserify";
 import { useLocation } from "react-router-dom";
 import MarkdownParser from "../Reusable/MarkdownParser";
-import { FONTS } from "src/lib/theme";
+import { FONTS } from "lib/theme";
 import FillerDivider from "./FillerDivider";
 
 const GridCardEntry: React.FC<NFTObject> = (props: NFTObject) => {

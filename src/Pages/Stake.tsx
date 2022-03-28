@@ -3,17 +3,17 @@ import { Box } from "@mui/system";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
-import ConsoleElement from "src/components/Homepage/ConsoleWrapper/components/ConsoleElement";
-import ConsoleNavigation from "src/components/Homepage/ConsoleWrapper/components/ConsoleNavigation";
-import WalletBox from "src/components/Homepage/ConsoleWrapper/components/WalletBox";
-import Header from "src/components/Reusable/Layout/Header/Header";
-import SeoComp from "src/components/Reusable/Seo";
-import { addLoader, removeLoader } from "src/features/global/globalSlice";
-import useMobile from "src/hooks/useMobile";
-import axiosGetter from "src/lib/axios/axiosGetter";
-import { getStrapiURL } from "src/lib/theme/api";
-import StrapiPublicProvider from "src/providers/StrapiPublicProvider";
-// import SeoComp from "src/components/Reusable/Seo";
+import ConsoleElement from "components/Homepage/ConsoleWrapper/components/ConsoleElement";
+import ConsoleNavigation from "components/Homepage/ConsoleWrapper/components/ConsoleNavigation";
+import WalletBox from "components/Homepage/ConsoleWrapper/components/WalletBox";
+import Header from "components/Reusable/Layout/Header/Header";
+import SeoComp from "components/Reusable/Seo";
+import { addLoader, removeLoader } from "features/global/globalSlice";
+import useMobile from "hooks/useMobile";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiURL } from "lib/theme/api";
+import StrapiPublicProvider from "providers/StrapiPublicProvider";
+// import SeoComp from "components/Reusable/Seo";
 
 export type StakePropsType = {};
 

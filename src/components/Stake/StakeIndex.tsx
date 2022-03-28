@@ -1,8 +1,8 @@
 import { Box, Button } from "@mui/material";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { useAppSelector } from "src/app/hooks";
-import useMobile from "src/hooks/useMobile";
+import { useAppSelector } from "app/hooks";
+import useMobile from "hooks/useMobile";
 import CardGrid from "./CardGrid";
 
 export type StakeIndexPropsType = {};

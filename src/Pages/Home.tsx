@@ -1,20 +1,20 @@
-import AboutBoxesHome from "src/components/Homepage/AboutBoxesHome";
 import { Container } from "@mui/material";
 // import HeroBox from "../components/Homepage/HeroBox";
-import ReportLine from "../components/Homepage/ReportLine";
+import ReportLine from "components/Homepage/ReportLine";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import Footer from "../components/Reusable/Layout/Footer/Footer";
-import Header from "../components/Reusable/Layout/Header/Header";
-import SeoComp from "../components/Reusable/Seo";
-import axiosGetter from "../lib/axios/axiosGetter";
-import { getStrapiURL } from "../lib/theme/api";
-import StrapiPublicProvider from "../providers/StrapiPublicProvider";
-import { addLoader, removeLoader } from "../features/global/globalSlice";
-import HomeXBox from "src/components/Homepage/HomeXBox";
-// import HomeThreeNews from "src/components/Homepage/HomeThreeNews";
-import OurNftsBox from "src/components/Homepage/OurNftsBox";
-import HomeContentTabs from "src/components/Homepage/HomeContentTabs";
+import Footer from "components/Reusable/Layout/Footer/Footer";
+import Header from "components/Reusable/Layout/Header/Header";
+import SeoComp from "components/Reusable/Seo";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiURL } from "lib/theme/api";
+import { addLoader, removeLoader } from "features/global/globalSlice";
+import HomeXBox from "components/Homepage/HomeXBox";
+// import HomeThreeNews from "components/Homepage/HomeThreeNews";
+import OurNftsBox from "components/Homepage/OurNftsBox";
+import AboutBoxesHome from "components/Homepage/AboutBoxesHome";
+import HomeContentTabs from "components/Homepage/HomeContentTabs";
+import StrapiPublicProvider from "providers/StrapiPublicProvider";
 
 export type HomePropsType = {};
 

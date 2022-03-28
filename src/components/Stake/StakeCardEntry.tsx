@@ -2,9 +2,9 @@ import { Box, Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import { Lock, SubdirectoryArrowLeftSharp } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "src/app/hooks";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 import FourOhFourComp from "../FourOhFour/FourOhFourComp";
-import { setInfoModal } from "src/features/global/globalSlice";
+import { setInfoModal } from "features/global/globalSlice";
 import greenImageFrame from "../../assets/images/imageFrame.png";
 import redImageFrame from "../../assets/images/redImageFrame.png";
 import greenTopFrame from "../../assets/images/greenTopFrame.png";
@@ -14,9 +14,9 @@ import greenBars from "../../assets/images/stakeCards/greenBars.png";
 import redBars from "../../assets/images/stakeCards/redBars.png";
 import { ReactNode } from "react";
 import { SxProps } from "@mui/system";
-import useStakeAction from "src/hooks/useStakeAction";
+import useStakeAction from "hooks/useStakeAction";
 import SeoComp from "../Reusable/Seo";
-import { LOADING_KEY } from "src/constants/loadingKeys";
+import { LOADING_KEY } from "constants/loadingKeys";
 import { DateTime } from "luxon";
 
 export type StakeCardEntryPropsType = {

@@ -5,7 +5,7 @@ import ButtonLogo from "../../../../assets/sections/homepage/indicatorBox.png";
 import Logo from "../../../../assets/images/logo.png";
 import { SiteNavLinks } from "./Header";
 import { NavLink } from "react-router-dom";
-import ActiveHeaderLinkIcon from "src/icons/ActiveHeaderLinkIcon";
+import ActiveHeaderLinkIcon from "icons/ActiveHeaderLinkIcon";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { PersonOutline } from "@mui/icons-material";
 import { useWallet } from "@solana/wallet-adapter-react";

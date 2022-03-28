@@ -1,5 +1,5 @@
-import { degenIdArray, nyxIdArray } from "src/constants/familyArrays";
-import { ITokenCustomEntry } from "src/providers/Solana/services/darkTerminal";
+import { degenIdArray, nyxIdArray } from "constants/familyArrays";
+import { ITokenCustomEntry } from "providers/Solana/services/darkTerminal";
 
 export type NFTNameTypes = "Nyx" | "D3gen" | "Codex" | "";
 

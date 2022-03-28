@@ -1,9 +1,9 @@
 import { Grid, Box, CircularProgress } from "@mui/material";
-import { ITokenCustomEntry } from "src/providers/Solana/services/darkTerminal";
+import { ITokenCustomEntry } from "providers/Solana/services/darkTerminal";
+import { useAppSelector } from "app/hooks";
+import { centerFlex } from "lib/sxUtils";
+import { LOADING_KEY } from "constants/loadingKeys";
 import CardEntry from "./CardEntry";
-import { useAppSelector } from "../../app/hooks";
-import { LOADING_KEY } from "src/constants/loadingKeys";
-import { centerFlex } from "../../lib/sxUtils";
 
 export type CardGridPropsType = {
   tokens: ITokenCustomEntry[];

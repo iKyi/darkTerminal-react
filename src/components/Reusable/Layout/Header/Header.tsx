@@ -8,7 +8,7 @@ import HeaderMobileButton from "./HeaderMobileButton";
 import { useContext } from "react";
 import { StrapiContext } from "../../../../providers/StrapiPublicProvider";
 import { getStrapiMedia } from "../../../../lib/theme/media";
-import ActiveHeaderLinkIcon from "src/icons/ActiveHeaderLinkIcon";
+import ActiveHeaderLinkIcon from "icons/ActiveHeaderLinkIcon";
 import { PersonOutline } from "@mui/icons-material";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -24,6 +24,10 @@ export const SiteNavLinks: INavLink[] = [
   //   title: "How to buy",
   //   slug: "/how-to-buy",
   // },
+  {
+    slug: "/minting",
+    title: "Minting",
+  },
   {
     title: "NFTS",
     slug: "/",

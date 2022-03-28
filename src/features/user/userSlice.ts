@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppThunk } from "src/app/store";
-import { ITokenCustomEntry } from "src/providers/Solana/services/darkTerminal";
+import { AppThunk } from "app/store";
+import { ITokenCustomEntry } from "providers/Solana/services/darkTerminal";
 
 export interface UserState {
   tokens: ITokenCustomEntry[];

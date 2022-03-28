@@ -1,6 +1,6 @@
 import { CircularProgress, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { useAppSelector } from "src/app/hooks";
+import { useAppSelector } from "app/hooks";
 
 export type AppLoaderPropsType = {};
 

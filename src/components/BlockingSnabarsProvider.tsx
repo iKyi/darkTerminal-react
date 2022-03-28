@@ -1,7 +1,7 @@
 import { useAppSelector } from "../app/hooks";
 import { Backdrop, CircularProgress, Box } from "@mui/material";
-import { BlockingTransactionsStates } from "src/features/global/globalSlice";
-import { centerFlex } from "src/lib/sxUtils";
+import { BlockingTransactionsStates } from "features/global/globalSlice";
+import { centerFlex } from "lib/sxUtils";
 import MarkdownParser from "./Reusable/MarkdownParser";
 
 export type BlockingSnabarsProviderPropsType = {};
