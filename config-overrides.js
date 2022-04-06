@@ -17,9 +17,9 @@ module.exports = function override(config, env) {
     //   Buffer: ["buffer", "Buffer"],
     // })
     ();
-
-  return config;
+  const aliasedFunction = alias(aliasMap);
+  const configModified = aliasedFunction(config);
+  return configModified;
 };
 
-module.exports = alias(aliasMap);
 module.exports.jest = aliasJest(aliasMap);
