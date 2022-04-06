@@ -36,6 +36,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
           common: {
             white: "#fff",
             gray: "#777777",
+            lightGray: "#C6C6C6",
           },
         } as ThemeOptions["palette"])),
   },

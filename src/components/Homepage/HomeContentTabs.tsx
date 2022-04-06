@@ -136,6 +136,7 @@ const HomeContentTabs: React.VFC<HomeContentTabsPropsType> = () => {
                 const active = value === index;
                 return (
                   <Tab
+                    key={index}
                     label={
                       <Box
                         sx={{

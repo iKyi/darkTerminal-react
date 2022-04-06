@@ -20,7 +20,16 @@ import StakeCardEntry from "components/Stake/StakeCardEntry";
 import AppLoader from "components/Reusable/AppLoader";
 import BlockingSnabarsProvider from "components/BlockingSnabarsProvider";
 import Mint from "pages/Mint/Mint";
-import Dashboard from "pages/Mint/Sub/Dashboard";
+import CollectionsPage from "pages/Mint/Sub/CollectionsPage";
+import NFTsPage from "pages/Mint/Sub/NFTsPage";
+import NotificationsPage from "pages/Mint/Sub/NotificationsPage";
+import DashboardMenuPage from "pages/Mint/Sub/Dashboard/DashboardMenuPage";
+import mintRoutes from "pages/Mint/MintRoutes";
+import SchemasAndTemplatesPage from "pages/Mint/Sub/Dashboard/SchemasAndTemplatesPage";
+import SetupDropPage from "pages/Mint/Sub/Dashboard/SetupDropPage";
+import MintNftsPage from "pages/Mint/Sub/Dashboard/MintNftsPage";
+import BlendsPage from "pages/Mint/Sub/Dashboard/BlendsPage";
+import MintedOnDemandPacksPage from "pages/Mint/Sub/Dashboard/MintedOnDemandPacksPage";
 
 function App() {
   const { wallet, connected } = useWallet();
@@ -59,9 +68,28 @@ function App() {
           <Route element={<StakeIndex />} index />
           <Route element={<StakeCardEntry />} path="/stake/:id" />
         </Route>
-        {/* <Route path="mint" element={<MintPage />} /> */}
-        <Route element={<Mint />} path="minting">
-          <Route element={<Dashboard />} index></Route>
+
+        <Route element={<Mint />} path={mintRoutes.DASHBOARD}>
+          {/* dashboard pages START */}
+          <Route element={<DashboardMenuPage />} index />
+          <Route element={<MintNftsPage />} path={mintRoutes.MINT_NFTS} />
+          <Route
+            element={<SchemasAndTemplatesPage />}
+            path={mintRoutes.SCHEMAS_AND_TEMPLATES}
+          />
+          <Route element={<SetupDropPage />} path={mintRoutes.SETUP_DROP} />
+          <Route element={<BlendsPage />} path={mintRoutes.BLENDS} />
+          <Route
+            element={<MintedOnDemandPacksPage />}
+            path={mintRoutes.MINTED_ON_DEMAND_PACKS}
+          />
+          {/* dashboard pages END */}
+          <Route element={<CollectionsPage />} path={mintRoutes.COLLECTIONS} />
+          <Route element={<NFTsPage />} path={mintRoutes.NFTS} />
+          <Route
+            element={<NotificationsPage />}
+            path={mintRoutes.NOTIFICATIONS}
+          />
         </Route>
         <Route element={<FourOhFour />} path="*" />
       </Routes>

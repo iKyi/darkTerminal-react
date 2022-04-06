@@ -5,6 +5,7 @@ export type MintPropsType = {};
 
 const Mint: React.VFC<MintPropsType> = () => {
   // *************** RENDER *************** //
+
   return (
     <MintingDashboardWrapper>
       <Outlet />
