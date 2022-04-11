@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { GENERAL_SETTINGS } from "constants/generalSettings";
 import { ReactNode } from "react";
 import { setTimeout } from "timers-browserify";
-import { AppThunk } from "../../app/store";
+import { AppThunk } from "app/store";
 
 export type SnackbarVariants = "error" | "success" | "info";
 export type BlockingTransactionsStates = "loading";
@@ -11,29 +12,36 @@ export interface IBlockingSnackbar {
   text: string;
   id: string;
 }
+export interface ISmallSnackbar {
+  content: string;
+  variant: SnackbarVariants;
+  id: string;
+}
+
 export interface GlobalState {
   showComingSoon: boolean;
   candyMachineReloading: boolean;
   publicSiteData: Record<any, any> | null;
-  snackBar: null | {
-    content: string;
-    variant: SnackbarVariants;
-  };
+  snackBars: ISmallSnackbar[];
   snackbarVisible: boolean;
   infoModal: string | null | ReactNode;
   loaders: string[];
   blockingSnackbars: IBlockingSnackbar[];
+  depositModal: boolean;
+  withdrawModal: boolean;
 }
 
 const initialState: GlobalState = {
   candyMachineReloading: false,
   showComingSoon: false,
   publicSiteData: null,
-  snackBar: null,
+  snackBars: [],
   snackbarVisible: false,
   infoModal: null,
   loaders: [],
   blockingSnackbars: [],
+  depositModal: false,
+  withdrawModal: false,
 };
 
 export const globalSlice = createSlice({
@@ -41,6 +49,14 @@ export const globalSlice = createSlice({
   initialState,
 
   reducers: {
+    setDepositModal: (state, action: PayloadAction<boolean>) => {
+      const { payload } = action;
+      state.depositModal = payload;
+    },
+    setWithdrawModal: (state, action: PayloadAction<boolean>) => {
+      const { payload } = action;
+      state.withdrawModal = payload;
+    },
     addBlockingSnackbar: (state, action: PayloadAction<IBlockingSnackbar>) => {
       const { payload } = action;
       state.blockingSnackbars = [...state.blockingSnackbars, payload];
@@ -71,18 +87,17 @@ export const globalSlice = createSlice({
     ) => {
       state.publicSiteData = action.payload;
     },
-    startSnackbar: (
-      state,
-      action: PayloadAction<{ content: string; variant: SnackbarVariants }>
-    ) => {
-      state.snackBar = action.payload;
+    startSnackbar: (state, action: PayloadAction<ISmallSnackbar>) => {
+      state.snackBars = [action.payload, ...state.snackBars];
       state.snackbarVisible = true;
     },
-    closeSnackbar: (state) => {
-      state.snackbarVisible = false;
+    closeSnackbar: (state, action: PayloadAction<string>) => {
+      state.snackBars = state.snackBars.filter(
+        (item) => item.id !== action.payload
+      );
     },
-    cleanSnackbarObj: (state) => {
-      state.snackBar = null;
+    closeAllSnackbars: (state) => {
+      state.snackBars = [];
     },
     setCandyMachineLoading: (state, action: PayloadAction<boolean>) => {
       state.candyMachineReloading = action.payload;
@@ -90,25 +105,28 @@ export const globalSlice = createSlice({
   },
 });
 
-export const delayedSnackbarClose = (): AppThunk => (dispatch) => {
-  dispatch(closeSnackbar());
-  setTimeout(() => {
-    dispatch(cleanSnackbarObj());
-  }, 350);
-};
-
+export const newSnackbar =
+  (item: ISmallSnackbar): AppThunk =>
+  (dispatch) => {
+    dispatch(startSnackbar(item));
+    setTimeout(() => {
+      dispatch(closeSnackbar(item.id));
+    }, GENERAL_SETTINGS.SNACKBAR_TIMEOUT);
+  };
 export const {
   setComingSoon,
   setPublicSiteData,
   startSnackbar,
   closeSnackbar,
-  cleanSnackbarObj,
   setCandyMachineLoading,
   setInfoModal,
   addLoader,
   removeLoader,
   addBlockingSnackbar,
   removeBlockingSnackbar,
+  closeAllSnackbars,
+  setDepositModal,
+  setWithdrawModal,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

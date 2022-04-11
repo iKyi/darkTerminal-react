@@ -8,14 +8,14 @@ import {
 } from "@mui/material";
 import useMobile from "../../hooks/useMobile";
 import GlitchFont from "../Reusable/GlitchFont";
-import GreenBg from "../../assets/sections/homepage/greenBoxBg.png";
-import ImageFrame from "../../assets/images/imageFrame.png";
+import GreenBg from "assets/sections/homepage/greenBoxBg.png";
+import ImageFrame from "assets/images/imageFrame.png";
 import { useEffect, useState } from "react";
-import { getStrapiURL } from "../../lib/theme/api";
-import axiosGetter from "../../lib/axios/axiosGetter";
-import { getStrapiMedia } from "../../lib/theme/media";
+import { getStrapiURL } from "lib/theme/api";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiMedia } from "lib/theme/media";
 import { Link } from "react-router-dom";
-// import { ROUTES } from "../../constants/routes";
+// import { ROUTES } from "constants/routes";
 
 export type HeroBoxPropsType = {
   heroImage: any;

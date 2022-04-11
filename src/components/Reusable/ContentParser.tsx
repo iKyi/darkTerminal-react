@@ -1,5 +1,5 @@
 import { Box, SxProps } from "@mui/system";
-import { FONTS } from "../../lib/theme";
+import { FONTS } from "lib/theme";
 import MarkdownParser from "./MarkdownParser";
 
 export type ContentParserPropsType = {

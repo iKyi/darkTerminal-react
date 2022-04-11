@@ -1,8 +1,8 @@
 import { Box, Stack } from "@mui/material";
 import { useState, useEffect } from "react";
 import Marquee from "react-fast-marquee";
-import axiosGetter from "../../lib/axios/axiosGetter";
-import { getStrapiURL } from "../../lib/theme/api";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiURL } from "lib/theme/api";
 import GlitchFont from "../Reusable/GlitchFont";
 
 export type ReportLinePropsType = {};

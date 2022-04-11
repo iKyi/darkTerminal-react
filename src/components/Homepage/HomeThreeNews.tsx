@@ -16,8 +16,8 @@ import { centerFlex } from "lib/sxUtils";
 import { getStrapiURL } from "lib/theme/api";
 import ArticleGridItem from "../Newspage/ArticleGridItem";
 import BigSectionWrapper from "./BigSectionWrapper";
-import fillerBox from "../../assets/images/articlesBox/fillerBox.png";
-import fillerBoxHover from "../../assets/images/articlesBox/fillerBoxHover.png";
+import fillerBox from "assets/images/articlesBox/fillerBox.png";
+import fillerBoxHover from "assets/images/articlesBox/fillerBoxHover.png";
 import { Link as RouterLink } from "react-router-dom";
 
 export type HomeThreeNewsPropsType = {

@@ -1,15 +1,15 @@
 import { Box, Link as MUILink, Button } from "@mui/material";
 import GlitchFont from "../Reusable/GlitchFont";
-import topLeft from "../../assets/images/homexbox/topLeft.png";
-import topRight from "../../assets/images/homexbox/topRight.png";
-import bottomLeft from "../../assets/images/homexbox/bottomLeft.png";
-import bottomRight from "../../assets/images/homexbox/bottomRight.png";
+import topLeft from "assets/images/homexbox/topLeft.png";
+import topRight from "assets/images/homexbox/topRight.png";
+import bottomLeft from "assets/images/homexbox/bottomLeft.png";
+import bottomRight from "assets/images/homexbox/bottomRight.png";
 
-import topLefti from "../../assets/images/homexbox/topLeftIcon.png";
-import topRighti from "../../assets/images/homexbox/topRightIcon.png";
-import bottomLefti from "../../assets/images/homexbox/bottomLeftIcon.png";
-import bottomRighti from "../../assets/images/homexbox/bottomRightIcon.png";
-import overAllBg from "../../assets/images/homexbox/overAllBg.png";
+import topLefti from "assets/images/homexbox/topLeftIcon.png";
+import topRighti from "assets/images/homexbox/topRightIcon.png";
+import bottomLefti from "assets/images/homexbox/bottomLeftIcon.png";
+import bottomRighti from "assets/images/homexbox/bottomRightIcon.png";
+import overAllBg from "assets/images/homexbox/overAllBg.png";
 import MarkdownParser from "../Reusable/MarkdownParser";
 import HomeVideoBox from "./HomeVideoBox";
 // import { useNavigate } from "react-router-dom";

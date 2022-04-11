@@ -21,7 +21,7 @@ const InfoModal: React.VFC<InfoModalPropsType> = ({ children }) => {
       onClose={closeInfoModal}
       bigTitle="SYSTEM_INFO"
     >
-      <Box sx={{ p: 4, textAlign: "center" }}>{modalInnerData}</Box>
+      <Box sx={{ p: 4, textAlign: "center" }}>{modalInnerData?.toString()}</Box>
     </TerminalModalWrapper>
   );
 };

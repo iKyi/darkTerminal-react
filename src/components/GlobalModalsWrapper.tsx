@@ -1,3 +1,6 @@
+import DepositModal from "./Games/BinaryHack/components/TransactionModals/DepositModal";
+import WithdrawModal from "./Games/BinaryHack/components/TransactionModals/WithdrawModal";
+import PlayoutcomeModal from "./Games/HackTheSystem/HackTheSystemProper/components/PlayOutcomeModal/PlayoutcomeModal";
 import ComingSoonModal from "./Reusable/ComingSoonModal";
 import InfoModal from "./Reusable/InfoModal";
 
@@ -9,6 +12,9 @@ const GlobalModalsWrapper: React.VFC<GlobalModalsWrapperPropsType> = () => {
     <>
       <ComingSoonModal />
       <InfoModal />
+      <PlayoutcomeModal />
+      <DepositModal />
+      <WithdrawModal />
     </>
   );
 };

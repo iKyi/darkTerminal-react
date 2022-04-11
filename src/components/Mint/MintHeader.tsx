@@ -2,7 +2,7 @@ import { Box } from "@mui/system";
 import { useContext } from "react";
 import { StrapiContext } from "../../providers/StrapiPublicProvider";
 import { NavLink } from "react-router-dom";
-import { getStrapiMedia } from "../../lib/theme/media";
+import { getStrapiMedia } from "lib/theme/media";
 import useMobile from "../../hooks/useMobile";
 import {
   WalletDisconnectButton,

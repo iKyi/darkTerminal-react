@@ -2,12 +2,12 @@ import { CardActionArea, Grid, Typography } from "@mui/material";
 import { ITokenCustomEntry } from "providers/Solana/services/darkTerminal";
 import { Link as RouterLink } from "react-router-dom";
 import { Box } from "@mui/system";
-import ImageFrame from "../../assets/images/imageFrame.png";
-import redImageFrame from "../../assets/images/redImageFrame.png";
-import greenTopFrame from "../../assets/images/greenTopFrame.png";
-import redTopFrame from "../../assets/images/redTopFrame.png";
-import { centerFlex } from "../../lib/sxUtils";
-import threeButtonWhite from "../../assets/buttons/threeWhite.png";
+import ImageFrame from "assets/images/imageFrame.png";
+import redImageFrame from "assets/images/redImageFrame.png";
+import greenTopFrame from "assets/images/greenTopFrame.png";
+import redTopFrame from "assets/images/redTopFrame.png";
+import { centerFlex } from "lib/sxUtils";
+import threeButtonWhite from "assets/buttons/threeWhite.png";
 
 export type CardEntryPropsType = {
   data: ITokenCustomEntry;

@@ -1,9 +1,9 @@
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-import axiosGetter from "../../lib/axios/axiosGetter";
-import { getStrapiURL } from "../../lib/theme/api";
-import { getStrapiMedia } from "../../lib/theme/media";
-import imageFrame from "../../assets/images/imageFrame.png";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiURL } from "lib/theme/api";
+import { getStrapiMedia } from "lib/theme/media";
+import imageFrame from "assets/images/imageFrame.png";
 
 export type HeroImageBoxPropsType = {
   children?: any;

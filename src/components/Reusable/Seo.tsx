@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet";
 import { useContext } from "react";
-import { getStrapiMedia } from "../../lib/theme/media";
+import { getStrapiMedia } from "lib/theme/media";
 import { StrapiContext } from "../../providers/StrapiPublicProvider";
 
 export type SeoPropsType = {

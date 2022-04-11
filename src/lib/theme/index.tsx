@@ -7,18 +7,18 @@ import {
 import { Theme, ThemeProvider } from "@mui/system";
 import React, { createContext, ReactNode, useMemo, useState } from "react";
 import { ImmortalColorsGetter } from "./pallette";
-import ThreeRed from "../../assets/buttons/threeRed.png";
-import ThreeWhite from "../../assets/buttons/threeWhite.png";
-import ThreeRedAlt from "../../assets/buttons/threeRedAlt.png";
-import ThreeWhiteAlt from "../../assets/buttons/threeWhiteAlt.png";
-import RedSharp from "../../assets/buttons/red_sharp.png";
-import bigAngleGreen from "../../assets/buttons/bigAngleGreen.png";
-import complexRed from "../../assets/buttons/complexButtonRed.png";
-import complexGreen from "../../assets/buttons/complexButtonGreen.png";
-import complexGray from "../../assets/buttons/complexButtonGray.png";
-import complexWhite from "../../assets/buttons/complexButtonWhite.png";
-import angledRed from "../../assets/buttons/greenAngled/red.png";
-import angledGreen from "../../assets/buttons/greenAngled/green.png";
+import ThreeRed from "assets/buttons/threeRed.png";
+import ThreeWhite from "assets/buttons/threeWhite.png";
+import ThreeRedAlt from "assets/buttons/threeRedAlt.png";
+import ThreeWhiteAlt from "assets/buttons/threeWhiteAlt.png";
+import RedSharp from "assets/buttons/red_sharp.png";
+import bigAngleGreen from "assets/buttons/bigAngleGreen.png";
+import complexRed from "assets/buttons/complexButtonRed.png";
+import complexGreen from "assets/buttons/complexButtonGreen.png";
+import complexGray from "assets/buttons/complexButtonGray.png";
+import complexWhite from "assets/buttons/complexButtonWhite.png";
+import angledRed from "assets/buttons/greenAngled/red.png";
+import angledGreen from "assets/buttons/greenAngled/green.png";
 
 export enum FONTS {
   FUTURA = "Futura, sans-serif, Segoe UI, Tahoma, Geneva, Verdana, sans-serif",

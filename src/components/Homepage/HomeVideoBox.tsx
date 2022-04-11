@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import videoLazyLoadImage from "../../assets/images/videoLazyLoadImage.png";
+import videoLazyLoadImage from "assets/images/videoLazyLoadImage.png";
 
 export type HomeVideoBoxPropsType = {};
 

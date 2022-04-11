@@ -1,18 +1,18 @@
-import { Drawer, IconButton, List, ListItem } from "@mui/material";
+import { Drawer, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import ButtonLogo from "../../../../assets/sections/homepage/indicatorBox.png";
 import Logo from "../../../../assets/images/logo.png";
-import { SiteNavLinks } from "./Header";
-import { NavLink } from "react-router-dom";
-import ActiveHeaderLinkIcon from "icons/ActiveHeaderLinkIcon";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { PersonOutline } from "@mui/icons-material";
 import { useWallet } from "@solana/wallet-adapter-react";
+// import ActiveHeaderLinkIcon from "src/icons/ActiveHeaderLinkIcon";
+// import { SiteNavLinks } from "./Header";
+// import { NavLink } from "react-router-dom";
 
 const HeaderMobileButton: React.VFC = () => {
-  const wallet = useWallet();
   const [open, setOpen] = useState<boolean>(false);
+  const wallet = useWallet();
 
   // *************** RENDER *************** //
   return (
@@ -29,7 +29,7 @@ const HeaderMobileButton: React.VFC = () => {
               alt="immortal arena logo"
             />
           </Box>
-          <List>
+          {/* <List>
             {SiteNavLinks.map((item) => {
               return (
                 <ListItem
@@ -72,7 +72,7 @@ const HeaderMobileButton: React.VFC = () => {
                 </ListItem>
               );
             })}
-          </List>
+          </List> */}
           <WalletMultiButton
             className=" loginButton headerGameVariant"
             startIcon={

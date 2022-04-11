@@ -23,6 +23,7 @@ import { REST_ENDPOINTS } from "lib/axios/endpoints";
 import { DarkTerminalServiceProvider } from "providers/AuthDarkTerminalClassWrapper";
 import { NFTNameTypes } from "utils/NFTutils";
 import { useDebouncedCallback } from "use-debounce";
+import getApiBase from "lib/axios/getApiBase";
 
 const useStakeAction = () => {
   const { darkTerminal } = useContext(DarkTerminalServiceProvider);
@@ -106,6 +107,7 @@ const useStakeAction = () => {
             startSnackbar({
               variant: "success",
               content: `Transaction successful !`,
+              id: "stake_action_outcome" + Math.random(),
             })
           );
 
@@ -117,6 +119,7 @@ const useStakeAction = () => {
             startSnackbar({
               variant: "error",
               content: `Transaction failed ! ${err}`,
+              id: "stake_action_outcome_bad" + Math.random(),
             })
           );
           throw new Error(err as string);
@@ -157,6 +160,7 @@ const useStakeAction = () => {
             startSnackbar({
               variant: "error",
               content: `Transaction failed ! ${err}`,
+              id: "unstake" + Math.random(),
             })
           );
           throw new Error(err as string);
@@ -191,6 +195,7 @@ const useStakeAction = () => {
         startSnackbar({
           variant: "error",
           content: `Transaction failed ! ${err}`,
+          id: "claim-dtac-" + Math.random(),
         });
       }
     },
@@ -220,6 +225,7 @@ const useStakeAction = () => {
         startSnackbar({
           variant: "error",
           content: `Transaction failed ! ${err}`,
+          id: "claim-sol-error-" + Math.random(),
         });
       }
     },
@@ -227,12 +233,40 @@ const useStakeAction = () => {
     [publicKey]
   );
 
+  const refreshBalance = useCallback(async () => {
+    dispatch(setSolana(null));
+    dispatch(setdatacBalance(null));
+    if (publicKey && darkTerminal) {
+      try {
+        dispatch(addLoader(LOADING_KEY.CHARS_LOADING));
+        const [solana, dtac] = await Promise.all([
+          darkTerminal.getSolanaBalance(publicKey),
+          darkTerminal.getTokenBalance(
+            publicKey,
+            new PublicKey(process.env.REACT_APP_DTAC_TOKEN_ADDRESS ?? "")
+          ),
+          axiosInstance.post(
+            `${getApiBase()}${REST_ENDPOINTS.LOGIN}${publicKey}`
+          ),
+        ]);
+        dispatch(removeLoader(LOADING_KEY.CHARS_LOADING));
+        dispatch(setSolana(solana));
+        dispatch(setdatacBalance(dtac));
+      } catch (err) {
+        dispatch(removeLoader(LOADING_KEY.CHARS_LOADING));
+        throw new Error((err as any).toString());
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [darkTerminal, publicKey]);
+
   return {
     stakeAction,
     refreshNfts,
     debouncedRefreshNfts,
     claimDTAC,
     claimSOL,
+    refreshBalance,
     unstakeAction,
   };
 };

@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import Footer from "../components/Reusable/Layout/Footer/Footer";
-import Header from "../components/Reusable/Layout/Header/Header";
+import Footer from "components/Reusable/Layout/Footer/Footer";
+import Header from "components/Reusable/Layout/Header/Header";
 import StrapiPublicProvider from "../providers/StrapiPublicProvider";
 
 export type NewsPagePropsType = {

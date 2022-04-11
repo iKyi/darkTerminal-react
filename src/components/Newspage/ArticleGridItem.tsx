@@ -2,9 +2,9 @@ import { CardActionArea, CardMedia } from "@mui/material";
 import { Box } from "@mui/system";
 import { DateTime } from "luxon";
 import { Link as RouterLink } from "react-router-dom";
-import { FONTS } from "../../lib/theme";
-import { getStrapiMedia } from "../../lib/theme/media";
-import SamplePic from "../../assets/samplePic.jpg";
+import { FONTS } from "lib/theme";
+import { getStrapiMedia } from "lib/theme/media";
+import SamplePic from "assets/samplePic.jpg";
 
 export type ArticleGridItemPropsType = {
   title: string;

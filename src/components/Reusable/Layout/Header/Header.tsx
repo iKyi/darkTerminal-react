@@ -1,13 +1,13 @@
 import { Box, Button, Link as MUILink } from "@mui/material";
-import { ReactComponent as DiscordIcon } from "../../../../assets/icons/Discord-Logo-White.svg";
+import { ReactComponent as DiscordIcon } from "assets/icons/Discord-Logo-White.svg";
 import useMobile from "../../../../hooks/useMobile";
 import { NavLink } from "react-router-dom";
-// import RedButtonBg from "../../../../assets/buttons/red_angle.png";
-import { ReactComponent as DiscordBar } from "../../../../assets/sections/homepage/discordButton.svg";
+// import RedButtonBg from "assets/buttons/red_angle.png";
+import { ReactComponent as DiscordBar } from "assets/sections/homepage/discordButton.svg";
 import HeaderMobileButton from "./HeaderMobileButton";
 import { useContext } from "react";
 import { StrapiContext } from "../../../../providers/StrapiPublicProvider";
-import { getStrapiMedia } from "../../../../lib/theme/media";
+import { getStrapiMedia } from "lib/theme/media";
 import ActiveHeaderLinkIcon from "icons/ActiveHeaderLinkIcon";
 import { PersonOutline } from "@mui/icons-material";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
@@ -20,14 +20,6 @@ interface INavLink {
 }
 
 export const SiteNavLinks: INavLink[] = [
-  // {
-  //   title: "How to buy",
-  //   slug: "/how-to-buy",
-  // },
-  {
-    slug: "/minting",
-    title: "Minting",
-  },
   {
     title: "NFTS",
     slug: "/",
@@ -38,16 +30,11 @@ export const SiteNavLinks: INavLink[] = [
     slug: "/",
     anchor: "games",
   },
-  // {
-  //   title: "Operations",
-  //   slug: "/news",
-  // },
   {
     title: "Stake",
     slug: "/stake",
   },
 ];
-
 export type HeaderPropsType = {
   children?: any;
 };
@@ -147,12 +134,46 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
             display: {
               xs: "none",
               lg: "flex",
-              whiteSpace: "nowrap",
               alignItems: "center",
+              justifyContent: "flex-end",
+              ml: "auto",
             },
           }}
         >
-          {SiteNavLinks.map((item) => {
+          {/* ENTRIES FOR THE GAME HEADER VARIANT COME HERE */}
+          <Box
+            sx={{
+              ml: "auto",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+            }}
+          >
+            {children
+              ? children
+              : SiteNavLinks.map((item) => {
+                  return (
+                    <NavLink
+                      key={item.title}
+                      style={{
+                        textDecoration: "none",
+                        display: "inline-block",
+                        marginRight: "20px",
+                      }}
+                      to={{ pathname: item.slug, hash: item.anchor }}
+                    >
+                      {({ isActive }) => {
+                        return (
+                          <HeaderButton isActive={isActive && !item.anchor}>
+                            {item.title}
+                          </HeaderButton>
+                        );
+                      }}
+                    </NavLink>
+                  );
+                })}
+
+            {/* {SiteNavLinks.map((item) => {
             return (
               <NavLink
                 key={item.title}
@@ -172,23 +193,24 @@ const Header: React.VFC<HeaderPropsType> = ({ children }) => {
                 }}
               </NavLink>
             );
-          })}
+          })} */}
 
-          <WalletMultiButton
-            className=" loginButton headerGameVariant"
-            startIcon={
-              <Box
-                sx={{
-                  fontSize: "12px",
-                }}
-              >
-                <PersonOutline
-                  fontSize="inherit"
-                  color={wallet.connected ? "primary" : "error"}
-                />
-              </Box>
-            }
-          />
+            <WalletMultiButton
+              className=" loginButton headerGameVariant"
+              startIcon={
+                <Box
+                  sx={{
+                    fontSize: "12px",
+                  }}
+                >
+                  <PersonOutline
+                    fontSize="inherit"
+                    color={wallet.connected ? "primary" : "error"}
+                  />
+                </Box>
+              }
+            />
+          </Box>
         </Box>
         {isMobile && discordItem && (
           <Box

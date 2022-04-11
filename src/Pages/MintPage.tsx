@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import MintPageContent from "../components/Mint/MintPageContent";
-import SeoComp from "../components/Reusable/Seo";
-import axiosGetter from "../lib/axios/axiosGetter";
-import { getStrapiURL } from "../lib/theme/api";
+import SeoComp from "components/Reusable/Seo";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiURL } from "lib/theme/api";
 import AuthProviderButtons from "../providers/AuthProviderButtons";
 import StrapiPublicProvider from "../providers/StrapiPublicProvider";
 

@@ -1,10 +1,10 @@
 import { Box } from "@mui/system";
 import { useContext, useMemo } from "react";
-import { FONTS } from "../../lib/theme";
+import { FONTS } from "lib/theme";
 import { StrapiContext } from "../../providers/StrapiPublicProvider";
 import { CircularProgress, SxProps } from "@mui/material";
 import { WalletContext } from "../../providers/AuthProviderButtons";
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "app/hooks";
 
 export type SupplyBoxPropsType = {
   sx?: SxProps;

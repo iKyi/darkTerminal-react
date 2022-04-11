@@ -1,5 +1,5 @@
 import { Box, SxProps } from "@mui/material";
-import fillerDivider from "../../assets/images/fillerDivider.png";
+import fillerDivider from "assets/images/fillerDivider.png";
 
 export type FillerDividerPropsType = {
   sx?: SxProps;

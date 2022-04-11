@@ -3,8 +3,8 @@ import useMobile from "../../hooks/useMobile";
 import PageHeader from "../Reusable/PageHeader";
 import ArticleGridItem from "./ArticleGridItem";
 import { useEffect, useState } from "react";
-import axiosGetter from "../../lib/axios/axiosGetter";
-import { getStrapiURL } from "../../lib/theme/api";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiURL } from "lib/theme/api";
 
 export type NewsIndexPropsType = {
   children?: any;

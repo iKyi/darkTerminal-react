@@ -1,9 +1,9 @@
 import { Box, CardActionArea, CircularProgress } from "@mui/material";
-import MintBoxRedBorder from "../../assets/images/mint/MintBoxRedBorder.png";
-import MintBoxWhiteBorder from "../../assets/images/mint/MintBoxWhiteBorder.png";
-import { FONTS } from "../../lib/theme";
-import redButtonBg from "../../assets/images/mint/redButtonBg.png";
-import whiteButtonBg from "../../assets/images/mint/whiteButtonBg.png";
+import MintBoxRedBorder from "assets/images/mint/MintBoxRedBorder.png";
+import MintBoxWhiteBorder from "assets/images/mint/MintBoxWhiteBorder.png";
+import { FONTS } from "lib/theme";
+import redButtonBg from "assets/images/mint/redButtonBg.png";
+import whiteButtonBg from "assets/images/mint/whiteButtonBg.png";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useContext, useEffect, useState } from "react";
 import { useGateway, GatewayStatus } from "@civic/solana-gateway-react";

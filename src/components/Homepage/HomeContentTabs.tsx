@@ -5,7 +5,7 @@ import GlitchFont from "../Reusable/GlitchFont";
 import MarkdownParser from "../Reusable/MarkdownParser";
 import BigSectionWrapper from "./BigSectionWrapper";
 import FillerDivider from "./FillerDivider";
-import tabsActiveSymbol from "../../assets/images/tabsActiveSymbol.png";
+import tabsActiveSymbol from "assets/images/tabsActiveSymbol.png";
 import { centerFlex } from "lib/sxUtils";
 
 const textContent: string = `Dark Terminal is bringing a new and innovative approach to NFT minting on Solana.

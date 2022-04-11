@@ -1,14 +1,14 @@
 import { ChevronRight } from "@mui/icons-material";
 import { Box, Breadcrumbs, Link as MUILink } from "@mui/material";
 import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
-import { FONTS } from "../lib/theme";
+import { FONTS } from "lib/theme";
 import { DateTime } from "luxon";
 import useMobile from "../hooks/useMobile";
-import MarkdownParser from "../components/Reusable/MarkdownParser";
+import MarkdownParser from "components/Reusable/MarkdownParser";
 import { useEffect, useState } from "react";
-import axiosGetter from "../lib/axios/axiosGetter";
-import { getStrapiURL } from "../lib/theme/api";
-import { getStrapiMedia } from "../lib/theme/media";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiURL } from "lib/theme/api";
+import { getStrapiMedia } from "lib/theme/media";
 
 const ArticleEntry: React.VFC = () => {
   const mobile = useMobile();

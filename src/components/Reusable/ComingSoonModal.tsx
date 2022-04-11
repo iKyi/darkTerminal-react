@@ -7,9 +7,9 @@ import {
   CardContent,
   CardActionArea,
 } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { setComingSoon } from "../../features/global/globalSlice";
-import ConsoleHeader from "../../assets/sections/homepage/consoleHeader.png";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { setComingSoon } from "features/global/globalSlice";
+import ConsoleHeader from "assets/sections/homepage/consoleHeader.png";
 import GlitchFont from "./GlitchFont";
 
 export type ComingSoonModalPropsType = {

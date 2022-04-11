@@ -1,8 +1,8 @@
 import { Box, Container, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import useMobile from "../../../hooks/useMobile";
-import axiosGetter from "../../../lib/axios/axiosGetter";
-import { getStrapiURL } from "../../../lib/theme/api";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiURL } from "lib/theme/api";
 import ConsoleElement from "./components/ConsoleElement";
 import ConsoleNavigation from "./components/ConsoleNavigation";
 import WalletBox from "./components/WalletBox";

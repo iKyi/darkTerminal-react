@@ -67,6 +67,10 @@ export interface IDarkTerminalClass {
     walletPublicKey: PublicKey,
     tokenAddress: PublicKey
   ) => Promise<number>;
+  depositSol: (
+    fromWallet: WalletContextState | any,
+    amount: number
+  ) => Promise<string>;
 }
 
 export default class darkTerminal implements IDarkTerminalClass {
@@ -103,6 +107,28 @@ export default class darkTerminal implements IDarkTerminalClass {
     }
 
     return false;
+  }
+
+  async depositSol(fromWallet: WalletContextState | any, amount: number) {
+    const transaction = new web3.Transaction().add(
+      web3.SystemProgram.transfer({
+        fromPubkey: fromWallet.publicKey,
+        toPubkey: new PublicKey(process.env.REACT_APP_SOL_GAME_WALLET ?? ""),
+        lamports: amount * LAMPORTS_PER_SOL,
+      })
+    );
+
+    // get recent blockhash for faster confirmation and set fee payer for transfer
+    transaction.feePayer = fromWallet.publicKey;
+    transaction.recentBlockhash = (
+      await this.connection.getLatestBlockhash()
+    ).blockhash;
+
+    const signature = await fromWallet.sendTransaction(
+      transaction,
+      this.connection
+    );
+    return signature;
   }
 
   async getNFTs(

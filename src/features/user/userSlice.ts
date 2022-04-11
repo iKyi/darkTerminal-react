@@ -8,6 +8,9 @@ export interface UserState {
   datacBalance: number | null;
   redeemableDtac: number | null;
   redeemableSol: number | null;
+  depositedSolanaBalance: number | null;
+  canWidthdrawSolana: boolean;
+  solanaWidthdrawMaxAmount: number;
 }
 
 const initialState: UserState = {
@@ -16,6 +19,9 @@ const initialState: UserState = {
   datacBalance: null,
   redeemableDtac: null,
   redeemableSol: null,
+  depositedSolanaBalance: null,
+  canWidthdrawSolana: false,
+  solanaWidthdrawMaxAmount: 0,
 };
 
 export const userSlice = createSlice({
@@ -42,6 +48,19 @@ export const userSlice = createSlice({
     setRedeemableDtac: (state, action: PayloadAction<number | null>) => {
       state.redeemableDtac = action.payload;
     },
+    setCanWidthdawSolana: (state, action: PayloadAction<boolean>) => {
+      state.canWidthdrawSolana = action.payload;
+    },
+    setSolanaMaxWidthdrawAmount: (state, action: PayloadAction<number>) => {
+      const { payload } = action;
+      state.solanaWidthdrawMaxAmount = payload;
+    },
+    setDepositedSolanaBalance: (
+      state,
+      { payload }: PayloadAction<number | null>
+    ) => {
+      state.depositedSolanaBalance = payload;
+    },
   },
 });
 
@@ -61,6 +80,9 @@ export const {
   setdatacBalance,
   setRedeemableSol,
   setRedeemableDtac,
+  setCanWidthdawSolana,
+  setDepositedSolanaBalance,
+  setSolanaMaxWidthdrawAmount,
 } = userSlice.actions;
 
 export default userSlice.reducer;

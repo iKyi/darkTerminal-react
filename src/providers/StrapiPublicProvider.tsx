@@ -1,8 +1,8 @@
 import { createContext, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "app/hooks";
 import { setPublicSiteData } from "../features/global/globalSlice";
-import axiosGetter from "../lib/axios/axiosGetter";
-import { getStrapiURL } from "../lib/theme/api";
+import axiosGetter from "lib/axios/axiosGetter";
+import { getStrapiURL } from "lib/theme/api";
 
 export type StrapiPublicProviderPropsType = {
   children?: any;

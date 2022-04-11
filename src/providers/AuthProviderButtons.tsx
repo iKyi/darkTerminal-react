@@ -11,10 +11,10 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch } from "app/hooks";
 import { GENERAL_SETTINGS } from "../constants/generalSettings";
 import {
-  delayedSnackbarClose,
+  closeAllSnackbars,
   setCandyMachineLoading,
   startSnackbar,
 } from "../features/global/globalSlice";
@@ -139,6 +139,7 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
         startSnackbar({
           content: alertState.message,
           variant: alertState.severity,
+          id: "error-" + Math.random(),
         })
       );
     }
@@ -147,7 +148,7 @@ const AuthProviderButtons: React.VFC<AuthProviderButtonsPropsType> = ({
 
   // METHODS
   const onMint = async (tokenAddress: PublicKey | null | false) => {
-    dispatch(delayedSnackbarClose());
+    dispatch(closeAllSnackbars());
     try {
       setIsUserMinting(true);
       document.getElementById("#identity")?.click();

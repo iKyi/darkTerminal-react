@@ -11,7 +11,6 @@ import ArticleEntry from "pages/ArticleEntry";
 import Home from "pages/Home";
 import HowToBuy from "pages/HowToBuy";
 import NewsPage from "pages/NewsPage";
-// import MintPage from "pages/MintPage";
 import SnackbarProvider from "providers/SnackbarProvider";
 import useStakeAction from "hooks/useStakeAction";
 import Stake from "pages/Stake";
@@ -19,17 +18,9 @@ import StakeIndex from "components/Stake/StakeIndex";
 import StakeCardEntry from "components/Stake/StakeCardEntry";
 import AppLoader from "components/Reusable/AppLoader";
 import BlockingSnabarsProvider from "components/BlockingSnabarsProvider";
-import Mint from "pages/Mint/Mint";
-import CollectionsPage from "pages/Mint/Sub/CollectionsPage";
-import NFTsPage from "pages/Mint/Sub/NFTsPage";
-import NotificationsPage from "pages/Mint/Sub/NotificationsPage";
-import DashboardMenuPage from "pages/Mint/Sub/Dashboard/DashboardMenuPage";
-import mintRoutes from "pages/Mint/MintRoutes";
-import SchemasAndTemplatesPage from "pages/Mint/Sub/Dashboard/SchemasAndTemplatesPage";
-import SetupDropPage from "pages/Mint/Sub/Dashboard/SetupDropPage";
-import MintNftsPage from "pages/Mint/Sub/Dashboard/MintNftsPage";
-import BlendsPage from "pages/Mint/Sub/Dashboard/BlendsPage";
-import MintedOnDemandPacksPage from "pages/Mint/Sub/Dashboard/MintedOnDemandPacksPage";
+import { ROUTES } from "constants/routes";
+import HackTheSystem from "components/Games/HackTheSystem";
+import BinaryHack from "components/Games/BinaryHack";
 
 function App() {
   const { wallet, connected } = useWallet();
@@ -44,6 +35,29 @@ function App() {
   useEffect(() => {
     startAnimation();
   }, []);
+
+  //   <Route element={<Mint />} path={mintRoutes.DASHBOARD}>
+
+  //   <Route element={<DashboardMenuPage />} index />
+  //   <Route element={<MintNftsPage />} path={mintRoutes.MINT_NFTS} />
+  //   <Route
+  //     element={<SchemasAndTemplatesPage />}
+  //     path={mintRoutes.SCHEMAS_AND_TEMPLATES}
+  //   />
+  //   <Route element={<SetupDropPage />} path={mintRoutes.SETUP_DROP} />
+  //   <Route element={<BlendsPage />} path={mintRoutes.BLENDS} />
+  //   <Route
+  //     element={<MintedOnDemandPacksPage />}
+  //     path={mintRoutes.MINTED_ON_DEMAND_PACKS}
+  //   />
+
+  //   <Route element={<CollectionsPage />} path={mintRoutes.COLLECTIONS} />
+  //   <Route element={<NFTsPage />} path={mintRoutes.NFTS} />
+  //   <Route
+  //     element={<NotificationsPage />}
+  //     path={mintRoutes.NOTIFICATIONS}
+  //   />
+  // </Route>
 
   // useEffect(() => {
   //   const animationValue = (window as any).animationInterval;
@@ -68,29 +82,8 @@ function App() {
           <Route element={<StakeIndex />} index />
           <Route element={<StakeCardEntry />} path="/stake/:id" />
         </Route>
-
-        <Route element={<Mint />} path={mintRoutes.DASHBOARD}>
-          {/* dashboard pages START */}
-          <Route element={<DashboardMenuPage />} index />
-          <Route element={<MintNftsPage />} path={mintRoutes.MINT_NFTS} />
-          <Route
-            element={<SchemasAndTemplatesPage />}
-            path={mintRoutes.SCHEMAS_AND_TEMPLATES}
-          />
-          <Route element={<SetupDropPage />} path={mintRoutes.SETUP_DROP} />
-          <Route element={<BlendsPage />} path={mintRoutes.BLENDS} />
-          <Route
-            element={<MintedOnDemandPacksPage />}
-            path={mintRoutes.MINTED_ON_DEMAND_PACKS}
-          />
-          {/* dashboard pages END */}
-          <Route element={<CollectionsPage />} path={mintRoutes.COLLECTIONS} />
-          <Route element={<NFTsPage />} path={mintRoutes.NFTS} />
-          <Route
-            element={<NotificationsPage />}
-            path={mintRoutes.NOTIFICATIONS}
-          />
-        </Route>
+        <Route element={<HackTheSystem />} path={ROUTES.GAME_HACK} />
+        <Route element={<BinaryHack />} path={ROUTES.GAME_BINARY} />
         <Route element={<FourOhFour />} path="*" />
       </Routes>
       <GlobalModalsWrapper />

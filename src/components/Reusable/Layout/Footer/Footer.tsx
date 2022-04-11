@@ -1,7 +1,7 @@
 import { Box, Container, IconButton, Link, Stack } from "@mui/material";
 import { useContext } from "react";
 import { StrapiContext } from "../../../../providers/StrapiPublicProvider";
-import footerLogo from "../../../../assets/images/logoFooter.png";
+import footerLogo from "assets/images/logoFooter.png";
 import { Link as RouterLink } from "react-router-dom";
 
 export type FooterPropsType = {

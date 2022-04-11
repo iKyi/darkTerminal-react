@@ -1,5 +1,5 @@
 import { Box, SxProps } from "@mui/material";
-import solIcon from "../../assets/icons/solIcon.png";
+import solIcon from "assets/icons/solIcon.png";
 
 export type SolIconPropsType = {
   sx?: SxProps;

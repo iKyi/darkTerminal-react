@@ -9,9 +9,9 @@ import {
   CardActionArea,
 } from "@mui/material";
 import GlitchFont from "./GlitchFont";
-import redModalheader from "../../assets/sections/modal/redModalHeader.png";
-import greenModalheader from "../../assets/sections/modal/greenModalHeader.png";
-import { FONTS } from "../../lib/theme";
+import redModalheader from "assets/sections/modal/redModalHeader.png";
+import greenModalheader from "assets/sections/modal/greenModalHeader.png";
+import { FONTS } from "lib/theme";
 
 export type TerminalModalWrapperPropsType = {
   children?: any;

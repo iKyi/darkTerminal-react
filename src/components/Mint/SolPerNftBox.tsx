@@ -1,6 +1,6 @@
 import { Box, SxProps } from "@mui/material";
 import { useContext } from "react";
-import { FONTS } from "../../lib/theme";
+import { FONTS } from "lib/theme";
 import { StrapiContext } from "../../providers/StrapiPublicProvider";
 import SolIcon from "../Icons/SolIcon";
 

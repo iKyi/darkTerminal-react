@@ -7,8 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 import useMobile from "hooks/useMobile";
-import IndicatorBox from "../../../../assets/sections/homepage/indicatorBox.png";
-import NavigationHeader from "../../../../assets/sections/homepage/navigationHeader.png";
+import IndicatorBox from "assets/sections/homepage/indicatorBox.png";
+import NavigationHeader from "assets/sections/homepage/navigationHeader.png";
 
 function a11yProps(index: number) {
   return {

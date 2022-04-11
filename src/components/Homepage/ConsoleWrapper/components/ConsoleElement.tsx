@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
-import ConsoleHeader from "../../../../assets/sections/homepage/consoleHeader.png";
-import GlitchFont from "../../../Reusable/GlitchFont";
+import ConsoleHeader from "assets/sections/homepage/consoleHeader.png";
+import GlitchFont from "components/Reusable/GlitchFont";
 import { Box } from "@mui/system";
-import MarkdownParser from "../../../Reusable/MarkdownParser";
-import { FONTS } from "../../../../lib/theme";
+import MarkdownParser from "components/Reusable/MarkdownParser";
+import { FONTS } from "lib/theme";
 import { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 import useMobile from "hooks/useMobile";

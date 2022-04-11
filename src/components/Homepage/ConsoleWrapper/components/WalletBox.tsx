@@ -12,7 +12,7 @@ import {
   Grid,
   Button,
 } from "@mui/material";
-import NavigationHeader from "../../../../assets/sections/homepage/navigationHeader.png";
+import NavigationHeader from "assets/sections/homepage/navigationHeader.png";
 import { useAppSelector } from "app/hooks";
 import { FONTS } from "lib/theme";
 import { useWallet } from "@solana/wallet-adapter-react";

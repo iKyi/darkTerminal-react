@@ -1,7 +1,7 @@
 import { SxProps } from "@mui/material";
 import { Box } from "@mui/system";
 import { CSSProperties } from "react";
-import activeLinkIcon from "../assets/icons/activeHeaderLink.png";
+import activeLinkIcon from "assets/icons/activeHeaderLink.png";
 
 export type ActiveHeaderLinkIconPropsType = {
   style?: CSSProperties;

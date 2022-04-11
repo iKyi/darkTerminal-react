@@ -1,6 +1,6 @@
 import { Box, Grid } from "@mui/material";
 import useMobile from "../../hooks/useMobile";
-import { FONTS } from "../../lib/theme";
+import { FONTS } from "lib/theme";
 import HeroImageBox from "../Reusable/HeroImageBox";
 import MarkdownParser from "../Reusable/MarkdownParser";
 import PageHeader from "../Reusable/PageHeader";
@@ -8,7 +8,7 @@ import MintBox from "./MintBox";
 import MintHeader from "./MintHeader";
 import SolPerNftBox from "./SolPerNftBox";
 import SupplyBox from "./SupplyBox";
-import arrowBg from "../../assets/images/mint/arrowsBg.png";
+import arrowBg from "assets/images/mint/arrowsBg.png";
 import { useContext } from "react";
 import {
   whitelistTokenPublicKey,

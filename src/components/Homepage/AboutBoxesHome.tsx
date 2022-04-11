@@ -162,9 +162,11 @@ const AboutBoxesHome: React.VFC<AboutBoxesHomePropsType> = () => {
   const [data, setData] = useState<Record<any, any> | null>(null);
 
   useEffect(() => {
-    axiosGetter(getStrapiURL("aboutboxes?populate=*")).then((resp) => {
-      setData(resp.data);
-    });
+    axiosGetter(getStrapiURL("game-site-games-boxes?populate=*")).then(
+      (resp) => {
+        setData(resp.data);
+      }
+    );
   }, []);
 
   const title = (
